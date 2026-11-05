@@ -21,6 +21,7 @@ class ShopTest(unittest.TestCase):
         with cls.client.open(req) as r:return json.load(r)
     def test_business_flow(self):
         products=self.call('/api/products'); self.assertEqual(len(products),6); self.assertNotIn('cost',products[0])
+        self.assertEqual(products[0]['ages'],['3–5'])
         with self.assertRaises(urllib.error.HTTPError) as e:self.call('/api/admin')
         self.assertEqual(e.exception.code,401)
         self.call('/api/login',{'password':self.password})
@@ -70,6 +71,10 @@ class ShopTest(unittest.TestCase):
         self.call('/api/admin/product',{'name':'عربي','name_en':'English title','description':'وصف','description_en':'Description','category':'books','age':'3–5','language':'Arabic / English','price':'1.500','cost':'0.500','stock':2,'emoji':'📚'})
         self.assertEqual(self.call('/api/admin')['products'][0]['name_en'],'English title')
         new=self.call('/api/admin')['products'][0]
+        self.call('/api/admin/product',{**new,'price':'1.5','cost':'0.5','ages':['6–8','0–2','6–8']})
+        multi=next(p for p in self.call('/api/products') if p['id']==new['id'])
+        self.assertEqual(multi['ages'],['0–2','6–8'])
+        self.assertEqual(self.call('/api/admin')['products'][0]['ages'],['0–2','6–8'])
         self.call('/api/admin/archive',{'id':new['id'],'active':False})
         self.assertNotIn(new['id'],[x['id'] for x in self.call('/api/products')])
         self.call('/api/admin/archive',{'id':new['id'],'active':True})
@@ -79,6 +84,11 @@ class ShopTest(unittest.TestCase):
         self.call('/api/admin/status',{'id':unknown['id'],'status':'completed','payment_verified':True})
         self.assertEqual(self.call('/api/admin')['orders'][0]['cost_known'],0)
         self.assertEqual(self.call('/api/admin')['orders'][0]['delivery_method'],'office')
+        self.call('/api/admin/product',{**new,'price':'1.5','cost':'','ages':[]})
+        self.assertEqual(self.call('/api/admin')['products'][0]['ages'],[])
+        with self.assertRaises(urllib.error.HTTPError):
+            self.call('/api/admin/product',{**new,'price':'1.5','cost':'','ages':['invalid']})
+        self.assertEqual(self.call('/api/admin')['products'][0]['ages'],[])
         with self.assertRaises(urllib.error.HTTPError):
             self.call('/api/orders',{'customer':'Missing preference','phone':'90000000','address':'Test','items':[{'id':p['id'],'quantity':1}]})
         self.call('/api/logout',{})

@@ -13,6 +13,8 @@ The server listens locally on port 8000 by default. `HOST`, `PORT`, `DATA_DIR`, 
 
 Use the existing checkout; tasks are already isolated and don't need Git worktrees.
 
+Age categories: Manage shop → Inventory → Edit → Age ranges. Tick any combination of 0–2, 3–5 and 6–8 years, then Save product. A product appears under each selected storefront age filter. Leave all unchecked for age not specified. Existing single-age assignments are preserved and appear preselected in the editor.
+
 ## Manage the shop
 
 Choose Manage shop / إدارة المتجر and sign in. Add Arabic and English product names and descriptions, prices, cost, stock, and an optional HTTPS product photo URL. Remove from shop hides a product without deleting order history; Restore makes it visible again. Existing sample products are illustrative; replace all sample products, costs, stock, descriptions, and safety claims before accepting real orders. Symbols are placeholders until real product photographs are added.

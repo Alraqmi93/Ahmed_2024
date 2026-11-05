@@ -10,6 +10,24 @@ DATA.mkdir(parents=True, exist_ok=True)
 PASSWORD = os.environ.get('ADMIN_PASSWORD', '')
 SESSIONS = {}
 ATTEMPTS = {}
+AGE_RANGES = ('0–2','3–5','6–8')
+
+def normalize_ages(value):
+    if isinstance(value,str):
+        if value.startswith('['):
+            value=json.loads(value)
+        else:
+            value=[] if value in ('','unspecified') else [value]
+    if not isinstance(value,list) or any(not isinstance(age,str) or age not in AGE_RANGES for age in value):
+        raise ValueError('Choose valid age ranges / اختر فئات عمرية صحيحة')
+    return [age for age in AGE_RANGES if age in value]
+
+def product_json(row):
+    product=dict(row)
+    product['ages']=normalize_ages(product['age'])
+    # Keep the original single-age field usable by older clients.
+    product['age']=product['ages'][0] if product['ages'] else 'unspecified'
+    return product
 
 def db():
     c = sqlite3.connect(DATA / 'shop.sqlite3', timeout=20)
@@ -77,7 +95,7 @@ class Handler(BaseHTTPRequestHandler):
             with db() as c: return self.send(200,dict(c.execute('SELECT key,value FROM settings').fetchall()))
         if path == '/api/products':
             with db() as c:
-                rows = [dict(r) for r in c.execute('SELECT * FROM products WHERE active=1')]
+                rows = [product_json(r) for r in c.execute('SELECT * FROM products WHERE active=1')]
             for r in rows:
                 r.pop('cost')
                 r.pop('cost_known',None)
@@ -86,6 +104,7 @@ class Handler(BaseHTTPRequestHandler):
             if not self.admin(): return self.send(401, {'error':'يرجى تسجيل الدخول'})
             with db() as c:
                 data = {k:[dict(r) for r in c.execute('SELECT * FROM '+ k + ' ORDER BY id DESC')] for k in ['products','orders','purchases']}
+                data['products']=[product_json(p) for p in data['products']]
                 for o in data['orders']:
                     o.pop('payment_token',None)
                     o['lines']=[dict(r) for r in c.execute('SELECT * FROM lines WHERE order_id=?',(o['id'],))]
@@ -177,7 +196,9 @@ class Handler(BaseHTTPRequestHandler):
                     if stock<0 or stock>100000: raise ValueError('مخزون غير صالح')
                     if not str(a['name']).strip(): raise ValueError('أدخل اسم المنتج')
                     cost_known=str(a.get('cost','')).strip()!=''
-                    values=(str(a['name'])[:150],a['category'],a['age'],a['language'],money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:2000])
+                    ages=normalize_ages(a.get('ages',a.get('age','unspecified')))
+                    stored_age=ages[0] if len(ages)==1 else json.dumps(ages,ensure_ascii=False) if ages else 'unspecified'
+                    values=(str(a['name'])[:150],a['category'],stored_age,a['language'],money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:2000])
                     if a.get('id'): c.execute('UPDATE products SET name=?,category=?,age=?,language=?,price=?,cost=?,stock=?,emoji=?,description=? WHERE id=?',(*values,int(a['id'])))
                     else: a['id']=c.execute('INSERT INTO products(name,category,age,language,price,cost,stock,emoji,description) VALUES(?,?,?,?,?,?,?,?,?)',values).lastrowid
                     c.execute('UPDATE products SET name_en=?,description_en=? WHERE id=?',(str(a.get('name_en',''))[:150],str(a.get('description_en',''))[:2000],int(a['id'])))
