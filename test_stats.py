@@ -8,7 +8,8 @@ class StatisticsTest(unittest.TestCase):
         self.c=sqlite3.connect(':memory:')
         self.c.row_factory=sqlite3.Row
         self.c.executescript('''CREATE TABLE orders(status TEXT,total INTEGER,cost INTEGER,cost_known INTEGER,created TEXT,completed_at TEXT);
-            CREATE TABLE purchases(status TEXT,quantity INTEGER,unit_cost INTEGER,created TEXT,received_at TEXT);''')
+            CREATE TABLE purchases(status TEXT,quantity INTEGER,unit_cost INTEGER,created TEXT,received_at TEXT);
+            CREATE TABLE adjustments(kind TEXT,category TEXT,amount INTEGER,incurred_on TEXT,voided INTEGER DEFAULT 0);''')
         for index,stamp in enumerate(['2026-10-31 19:59:59','2026-10-31 20:00:00','2026-11-04 19:59:59',
                 '2026-11-04 20:00:00','2026-11-05 19:59:59','2026-11-05 20:00:00',
                 '2026-11-07 20:00:00','2026-11-30 20:00:00','2026-12-31 20:00:00']):
@@ -21,6 +22,10 @@ class StatisticsTest(unittest.TestCase):
             ('received',2,1000,'2026-11-05 19:00:00',None),
             ('received',1,3000,'2026-11-01 00:00:00','2026-11-05 20:00:00'),
             ('ordered',100,9999,'2026-11-05 00:00:00',None)])
+        self.c.executemany('INSERT INTO adjustments VALUES(?,?,?,?,?)',[
+            ('expense','shipping',6000,'2026-11-05',0),('expense','transfer',500,'2026-11-05',0),
+            ('income','shipping',2000,'2026-11-05',0),('expense','other',1000,'2026-11-06',0),
+            ('expense','other',99999,'2026-11-05',1)])
 
     def tearDown(self):self.c.close()
 
@@ -30,6 +35,8 @@ class StatisticsTest(unittest.TestCase):
         self.assertEqual((s['completed_orders'],s['unknown_cost_orders']),(3,1))
         self.assertEqual(s['supplier_purchases'],8000)
         self.assertEqual((s['legacy_order_dates'],s['legacy_purchase_dates']),(1,1))
+        self.assertEqual((s['additional_costs'],s['additional_income'],s['net_profit']),(6500,2000,7500))
+        self.assertEqual((s['shipping_costs'],s['transfer_fees']),(6000,500))
 
     def test_week_month_year_and_cumulative(self):
         for period,anchor,sales,profit in [('week','2026-11-05',60000,30000),('month','2026-11',70000,36000),
@@ -39,6 +46,8 @@ class StatisticsTest(unittest.TestCase):
                 self.assertEqual((s['sales'],s['gross_profit']),(sales,profit))
         s=summary(self.c,'week','2026-11-05')
         self.assertEqual((s['start_date'],s['end_date']),('2026-11-01','2026-11-07'))
+        self.assertEqual(s['net_profit'],24500)
+        self.assertEqual(summary(self.c)['net_profit'],48500)
 
     def test_empty_period_invalid_input_and_calendar_edges(self):
         self.assertEqual(summary(self.c,'day','2020-01-01')['sales'],0)

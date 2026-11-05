@@ -1,11 +1,12 @@
 # Little Marvels · lil.Marvels
 
-Arabic / English shop for children's books and toys, with OMR pricing and a password-protected inventory dashboard. Python 3.12+ and SQLite; no runtime packages or external services required for local development.
+Arabic / English shop for children's books and toys, with OMR pricing and a password-protected inventory dashboard. Python 3.12+, SQLite and Pillow; Gunicorn serves production. No external services are required for local development.
 
 ## Run
 
 ```bash
 cd /workspace/Ahmed_2024
+python3 -m pip install -r requirements.txt
 bash start.sh
 ```
 
@@ -13,11 +14,11 @@ The server listens locally on port 8000 by default. `HOST`, `PORT`, `DATA_DIR`, 
 
 Use the existing checkout; tasks are already isolated and don't need Git worktrees.
 
-Age categories: Manage shop → Inventory → Edit → Age ranges. Tick any combination of 0–2, 3–5 and 6–8 years, then Save product. A product appears under each selected storefront age filter. Leave all unchecked for age not specified. Existing single-age assignments are preserved and appear preselected in the editor.
+Age categories: Manage shop → Inventory → Edit → Age ranges. Tick any combination of 0–1, 1–2, 2–3, 3–5 and 5–8 years, then Save product. A product appears under each selected storefront age filter. Leave all unchecked for age not specified. Existing assignments are preserved: legacy 0–2 maps to 0–1 and 1–2; legacy 6–8 maps to 5–8. Multiple assignments remain selectable.
 
 ## Manage the shop
 
-Choose Manage shop / إدارة المتجر and sign in. Add Arabic and English product names and descriptions, prices, cost, stock, and an optional HTTPS product photo URL. Remove from shop hides a product without deleting order history; Restore makes it visible again. Existing sample products are illustrative; replace all sample products, costs, stock, descriptions, and safety claims before accepting real orders. Symbols are placeholders until real product photographs are added.
+Choose Manage shop / إدارة المتجر and sign in. Add Arabic and optional English product names/descriptions, prices, cost, stock and up to ten photos. Upload JPG/PNG/WebP files from the device or add HTTPS image links. Choose a main photo, remove unwanted photos and save the product. File limits are 8 MB/photo, 20 MB/upload batch and 20 megapixels/photo. Remove from shop hides a product without deleting order history; Restore makes it visible again. Existing sample products are illustrative; replace all sample products, costs, stock, descriptions, and safety claims before accepting real orders. Symbols are placeholders until real product photographs are added.
 
 Payment settings lets the owner edit the shop WhatsApp number (with country code), the transfer phone number, bank name, account holder, account number, IBAN and SWIFT code. Phone transfer is shown first with a copy button; bank details are in an expandable alternative. The customer preview updates after saving. Current receiving details are saved in the persistent SQLite database, not hardcoded in the application. These are public receiving-account details, never bank credentials. Checkout stays closed until a transfer phone number, account number or IBAN is configured. Customers submit an unpaid order, then choose Continue payment on WhatsApp. This opens the shop chat with a prepared message containing the order reference, customer name, product subtotal, phone-transfer number first, and all bank details. The customer must tap Send. The message includes the ordered product names, quantities and prices. Clicking Continue payment on WhatsApp records the first click time using an order-specific token; this is not proof the message was sent or delivered. All checkout orders remain visible in Customer orders, with filters for WhatsApp clicks, pending, processed and cancelled orders. Nothing is automatically sent to the customer or merchant by the website. No WhatsApp Business API is connected. The shop confirms delivery and the final amount in the chat; the customer transfers using the order reference and shares the receipt there. A missing WhatsApp number shows an Instagram-contact fallback. The editable WhatsApp number is separate from the phone-transfer number. Changing one does not change the other. After verifying receipt and processing the order, choose Paid & processed and confirm payment verification. Transfer verified is also available as an intermediate state. Only Paid & processed orders count as sales. Cancelling removes them from sales/profit and restores stock once. No bank API, card payment, automatic confirmation, email/SMS notification, or automatic refund is connected. Cancellation restores inventory once; refunds must be handled separately.
 
@@ -41,17 +42,17 @@ Confirm the saved phone number is registered for incoming bank-app transfers and
 
 ## Dar Heba catalog import
 
-The owner uploaded 11 export ZIPs containing 311 unique photos and 20 product records. Seventeen records have a single explicit OMR price. These 17 products and their primary photographs are bundled in catalog.json and catalog-images/. The three unpriced records are listing/review pages and are excluded. Prices are already OMR; no exchange rate or second conversion is applied. The original export has 369 URL errors, largely from unescaped Arabic paths, so this is an incomplete catalog. The other downloaded gallery images can include recommendations and are retained outside the checkout instead of being assigned to the wrong product.
+The corrected export has 344 product records and 2,908 image files across 11 uploaded ZIPs. Exactly 343 records have a single explicit OMR price and a primary photo. The remaining record is an unpriced listing page and is excluded. The export reports 31 failed requests, so this is not verified complete coverage of the source website. The first export had only 17 priced records because of Arabic URL errors; those 17 entries are retained unchanged and 326 new products are added.
 
-On application startup, catalog_import.py inserts source URLs that are absent, with stock zero, cost unknown and age unspecified. It records the applied manifest version and preserves later owner changes to prices, stock, visibility, descriptions and payment settings. Only untouched demo items with no order history are hidden. Edited or used demo rows and all order data remain intact. Products can be edited/removed/restored normally in the admin area. Local catalog images remain usable when editing a product, and English translations are optional.
+catalog.json bundles 343 products and catalog-images/ bundles their optimized primary photos. All source prices are already OMR and are preserved to three-decimal precision without an exchange conversion. Extra recommendation/gallery pictures are not assigned to products. All new stock is zero, product cost unknown and age unspecified until the owner enters them. Language defaults to Arabic and may be edited to English. Simple explicitly named games are classified as toys; the owner can change categories.
 
-Tests: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.py`. The business-flow fixture sets LOAD_BUNDLED_CATALOG=0 to isolate its six demo products. Catalog tests exercise the real default import and its repeatability. Production must leave LOAD_BUNDLED_CATALOG unset so bundled additions are applied.
+On startup, catalog_import.py inserts absent source URLs/SKUs and records the manifest version. It preserves owner edits to existing prices, quantities, costs, translations, age ranges, visibility and payment settings, plus all orders. Demo cleanup runs only on the first import and hides only untouched unused demo rows; later imports preserve restored demos too. The incremental test simulates a 17-product shop upgraded to 343 products with edited prices, stock, visibility, a changed source slug and existing order history.
 
-The remaining catalog requires a corrected PC export or direct source access. The corrected standalone downloader is tools/download_catalog.py. It percent-encodes Arabic URL paths, uses /ar-om/ for root product links, and avoids broad recommendation-gallery image selectors. Run it on the owner PC to collect the remaining catalog; original errors do not establish complete source coverage. Do not claim all source products have been imported or infer stock/cost/age from the source retailer.
+Tests: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.py test_stats.py`. The business-flow fixture disables bundled loading only for its isolated demo database. Leave LOAD_BUNDLED_CATALOG unset in production. The PC exporter is tools/download_catalog.py; source failures still need another capture or usable direct access. Do not invent missing source prices, stock, costs or age suitability.
 
 ## Brand and public address
 
-Business: Little Marvels, styled lil.Marvels. Instagram: https://www.instagram.com/lil.marvels.om/ (@lil.marvels.om). Preferred Render service name: `lil-marvels`, giving `lil-marvels.onrender.com` only if available and successfully deployed. This address is not reserved, published or verified. Use the actual hostname issued by Render at deployment. The Instagram handle is separate from the website hostname. The repository and existing data-directory names are unchanged to preserve startup and saved data.
+Business: Little Marvels, styled lil.Marvels. Instagram: https://www.instagram.com/lil.marvels.om/ (@lil.marvels.om). Preferred Render service name: `lil-marvels`, giving `lil-marvels.onrender.com` only if available and successfully deployed. The owner has deployed the shop at https://lil-marvels.onrender.com/. Subsequent Git pushes trigger Render auto-deployment; verify each new deployment separately. The Instagram handle is separate from the website hostname. The repository and existing data-directory names are unchanged to preserve startup and saved data.
 
 ## Statistics periods and product controls
 
@@ -66,3 +67,17 @@ Validation: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.
 Inventory rows show the product photo beside its name, or a cover-symbol placeholder if no photo is set. WhatsApp checkout provides a numbered packing list using the saved order snapshot: every product name and ID, quantity, unit price and line total, total units and subtotal, customer name/phone, Geenakum delivery preference/address, and payment details. Customers still tap Send in WhatsApp. A Copy full order message option is available if the prepared message needs to be pasted manually.
 
 The approved koala logo is served locally as brand-logo.png and used in the header, hero, footer and browser icon. The visual theme follows its purple ribbon, lime polka dots, blue and pink accents with dark readable text. Both Arabic/English layouts and mobile sizes were checked; catalog photographs keep their aspect ratio.
+
+## Additional costs and net profit
+
+Manage shop → Additional costs allows dated shipping costs, money-transfer fees, packaging and other expenses. Records can optionally link to an order or apply to the whole business. Delivery money collected from customers and other extra income can be recorded separately. Each record can be edited or removed (soft-voided, not deleted from the database). Entries and totals follow the selected statistics period, defaulting to all time, using the entered local Oman date. Costs remain recorded even if a linked order is later cancelled; remove or adjust a record if it was not actually incurred.
+
+Net profit (recorded costs) = gross profit on known-cost completed orders + recorded extra income − recorded additional expenses. Supplier purchases are displayed separately and not deducted twice, and product costs must not be recorded again as additional expenses. Unknown-cost orders are flagged and excluded from profit, so the figure is incomplete until product costs are known. Unrecorded fees, taxes and overhead are not magically included. Historical records without completion/receipt timestamps use creation dates as documented above.
+
+## Product photos and dedicated pages
+
+Product clicks open /products/<id>, including direct links and reloads. The page shows all saved photos with thumbnail and previous/next controls, the full stored description (up to 10,000 characters per language), age groups, language, stock, quantity and Add to bag. The cart persists across pages. Inactive or missing products show an unavailable message.
+
+Admin device uploads are authenticated and same-origin, validated as actual JPG/PNG/WebP files, stored under DATA_DIR/uploads with content-hash filenames, and served as raster images with nosniff. SVG and unsupported image types are rejected. Original raster bytes are retained without generative edits. Removing a gallery photo removes its product reference; physical files remain so shared references are not broken. The first photo is the main one. Existing URL-only photos remain compatible. Never commit uploads or the database to Git.
+
+Back up the uploads directory alongside a consistent SQLite database backup. Both must be restored together. The persistent Render disk retains photos across deployments. Production dependencies now include pinned Pillow for file validation. Tests: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.py test_stats.py test_photos.py`. Browser tests additionally covered the 343-product catalog, five age filters, cost/income entry and date-filtered net profit, upload/main-photo/remove controls, direct product URLs, full descriptions, cross-page cart and photo persistence after restart.

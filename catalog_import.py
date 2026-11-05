@@ -25,8 +25,9 @@ def apply_catalog(connection, root):
     connection.execute("CREATE UNIQUE INDEX IF NOT EXISTS product_source_identity ON products(source_url) WHERE source_url<>''")
     if connection.execute('SELECT 1 FROM catalog_imports WHERE version=?', (manifest['version'],)).fetchone():
         return
+    first_import = connection.execute('SELECT COUNT(*) FROM catalog_imports').fetchone()[0] == 0
     for p in products:
-        if connection.execute('SELECT 1 FROM products WHERE source_url=?', (p['source_url'],)).fetchone():
+        if connection.execute("SELECT 1 FROM products WHERE source_url=? OR (source_sku<>'' AND source_sku=?)", (p['source_url'],p['source_sku'])).fetchone():
             continue
         connection.execute('''INSERT INTO products
             (name,category,age,language,price,cost,stock,emoji,description,active,
@@ -40,7 +41,7 @@ def apply_catalog(connection, root):
         ('حكايات قبل النوم',6500,3200,6), ('My First Words',4200,2000,10),
         ('حلّ وامرح',5800,2800,4), ('حلقات سيليكون ملونة',7500,4000,5),
     ]
-    for name,price,cost,stock in demos:
+    for name,price,cost,stock in demos if first_import else []:
         connection.execute('''UPDATE products SET active=0 WHERE id<=6 AND name=? AND price=? AND cost=? AND stock=?
             AND image_url='' AND name_en='' AND description_en=''
             AND (description LIKE '%تجريبي%' OR description LIKE 'Sample product:%')

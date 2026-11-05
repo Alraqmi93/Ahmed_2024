@@ -22,6 +22,8 @@ class ShopTest(unittest.TestCase):
     def test_business_flow(self):
         products=self.call('/api/products'); self.assertEqual(len(products),6); self.assertNotIn('cost',products[0])
         self.assertEqual(products[0]['ages'],['3–5'])
+        self.assertEqual(products[1]['ages'],['0–1','1–2'])
+        self.assertEqual(products[4]['ages'],['5–8'])
         with self.assertRaises(urllib.error.HTTPError) as e:self.call('/api/admin')
         self.assertEqual(e.exception.code,401)
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/stats?period=all')
@@ -60,6 +62,17 @@ class ShopTest(unittest.TestCase):
         self.assertTrue(o['completed_at'])
         stats=self.call('/api/admin/stats?period=all')
         self.assertEqual((stats['sales'],stats['product_cost'],stats['gross_profit']),(o['total'],o['cost'],o['total']-o['cost']))
+        self.call('/api/admin/adjustment',{'kind':'expense','category':'shipping','amount':'1.000','incurred_on':'2026-11-05','order_id':o['id'],'note':'Shipping test'})
+        self.call('/api/admin/adjustment',{'kind':'income','category':'shipping','amount':'0.500','incurred_on':'2026-11-05'})
+        financial=self.call('/api/admin/stats?period=all')
+        self.assertEqual(financial['net_profit'],financial['gross_profit']-500)
+        adjustment=self.call('/api/admin')['adjustments'][-1]
+        self.call('/api/admin/adjustment',{**adjustment,'amount':'1.500'})
+        self.assertEqual(self.call('/api/admin/stats?period=all')['additional_costs'],1500)
+        self.call('/api/admin/void-adjustment',{'id':adjustment['id']})
+        self.assertEqual(self.call('/api/admin/stats?period=all')['additional_costs'],0)
+        with self.assertRaises(urllib.error.HTTPError):
+            self.call('/api/admin/adjustment',{'kind':'expense','category':'invalid','amount':'1','incurred_on':'2026-11-05'})
         self.assertEqual(self.call('/api/admin/stats?period=day&date=2000-01-01')['sales'],0)
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/stats?period=invalid')
         self.call('/api/admin/status',{'id':order['id'],'status':'cancelled'})
@@ -81,6 +94,12 @@ class ShopTest(unittest.TestCase):
         self.assertEqual(self.call('/api/admin')['products'][0]['name_en'],'English title')
         created=self.call('/api/admin')['products'][0]
         self.assertEqual(created['language'],'العربية')
+        gallery=['https://example.com/one.png','https://example.com/two.png']
+        self.call('/api/admin/product',{**created,'price':'1.5','cost':'0.5','images':gallery})
+        self.assertEqual(self.call('/api/admin')['products'][0]['images'],gallery)
+        self.assertEqual(self.call('/api/admin')['products'][0]['image_url'],gallery[0])
+        with self.assertRaises(urllib.error.HTTPError):
+            self.call('/api/admin/product',{**created,'price':'1.5','cost':'0.5','images':['javascript:alert(1)']})
         for invalid in ({'stock':2.5},{'language':'unsupported'}):
             with self.assertRaises(urllib.error.HTTPError):
                 self.call('/api/admin/product',{**created,'price':'1.5','cost':'0.5',**invalid})
@@ -89,8 +108,10 @@ class ShopTest(unittest.TestCase):
         new=self.call('/api/admin')['products'][0]
         self.call('/api/admin/product',{**new,'price':'1.5','cost':'0.5','ages':['6–8','0–2','6–8']})
         multi=next(p for p in self.call('/api/products') if p['id']==new['id'])
-        self.assertEqual(multi['ages'],['0–2','6–8'])
-        self.assertEqual(self.call('/api/admin')['products'][0]['ages'],['0–2','6–8'])
+        self.assertEqual(multi['ages'],['0–1','1–2','5–8'])
+        self.assertEqual(self.call('/api/admin')['products'][0]['ages'],['0–1','1–2','5–8'])
+        self.call('/api/admin/product',{**new,'price':'1.5','cost':'0.5','ages':['2-3','3-5']})
+        self.assertEqual(self.call('/api/admin')['products'][0]['ages'],['2–3','3–5'])
         self.call('/api/admin/archive',{'id':new['id'],'active':False})
         self.assertNotIn(new['id'],[x['id'] for x in self.call('/api/products')])
         self.call('/api/admin/archive',{'id':new['id'],'active':True})

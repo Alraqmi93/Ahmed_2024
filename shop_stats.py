@@ -44,7 +44,15 @@ def summary(connection, period='all', anchor=None):
         COALESCE(SUM(CASE WHEN completed_at IS NULL THEN 1 ELSE 0 END),0) AS legacy_order_dates
         FROM orders WHERE status='completed' '''+sales_window,parameters).fetchone()
     purchases = connection.execute("SELECT COALESCE(SUM(quantity*unit_cost),0),COALESCE(SUM(CASE WHEN received_at IS NULL THEN 1 ELSE 0 END),0) FROM purchases WHERE status='received' "+purchase_window,parameters).fetchone()
-    return {**dict(result),'supplier_purchases':purchases[0],'legacy_purchase_dates':purchases[1],'period':period,
+    cost_window=' AND incurred_on>=? AND incurred_on<?' if start else ''
+    costs=connection.execute('''SELECT
+        COALESCE(SUM(CASE WHEN kind='expense' THEN amount ELSE 0 END),0) AS additional_costs,
+        COALESCE(SUM(CASE WHEN kind='income' THEN amount ELSE 0 END),0) AS additional_income,
+        COALESCE(SUM(CASE WHEN kind='expense' AND category='shipping' THEN amount ELSE 0 END),0) AS shipping_costs,
+        COALESCE(SUM(CASE WHEN kind='expense' AND category='transfer' THEN amount ELSE 0 END),0) AS transfer_fees
+        FROM adjustments WHERE voided=0'''+cost_window,(start.isoformat(),end.isoformat()) if start else ()).fetchone()
+    return {**dict(result),**dict(costs),'net_profit':result['gross_profit']+costs['additional_income']-costs['additional_costs'],
+            'supplier_purchases':purchases[0],'legacy_purchase_dates':purchases[1],'period':period,
             'start_date':start.isoformat() if start else None,
             'end_date':(end-timedelta(days=1)).isoformat() if end else None,
             'timezone':'Asia/Muscat','week_starts_on':'Sunday'}

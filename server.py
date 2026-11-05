@@ -1,10 +1,12 @@
 """Little Marvels: dependency-free storefront and inventory service."""
-import os, json, sqlite3, secrets, hmac, time, re
+import os, json, sqlite3, secrets, hmac, time, re, threading
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from http.cookies import SimpleCookie
 from urllib.parse import parse_qs, urlsplit
 from decimal import Decimal, InvalidOperation
+from datetime import date
+from product_photos import MAX_BODY, UPLOAD_PATTERN, save_uploads, valid_image_url
 
 ROOT = Path(__file__).parent
 DATA = Path(os.environ.get('DATA_DIR', '/workspace/ahmed-business-data'))
@@ -12,7 +14,9 @@ DATA.mkdir(parents=True, exist_ok=True)
 PASSWORD = os.environ.get('ADMIN_PASSWORD', '')
 SESSIONS = {}
 ATTEMPTS = {}
-AGE_RANGES = ('0–2','3–5','6–8')
+UPLOAD_LOCK = threading.BoundedSemaphore(1)
+AGE_RANGES = ('0–1','1–2','2–3','3–5','5–8')
+LEGACY_AGES = {'0–2':('0–1','1–2'), '6–8':('5–8',)}
 
 def normalize_ages(value):
     if isinstance(value,str):
@@ -20,15 +24,27 @@ def normalize_ages(value):
             value=json.loads(value)
         else:
             value=[] if value in ('','unspecified') else [value]
-    if not isinstance(value,list) or any(not isinstance(age,str) or age not in AGE_RANGES for age in value):
+    if not isinstance(value,list) or any(not isinstance(age,str) for age in value):
         raise ValueError('Choose valid age ranges / اختر فئات عمرية صحيحة')
-    return [age for age in AGE_RANGES if age in value]
+    expanded=[]
+    for age in value:
+        age=age.replace('-','–')
+        if age in LEGACY_AGES:
+            expanded.extend(LEGACY_AGES[age])
+        elif age in AGE_RANGES:
+            expanded.append(age)
+        else:
+            raise ValueError('Choose valid age ranges / اختر فئات عمرية صحيحة')
+    return [age for age in AGE_RANGES if age in expanded]
 
 def product_json(row):
     product=dict(row)
     product['ages']=normalize_ages(product['age'])
     # Keep the original single-age field usable by older clients.
     product['age']=product['ages'][0] if product['ages'] else 'unspecified'
+    product['images']=json.loads(product.get('images','[]'))
+    if product['image_url'] and product['image_url'] not in product['images']:
+        product['images'].insert(0,product['image_url'])
     return product
 
 def db():
@@ -45,12 +61,15 @@ def init():
         CREATE TABLE IF NOT EXISTS lines(order_id INTEGER REFERENCES orders(id), product_id INTEGER, name TEXT, quantity INTEGER, price INTEGER, cost INTEGER);
         CREATE TABLE IF NOT EXISTS purchases(id INTEGER PRIMARY KEY, product_id INTEGER REFERENCES products(id), supplier TEXT NOT NULL, quantity INTEGER NOT NULL, unit_cost INTEGER NOT NULL, created TEXT DEFAULT CURRENT_TIMESTAMP);
         CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
+        CREATE TABLE IF NOT EXISTS adjustments(id INTEGER PRIMARY KEY, kind TEXT NOT NULL, category TEXT NOT NULL, amount INTEGER NOT NULL, incurred_on TEXT NOT NULL, note TEXT NOT NULL DEFAULT '', order_id INTEGER REFERENCES orders(id), voided INTEGER NOT NULL DEFAULT 0, created TEXT DEFAULT CURRENT_TIMESTAMP);
         ''')
         for col in ('name_en', 'description_en'):
             if col not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
                 c.execute('ALTER TABLE products ADD COLUMN '+col+" TEXT NOT NULL DEFAULT ''")
         if 'image_url' not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
             c.execute("ALTER TABLE products ADD COLUMN image_url TEXT NOT NULL DEFAULT ''")
+        if 'images' not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
+            c.execute("ALTER TABLE products ADD COLUMN images TEXT NOT NULL DEFAULT '[]'")
         if 'status' not in [r[1] for r in c.execute('PRAGMA table_info(purchases)')]:
             c.execute("ALTER TABLE purchases ADD COLUMN status TEXT NOT NULL DEFAULT 'received'")
         for name,definition in [('whatsapp_opened_at','TEXT'),('payment_token',"TEXT NOT NULL DEFAULT ''"),('delivery_method',"TEXT NOT NULL DEFAULT ''"),('completed_at','TEXT')]:
@@ -124,13 +143,22 @@ class Handler(BaseHTTPRequestHandler):
                 except (ValueError,OverflowError):
                     return self.send(400,{'error':'Choose a valid period and date / اختر فترة وتاريخاً صحيحين'})
             with db() as c:
-                data = {k:[dict(r) for r in c.execute('SELECT * FROM '+ k + ' ORDER BY id DESC')] for k in ['products','orders','purchases']}
+                data = {k:[dict(r) for r in c.execute('SELECT * FROM '+ k + ' ORDER BY id DESC')] for k in ['products','orders','purchases','adjustments']}
                 data['products']=[product_json(p) for p in data['products']]
                 for o in data['orders']:
                     o.pop('payment_token',None)
                     o['lines']=[dict(r) for r in c.execute('SELECT * FROM lines WHERE order_id=?',(o['id'],))]
             return self.send(200,data)
         names = {'/':'index.html','/app.js':'app.js','/style.css':'style.css','/brand-logo.png':'brand-logo.png'}
+        if re.fullmatch(r'/products/[1-9][0-9]*/?',path):names[path]='index.html'
+        if re.fullmatch(UPLOAD_PATTERN,path):
+            photo=DATA/'uploads'/path.rsplit('/',1)[-1]
+            if not photo.is_file():return self.send(404,{'error':'Photo not found'})
+            self.send_response(200)
+            self.send_header('Content-Type',{'jpg':'image/jpeg','png':'image/png','webp':'image/webp'}[photo.suffix[1:]])
+            self.send_header('Cache-Control','public, max-age=31536000, immutable')
+            self.send_header('X-Content-Type-Options','nosniff')
+            self.end_headers();self.wfile.write(photo.read_bytes());return
         if re.fullmatch(r'/catalog-images/[a-f0-9]{24}\.webp',path):
             photo=ROOT/path.lstrip('/')
             if not photo.is_file(): return self.send(404,{'error':'Not found'})
@@ -152,8 +180,15 @@ class Handler(BaseHTTPRequestHandler):
             if origin and origin not in ('http://'+self.headers.get('Host',''), 'https://'+self.headers.get('Host','')):
                 return self.send(403, {'error':'Invalid origin'})
             length = int(self.headers.get('Content-Length','0'))
+            if self.path=='/api/admin/upload':
+                if not self.admin():return self.send(401,{'error':'Sign in first / سجّل الدخول أولاً'})
+                if not 0<length<=MAX_BODY:return self.send(413,{'error':'Upload at most 20 MB at a time / الحد الأقصى للرفع ٢٠ ميغابايت'})
+                if not UPLOAD_LOCK.acquire(blocking=False):return self.send(429,{'error':'Another photo upload is running; please retry'})
+                try:
+                    return self.send(200,{'images':save_uploads(self.headers.get('Content-Type',''),self.rfile.read(length),DATA)})
+                finally:UPLOAD_LOCK.release()
             if length <= 0: return self.send(400, {'error':'Request body required'})
-            if length > 50000: return self.send(413, {'error':'Request too large'})
+            if length > 128000: return self.send(413, {'error':'Request too large'})
             a = json.loads(self.rfile.read(length))
             path = self.path
             if path == '/api/login':
@@ -212,6 +247,25 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send(201,{'id':oid,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':p['price']} for p,q in lines]})
                 if path == '/api/admin/archive':
                     c.execute('UPDATE products SET active=? WHERE id=?',(1 if a.get('active') else 0,int(a['id'])))
+                elif path == '/api/admin/adjustment':
+                    kind=a.get('kind','expense'); category=a['category']
+                    allowed={'expense':('shipping','transfer','packaging','other'),'income':('shipping','other')}
+                    if kind not in allowed or category not in allowed[kind]:
+                        raise ValueError('Choose a valid cost or income type / اختر نوع التكلفة أو الدخل')
+                    amount=money(a['amount'])
+                    if amount<=0: raise ValueError('Amount must be greater than zero / أدخل مبلغاً أكبر من صفر')
+                    incurred=date.fromisoformat(str(a['incurred_on'])).isoformat()
+                    oid=int(a['order_id']) if a.get('order_id') else None
+                    if oid and not c.execute('SELECT 1 FROM orders WHERE id=?',(oid,)).fetchone():
+                        raise ValueError('Order not found / الطلب غير موجود')
+                    values=(kind,category,amount,incurred,str(a.get('note',''))[:1000],oid)
+                    if a.get('id'):
+                        result=c.execute('UPDATE adjustments SET kind=?,category=?,amount=?,incurred_on=?,note=?,order_id=? WHERE id=? AND voided=0',(*values,int(a['id'])))
+                        if not result.rowcount: raise ValueError('Entry not found / السجل غير موجود')
+                    else:
+                        c.execute('INSERT INTO adjustments(kind,category,amount,incurred_on,note,order_id) VALUES(?,?,?,?,?,?)',values)
+                elif path == '/api/admin/void-adjustment':
+                    c.execute('UPDATE adjustments SET voided=1 WHERE id=?',(int(a['id']),))
                 elif path == '/api/admin/product':
                     stock=whole_quantity(a['stock'])
                     if stock<0 or stock>100000: raise ValueError('مخزون غير صالح')
@@ -222,13 +276,24 @@ class Handler(BaseHTTPRequestHandler):
                     language=a.get('language','العربية')
                     if language not in ('العربية','English'):
                         raise ValueError('Choose Arabic or English / اختر العربية أو الإنجليزية')
-                    values=(str(a['name'])[:150],a['category'],stored_age,language,money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:2000])
+                    values=(str(a['name'])[:150],a['category'],stored_age,language,money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:10000])
                     if a.get('id'): c.execute('UPDATE products SET name=?,category=?,age=?,language=?,price=?,cost=?,stock=?,emoji=?,description=? WHERE id=?',(*values,int(a['id'])))
                     else: a['id']=c.execute('INSERT INTO products(name,category,age,language,price,cost,stock,emoji,description) VALUES(?,?,?,?,?,?,?,?,?)',values).lastrowid
-                    c.execute('UPDATE products SET name_en=?,description_en=? WHERE id=?',(str(a.get('name_en',''))[:150],str(a.get('description_en',''))[:2000],int(a['id'])))
+                    c.execute('UPDATE products SET name_en=?,description_en=? WHERE id=?',(str(a.get('name_en',''))[:150],str(a.get('description_en',''))[:10000],int(a['id'])))
                     image=str(a.get('image_url','')).strip()
-                    if image and not image.startswith('https://') and not re.fullmatch(r'/catalog-images/[a-f0-9]{24}\.webp',image): raise ValueError('Use an HTTPS image URL or a bundled catalog photo')
+                    if 'images' in a:
+                        images=a['images']
+                        if not isinstance(images,list) or len(images)>10 or any(not valid_image_url(url) for url in images):
+                            raise ValueError('Use up to 10 valid product photos / اختر حتى ١٠ صور صالحة')
+                        images=list(dict.fromkeys(images))
+                        image=images[0] if images else ''
+                    else:
+                        previous=c.execute('SELECT images FROM products WHERE id=?',(int(a['id']),)).fetchone()
+                        images=json.loads(previous['images']) if previous else []
+                        images=([image] if image else [])+[url for url in images if url!=image]
+                    if len(images)>10 or any(not valid_image_url(url) for url in images):raise ValueError('Use up to 10 valid HTTPS image links or uploaded photos')
                     c.execute('UPDATE products SET image_url=? WHERE id=?',(image[:2000],int(a['id'])))
+                    c.execute('UPDATE products SET images=? WHERE id=?',(json.dumps(images),int(a['id'])))
                     c.execute('UPDATE products SET cost_known=? WHERE id=?',(int(cost_known),int(a['id'])))
                 elif path == '/api/admin/settings':
                     if 'whatsapp_number' in a:
