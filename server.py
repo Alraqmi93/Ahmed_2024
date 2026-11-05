@@ -1,5 +1,5 @@
 """Little Marvels: dependency-free storefront and inventory service."""
-import os, json, sqlite3, secrets, hmac, time
+import os, json, sqlite3, secrets, hmac, time, re
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from http.cookies import SimpleCookie
@@ -47,6 +47,9 @@ def init():
                 ('My First Words','books','0–2','English',4200,2000,10,'ABC','Sample product: discover everyday words together.'),
                 ('حلّ وامرح','books','6–8','العربية',5800,2800,4,'✏️','منتج تجريبي: أنشطة وألغاز لتطوير التفكير والإبداع.'),
                 ('حلقات سيليكون ملونة','toys','0–2','—',7500,4000,5,'🌈','منتج تجريبي. أضف مواصفات العمر والسلامة من المورد قبل البيع.')])
+        if os.environ.get('LOAD_BUNDLED_CATALOG','1') != '0':
+            from catalog_import import apply_catalog
+            apply_catalog(c, ROOT)
 
 def money(value):
     n = round(float(value)*1000)
@@ -88,6 +91,14 @@ class Handler(BaseHTTPRequestHandler):
                     o['lines']=[dict(r) for r in c.execute('SELECT * FROM lines WHERE order_id=?',(o['id'],))]
             return self.send(200,data)
         names = {'/':'index.html','/app.js':'app.js','/style.css':'style.css'}
+        if re.fullmatch(r'/catalog-images/[a-f0-9]{24}\.webp',path):
+            photo=ROOT/path.lstrip('/')
+            if not photo.is_file(): return self.send(404,{'error':'Not found'})
+            self.send_response(200)
+            self.send_header('Content-Type','image/webp')
+            self.send_header('Cache-Control','public, max-age=31536000, immutable')
+            self.send_header('X-Content-Type-Options','nosniff')
+            self.end_headers(); self.wfile.write(photo.read_bytes()); return
         if path not in names: return self.send(404,{'error':'Not found'})
         p = ROOT / names[path]
         self.send_response(200)
@@ -171,7 +182,7 @@ class Handler(BaseHTTPRequestHandler):
                     else: a['id']=c.execute('INSERT INTO products(name,category,age,language,price,cost,stock,emoji,description) VALUES(?,?,?,?,?,?,?,?,?)',values).lastrowid
                     c.execute('UPDATE products SET name_en=?,description_en=? WHERE id=?',(str(a.get('name_en',''))[:150],str(a.get('description_en',''))[:2000],int(a['id'])))
                     image=str(a.get('image_url','')).strip()
-                    if image and not image.startswith('https://'): raise ValueError('Use an HTTPS product image URL')
+                    if image and not image.startswith('https://') and not re.fullmatch(r'/catalog-images/[a-f0-9]{24}\.webp',image): raise ValueError('Use an HTTPS image URL or a bundled catalog photo')
                     c.execute('UPDATE products SET image_url=? WHERE id=?',(image[:2000],int(a['id'])))
                     c.execute('UPDATE products SET cost_known=? WHERE id=?',(int(cost_known),int(a['id'])))
                 elif path == '/api/admin/settings':

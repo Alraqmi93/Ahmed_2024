@@ -6,7 +6,7 @@ class ShopTest(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp=tempfile.TemporaryDirectory(); cls.password=secrets.token_urlsafe(24)
         command=['bash','start-production.sh'] if os.environ.get('TEST_PRODUCTION') else ['python3','server.py']
-        cls.proc=subprocess.Popen(command,cwd=Path(__file__).parent,env={**os.environ,'DATA_DIR':cls.tmp.name,'PORT':'18080','ADMIN_PASSWORD':cls.password,'COOKIE_SECURE':'0'},stdout=subprocess.DEVNULL)
+        cls.proc=subprocess.Popen(command,cwd=Path(__file__).parent,env={**os.environ,'DATA_DIR':cls.tmp.name,'PORT':'18080','ADMIN_PASSWORD':cls.password,'COOKIE_SECURE':'0','LOAD_BUNDLED_CATALOG':'0'},stdout=subprocess.DEVNULL)
         cls.client=urllib.request.build_opener(urllib.request.ProxyHandler({}),urllib.request.HTTPCookieProcessor(http.cookiejar.CookieJar()))
         for _ in range(60):
             try: cls.call('/api/products'); break

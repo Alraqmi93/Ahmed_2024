@@ -37,9 +37,15 @@ This is a working development version, not a published store. GitHub Pages canno
 
 Confirm the saved phone number is registered for incoming bank-app transfers and verify the receiving-bank details; configure real catalog/photos, shipping prices and service area, tax treatment, customer contact details, and store/privacy/returns policies before opening checkout publicly. Delivery and taxes are currently confirmed manually and excluded from product subtotals. Connecting card payments requires the owner's merchant account and a provider integration with signed payment webhooks; never mark an order paid from a browser redirect alone.
 
-## Pending Dar Heba catalog import
+## Dar Heba catalog import
 
-The owner requested all products and images from https://darheba.com/ar-om/, with prices in OMR. No catalog has been imported yet: the running environment denies access to darheba.com. An additive network-domain change is saved in the environment draft and awaits the user settings workflow. After access is applied, inspect the complete catalog and actual displayed price currency before choosing a documented conversion. Do not guess rates or treat the /ar-om/ URL alone as proof of OMR pricing. Start imported stock at zero and cost as unknown unless the owner supplies them, preserve source identities and image provenance, and do not overwrite later owner edits during repeat imports.
+The owner uploaded 11 export ZIPs containing 311 unique photos and 20 product records. Seventeen records have a single explicit OMR price. These 17 products and their primary photographs are bundled in catalog.json and catalog-images/. The three unpriced records are listing/review pages and are excluded. Prices are already OMR; no exchange rate or second conversion is applied. The original export has 369 URL errors, largely from unescaped Arabic paths, so this is an incomplete catalog. The other downloaded gallery images can include recommendations and are retained outside the checkout instead of being assigned to the wrong product.
+
+On application startup, catalog_import.py inserts source URLs that are absent, with stock zero, cost unknown and age unspecified. It records the applied manifest version and preserves later owner changes to prices, stock, visibility, descriptions and payment settings. Only untouched demo items with no order history are hidden. Edited or used demo rows and all order data remain intact. Products can be edited/removed/restored normally in the admin area. Local catalog images remain usable when editing a product, and English translations are optional.
+
+Tests: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.py`. The business-flow fixture sets LOAD_BUNDLED_CATALOG=0 to isolate its six demo products. Catalog tests exercise the real default import and its repeatability. Production must leave LOAD_BUNDLED_CATALOG unset so bundled additions are applied.
+
+The remaining catalog requires a corrected PC export or direct source access. The downloader's Arabic URL bug was identified and a run_fixed.py launcher prepared outside the checkout. Do not claim all source products have been imported or infer stock/cost/age from the source retailer.
 
 ## Brand and public address
 
