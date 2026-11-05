@@ -45,7 +45,7 @@ On application startup, catalog_import.py inserts source URLs that are absent, w
 
 Tests: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.py`. The business-flow fixture sets LOAD_BUNDLED_CATALOG=0 to isolate its six demo products. Catalog tests exercise the real default import and its repeatability. Production must leave LOAD_BUNDLED_CATALOG unset so bundled additions are applied.
 
-The remaining catalog requires a corrected PC export or direct source access. The downloader's Arabic URL bug was identified and a run_fixed.py launcher prepared outside the checkout. Do not claim all source products have been imported or infer stock/cost/age from the source retailer.
+The remaining catalog requires a corrected PC export or direct source access. The corrected standalone downloader is tools/download_catalog.py. It percent-encodes Arabic URL paths, uses /ar-om/ for root product links, and avoids broad recommendation-gallery image selectors. Run it on the owner PC to collect the remaining catalog; original errors do not establish complete source coverage. Do not claim all source products have been imported or infer stock/cost/age from the source retailer.
 
 ## Brand and public address
 
