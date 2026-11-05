@@ -49,4 +49,4 @@ The remaining catalog requires a corrected PC export or direct source access. Th
 
 ## Brand and public address
 
-Business: Little Marvels, styled lil.Marvels. Instagram: https://www.instagram.com/lil.marvels.com/ (@lil.marvels.com). Preferred Render service name: `lil-marvels`, giving `lil-marvels.onrender.com` only if available and successfully deployed. This address is not reserved, published or verified. Use the actual hostname issued by Render at deployment. Instagram handle ownership does not establish ownership of the separate domain lil.marvels.com. The repository and existing data-directory names are unchanged to preserve startup and saved data.
+Business: Little Marvels, styled lil.Marvels. Instagram: https://www.instagram.com/lil.marvels.om/ (@lil.marvels.om). Preferred Render service name: `lil-marvels`, giving `lil-marvels.onrender.com` only if available and successfully deployed. This address is not reserved, published or verified. Use the actual hostname issued by Render at deployment. The Instagram handle is separate from the website hostname. The repository and existing data-directory names are unchanged to preserve startup and saved data.
