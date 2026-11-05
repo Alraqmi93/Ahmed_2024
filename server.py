@@ -209,7 +209,7 @@ class Handler(BaseHTTPRequestHandler):
                         c.execute('INSERT INTO lines VALUES(?,?,?,?,?,?)',(oid,p['id'],p['name'],q,p['price'],p['cost']))
                         c.execute('UPDATE products SET stock=stock-? WHERE id=?',(q,p['id']))
                     c.commit()
-                    return self.send(201,{'id':oid,'total':total,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':p['price']} for p,q in lines]})
+                    return self.send(201,{'id':oid,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':p['price']} for p,q in lines]})
                 if path == '/api/admin/archive':
                     c.execute('UPDATE products SET active=? WHERE id=?',(1 if a.get('active') else 0,int(a['id'])))
                 elif path == '/api/admin/product':

@@ -40,6 +40,8 @@ class ShopTest(unittest.TestCase):
         p=products[0]
         order=self.call('/api/orders',{'customer':'Test','phone':'90000000','address':'Test address','delivery_method':'home','items':[{'id':p['id'],'quantity':2}]})
         self.assertEqual(order['delivery_method'],'home')
+        self.assertEqual((order['customer'],order['phone']),('Test','90000000'))
+        self.assertEqual(order['lines'][0]['product_id'],p['id'])
         self.assertEqual(order['lines'][0]['quantity'],2)
         with self.assertRaises(urllib.error.HTTPError):
             self.call('/api/orders/whatsapp',{'id':order['id'],'token':'wrong'})
