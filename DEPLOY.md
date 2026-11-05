@@ -1,0 +1,32 @@
+# Deploy Little Marvels on Render
+
+These files must be committed and pushed to the connected GitHub branch before Render can use them. The cloud development workspace is not automatically synced to GitHub. Do not deploy the old placeholder repository.
+
+| Render field | Value |
+| --- | --- |
+| Name | lil-marvels (subject to availability) |
+| Language | Python 3 |
+| Branch | main |
+| Region | Frankfurt if available |
+| Root Directory | Leave blank |
+| Build Command | pip install -r requirements.txt |
+| Start Command | bash start-production.sh |
+| Compute | Paid instance supporting persistent disks |
+| Health Check Path | /api/products |
+
+Add a persistent disk with mount path `/var/data` and initial capacity 1 GB. Confirm Render's current disk price separately from compute.
+
+Set environment variables:
+
+| Name | Value |
+| --- | --- |
+| DATA_DIR | /var/data |
+| COOKIE_SECURE | 1 |
+| ADMIN_PASSWORD | A unique strong password entered privately in Render |
+| PYTHON_VERSION | 3.12.14 |
+
+Let Render supply PORT; do not set it manually. Use a single instance and a single Gunicorn worker because sessions are in memory and the database is SQLite. A process restart requires admin login again. TLS terminates at Render; secure cookies are required for the public service.
+
+Render does not receive `/workspace/ahmed-business-data` automatically. A fresh database contains demo products and no bank/WhatsApp settings. Before accepting real orders, transfer the existing database securely or enter the receiving-account and WhatsApp settings through the admin UI; replace demo products with the actual catalog, stock, costs and prices. Do not commit databases, passwords, customer details or order data to Git. The requested Dar Heba import remains blocked until catalog access is available. Set shipping charges and policies before launch. Back up the persistent database regularly using SQLite's backup API and keep backups private.
+
+After deployment, use the actual HTTPS address Render issues; `lil-marvels.onrender.com` is a proposed name, not a confirmed deployment. Verify storefront, admin login, settings persistence across a restart, and an end-to-end unpaid test order. Do not open WhatsApp or send a real message during automated tests. Cancel test orders to restore stock. The current WhatsApp flow is a customer-sent message draft, not an automatic WhatsApp Business API message.
