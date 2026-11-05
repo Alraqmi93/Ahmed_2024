@@ -36,12 +36,14 @@ class ShopTest(unittest.TestCase):
             self.call('/api/admin/settings',{'whatsapp_number':'https://invalid.example'})
         self.call('/api/admin/settings',{'bank_iban':''})
         p=products[0]
-        order=self.call('/api/orders',{'customer':'Test','phone':'90000000','address':'Test address','items':[{'id':p['id'],'quantity':2}]})
+        order=self.call('/api/orders',{'customer':'Test','phone':'90000000','address':'Test address','delivery_method':'home','items':[{'id':p['id'],'quantity':2}]})
+        self.assertEqual(order['delivery_method'],'home')
         self.assertEqual(order['lines'][0]['quantity'],2)
         with self.assertRaises(urllib.error.HTTPError):
             self.call('/api/orders/whatsapp',{'id':order['id'],'token':'wrong'})
         self.call('/api/orders/whatsapp',{'id':order['id'],'token':order['payment_token']})
         saved=self.call('/api/admin')['orders'][0]
+        self.assertEqual(saved['delivery_method'],'home')
         self.assertTrue(saved['whatsapp_opened_at'])
         self.assertNotIn('payment_token',saved)
         self.assertEqual(saved['status'],'new')
@@ -54,7 +56,7 @@ class ShopTest(unittest.TestCase):
         self.call('/api/admin/status',{'id':order['id'],'status':'cancelled'})
         self.call('/api/admin/status',{'id':order['id'],'status':'cancelled'})
         self.assertEqual(self.call('/api/products')[0]['stock'],p['stock'])
-        with self.assertRaises(urllib.error.HTTPError):self.call('/api/orders',{'customer':'Test','phone':'90000000','address':'Test','items':[{'id':p['id'],'quantity':100}]})
+        with self.assertRaises(urllib.error.HTTPError):self.call('/api/orders',{'customer':'Test','phone':'90000000','address':'Test','delivery_method':'office','items':[{'id':p['id'],'quantity':100}]})
         self.assertEqual(self.call('/api/products')[0]['stock'],p['stock'])
         self.call('/api/admin/purchase',{'product_id':p['id'],'supplier':'Test supplier','quantity':3,'unit_cost':'2.5'})
         self.assertEqual(self.call('/api/products')[0]['stock'],p['stock']+3)
@@ -73,9 +75,12 @@ class ShopTest(unittest.TestCase):
         self.call('/api/admin/archive',{'id':new['id'],'active':True})
         self.assertIn(new['id'],[x['id'] for x in self.call('/api/products')])
         self.call('/api/admin/product',{**new,'price':'1.5','cost':'','stock':1})
-        unknown=self.call('/api/orders',{'customer':'Unknown cost','phone':'90000000','address':'Test','items':[{'id':new['id'],'quantity':1}]})
+        unknown=self.call('/api/orders',{'customer':'Unknown cost','phone':'90000000','address':'Test','delivery_method':'office','items':[{'id':new['id'],'quantity':1}]})
         self.call('/api/admin/status',{'id':unknown['id'],'status':'completed','payment_verified':True})
         self.assertEqual(self.call('/api/admin')['orders'][0]['cost_known'],0)
+        self.assertEqual(self.call('/api/admin')['orders'][0]['delivery_method'],'office')
+        with self.assertRaises(urllib.error.HTTPError):
+            self.call('/api/orders',{'customer':'Missing preference','phone':'90000000','address':'Test','items':[{'id':p['id'],'quantity':1}]})
         self.call('/api/logout',{})
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin')
 

@@ -33,7 +33,7 @@ def init():
             c.execute("ALTER TABLE products ADD COLUMN image_url TEXT NOT NULL DEFAULT ''")
         if 'status' not in [r[1] for r in c.execute('PRAGMA table_info(purchases)')]:
             c.execute("ALTER TABLE purchases ADD COLUMN status TEXT NOT NULL DEFAULT 'received'")
-        for name,definition in [('whatsapp_opened_at','TEXT'),('payment_token',"TEXT NOT NULL DEFAULT ''")]:
+        for name,definition in [('whatsapp_opened_at','TEXT'),('payment_token',"TEXT NOT NULL DEFAULT ''"),('delivery_method',"TEXT NOT NULL DEFAULT ''")]:
             if name not in [r[1] for r in c.execute('PRAGMA table_info(orders)')]:
                 c.execute('ALTER TABLE orders ADD COLUMN '+name+' '+definition)
         for table in ('products','orders'):
@@ -134,6 +134,9 @@ class Handler(BaseHTTPRequestHandler):
                     if not any(payment.get(k) for k in ('transfer_phone', 'bank_account', 'bank_iban')):
                         raise ValueError('Bank transfer is not configured yet / التحويل البنكي غير مفعّل بعد')
                     customer=str(a['customer']).strip(); phone=str(a['phone']).strip(); address=str(a['address']).strip()
+                    delivery=str(a.get('delivery_method',''))
+                    if delivery not in ('home','office'):
+                        raise ValueError('Choose home delivery or delivery-office pickup / اختر التوصيل للمنزل أو الاستلام من مكتب التوصيل')
                     if not customer or not phone or not address or max(map(len,[customer,phone,address]))>1000: raise ValueError('أكمل بيانات التواصل والتوصيل')
                     items=a['items']
                     if not items or len(items)>100: raise ValueError('السلة فارغة')
@@ -149,12 +152,13 @@ class Handler(BaseHTTPRequestHandler):
                     total=sum(p['price']*q for p,q in lines); cost=sum(p['cost']*q for p,q in lines)
                     token=secrets.token_urlsafe(32)
                     oid=c.execute('INSERT INTO orders(customer,phone,address,total,cost,payment_token) VALUES(?,?,?,?,?,?)',(customer,phone,address,total,cost,token)).lastrowid
+                    c.execute('UPDATE orders SET delivery_method=? WHERE id=?',(delivery,oid))
                     c.execute('UPDATE orders SET cost_known=? WHERE id=?',(int(all(p['cost_known'] for p,q in lines)),oid))
                     for p,q in lines:
                         c.execute('INSERT INTO lines VALUES(?,?,?,?,?,?)',(oid,p['id'],p['name'],q,p['price'],p['cost']))
                         c.execute('UPDATE products SET stock=stock-? WHERE id=?',(q,p['id']))
                     c.commit()
-                    return self.send(201,{'id':oid,'total':total,'payment_token':token,'lines':[{'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':p['price']} for p,q in lines]})
+                    return self.send(201,{'id':oid,'total':total,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':p['price']} for p,q in lines]})
                 if path == '/api/admin/archive':
                     c.execute('UPDATE products SET active=? WHERE id=?',(1 if a.get('active') else 0,int(a['id'])))
                 elif path == '/api/admin/product':
