@@ -3,6 +3,8 @@ import os, json, sqlite3, secrets, hmac, time, re
 from pathlib import Path
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from http.cookies import SimpleCookie
+from urllib.parse import parse_qs, urlsplit
+from decimal import Decimal, InvalidOperation
 
 ROOT = Path(__file__).parent
 DATA = Path(os.environ.get('DATA_DIR', '/workspace/ahmed-business-data'))
@@ -51,9 +53,11 @@ def init():
             c.execute("ALTER TABLE products ADD COLUMN image_url TEXT NOT NULL DEFAULT ''")
         if 'status' not in [r[1] for r in c.execute('PRAGMA table_info(purchases)')]:
             c.execute("ALTER TABLE purchases ADD COLUMN status TEXT NOT NULL DEFAULT 'received'")
-        for name,definition in [('whatsapp_opened_at','TEXT'),('payment_token',"TEXT NOT NULL DEFAULT ''"),('delivery_method',"TEXT NOT NULL DEFAULT ''")]:
+        for name,definition in [('whatsapp_opened_at','TEXT'),('payment_token',"TEXT NOT NULL DEFAULT ''"),('delivery_method',"TEXT NOT NULL DEFAULT ''"),('completed_at','TEXT')]:
             if name not in [r[1] for r in c.execute('PRAGMA table_info(orders)')]:
                 c.execute('ALTER TABLE orders ADD COLUMN '+name+' '+definition)
+        if 'received_at' not in [r[1] for r in c.execute('PRAGMA table_info(purchases)')]:
+            c.execute('ALTER TABLE purchases ADD COLUMN received_at TEXT')
         for table in ('products','orders'):
             if 'cost_known' not in [r[1] for r in c.execute('PRAGMA table_info('+table+')')]:
                 c.execute('ALTER TABLE '+table+' ADD COLUMN cost_known INTEGER NOT NULL DEFAULT 1')
@@ -73,6 +77,15 @@ def money(value):
     n = round(float(value)*1000)
     if n < 0 or n > 100000000: raise ValueError('قيمة غير صالحة')
     return n
+
+def whole_quantity(value, minimum=0, maximum=100000):
+    try:
+        number=Decimal(str(value))
+        if not number.is_finite() or number!=number.to_integral_value() or not minimum<=number<=maximum:
+            raise ValueError('Quantity must be a whole number / الكمية يجب أن تكون عدداً صحيحاً')
+        return int(number)
+    except InvalidOperation:
+        raise ValueError('Quantity must be a whole number / الكمية يجب أن تكون عدداً صحيحاً')
 
 class Handler(BaseHTTPRequestHandler):
     def log_message(self, *_): pass
@@ -102,6 +115,14 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(200, rows)
         if path.startswith('/api/admin'):
             if not self.admin(): return self.send(401, {'error':'يرجى تسجيل الدخول'})
+            if path == '/api/admin/stats':
+                from shop_stats import summary
+                query=parse_qs(urlsplit(self.path).query)
+                try:
+                    with db() as c:
+                        return self.send(200,summary(c,query.get('period',['all'])[0],query.get('date',[None])[0]))
+                except (ValueError,OverflowError):
+                    return self.send(400,{'error':'Choose a valid period and date / اختر فترة وتاريخاً صحيحين'})
             with db() as c:
                 data = {k:[dict(r) for r in c.execute('SELECT * FROM '+ k + ' ORDER BY id DESC')] for k in ['products','orders','purchases']}
                 data['products']=[product_json(p) for p in data['products']]
@@ -173,7 +194,7 @@ class Handler(BaseHTTPRequestHandler):
                     c.execute('BEGIN IMMEDIATE')
                     lines=[]; seen=set()
                     for item in items:
-                        pid=int(item['id']); qty=int(item['quantity'])
+                        pid=int(item['id']); qty=whole_quantity(item['quantity'],1,100)
                         if pid in seen or qty<1 or qty>100: raise ValueError('كمية غير صالحة')
                         seen.add(pid)
                         p=c.execute('SELECT * FROM products WHERE id=? AND active=1',(pid,)).fetchone()
@@ -192,13 +213,16 @@ class Handler(BaseHTTPRequestHandler):
                 if path == '/api/admin/archive':
                     c.execute('UPDATE products SET active=? WHERE id=?',(1 if a.get('active') else 0,int(a['id'])))
                 elif path == '/api/admin/product':
-                    stock=int(a['stock'])
+                    stock=whole_quantity(a['stock'])
                     if stock<0 or stock>100000: raise ValueError('مخزون غير صالح')
                     if not str(a['name']).strip(): raise ValueError('أدخل اسم المنتج')
                     cost_known=str(a.get('cost','')).strip()!=''
                     ages=normalize_ages(a.get('ages',a.get('age','unspecified')))
                     stored_age=ages[0] if len(ages)==1 else json.dumps(ages,ensure_ascii=False) if ages else 'unspecified'
-                    values=(str(a['name'])[:150],a['category'],stored_age,a['language'],money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:2000])
+                    language=a.get('language','العربية')
+                    if language not in ('العربية','English'):
+                        raise ValueError('Choose Arabic or English / اختر العربية أو الإنجليزية')
+                    values=(str(a['name'])[:150],a['category'],stored_age,language,money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:2000])
                     if a.get('id'): c.execute('UPDATE products SET name=?,category=?,age=?,language=?,price=?,cost=?,stock=?,emoji=?,description=? WHERE id=?',(*values,int(a['id'])))
                     else: a['id']=c.execute('INSERT INTO products(name,category,age,language,price,cost,stock,emoji,description) VALUES(?,?,?,?,?,?,?,?,?)',values).lastrowid
                     c.execute('UPDATE products SET name_en=?,description_en=? WHERE id=?',(str(a.get('name_en',''))[:150],str(a.get('description_en',''))[:2000],int(a['id'])))
@@ -216,15 +240,16 @@ class Handler(BaseHTTPRequestHandler):
                         if key in a:
                             c.execute('INSERT OR REPLACE INTO settings VALUES(?,?)',(key,str(a[key]).strip()[:200]))
                 elif path == '/api/admin/purchase':
-                    pid=int(a['product_id']); q=int(a['quantity']); cost=money(a['unit_cost']); supplier=str(a['supplier']).strip()
+                    pid=int(a['product_id']); q=whole_quantity(a['quantity'],1); cost=money(a['unit_cost']); supplier=str(a['supplier']).strip()
                     if q<1 or q>100000 or not supplier: raise ValueError('أكمل بيانات الشراء')
                     c.execute('BEGIN IMMEDIATE')
                     p=c.execute('SELECT * FROM products WHERE id=?',(pid,)).fetchone()
                     if not p: raise ValueError('المنتج غير موجود')
                     status=a.get('status','received')
                     if status not in ['ordered','received']: raise ValueError('Invalid purchase status')
-                    c.execute('INSERT INTO purchases(product_id,supplier,quantity,unit_cost,status) VALUES(?,?,?,?,?)',(pid,supplier,q,cost,status))
+                    purchase_id=c.execute('INSERT INTO purchases(product_id,supplier,quantity,unit_cost,status) VALUES(?,?,?,?,?)',(pid,supplier,q,cost,status)).lastrowid
                     if status=='received':
+                        c.execute('UPDATE purchases SET received_at=CURRENT_TIMESTAMP WHERE id=?',(purchase_id,))
                         avg=round((p['stock']*p['cost']+q*cost)/(p['stock']+q))
                         c.execute('UPDATE products SET stock=stock+?,cost=?,cost_known=? WHERE id=?',(q,avg,int(p['cost_known'] or p['stock']==0),pid))
                 elif path == '/api/admin/receive':
@@ -235,7 +260,7 @@ class Handler(BaseHTTPRequestHandler):
                     q=purchase['quantity']; cost=purchase['unit_cost']
                     avg=round((p['stock']*p['cost']+q*cost)/(p['stock']+q))
                     c.execute('UPDATE products SET stock=stock+?,cost=?,cost_known=? WHERE id=?',(q,avg,int(p['cost_known'] or p['stock']==0),p['id']))
-                    c.execute("UPDATE purchases SET status='received' WHERE id=?",(purchase['id'],))
+                    c.execute("UPDATE purchases SET status='received',received_at=CURRENT_TIMESTAMP WHERE id=?",(purchase['id'],))
                 elif path == '/api/admin/status':
                     status=a['status']; oid=int(a['id'])
                     if status not in ['new','confirmed','paid','completed','cancelled']: raise ValueError('حالة غير صالحة')
@@ -248,6 +273,8 @@ class Handler(BaseHTTPRequestHandler):
                     if status=='cancelled' and old['status']!='cancelled':
                         for line in c.execute('SELECT * FROM lines WHERE order_id=?',(oid,)).fetchall(): c.execute('UPDATE products SET stock=stock+? WHERE id=?',(line['quantity'],line['product_id']))
                     c.execute('UPDATE orders SET status=? WHERE id=?',(status,oid))
+                    if status=='completed' and old['status']!='completed':
+                        c.execute('UPDATE orders SET completed_at=COALESCE(completed_at,CURRENT_TIMESTAMP) WHERE id=?',(oid,))
                 else: return self.send(404,{'error':'Not found'})
             return self.send(200,{'ok':True})
         except (ValueError,KeyError,TypeError,sqlite3.IntegrityError) as e:

@@ -52,3 +52,13 @@ The remaining catalog requires a corrected PC export or direct source access. Th
 ## Brand and public address
 
 Business: Little Marvels, styled lil.Marvels. Instagram: https://www.instagram.com/lil.marvels.om/ (@lil.marvels.om). Preferred Render service name: `lil-marvels`, giving `lil-marvels.onrender.com` only if available and successfully deployed. This address is not reserved, published or verified. Use the actual hostname issued by Render at deployment. The Instagram handle is separate from the website hostname. The repository and existing data-directory names are unchanged to preserve startup and saved data.
+
+## Statistics periods and product controls
+
+The admin statistics default to Cumulative / all time. Choose Daily, Weekly, Monthly or Yearly and select the desired date, month or year. Periods use Asia/Muscat; weeks run Sunday–Saturday. Sales, captured cost of sold products, gross profit, completed order count and unknown-cost order count use the same completion-date window. Received supplier purchases use the receipt-date window and are shown separately; they are not deducted again from gross profit. Pending and cancelled orders do not count as sales. Current open orders and low-stock counts remain an explicitly separate snapshot across all dates.
+
+New completions and purchase receipts store UTC timestamps. Historical records without those timestamps retain their original data and use creation dates, with a notice in the statistics. Unknown-cost completed orders count as sales but are excluded from cost/profit sums. This remains gross profit before delivery, taxes, fees and overhead.
+
+Product stock and supplier quantities use integer steps of one; fractional quantities are rejected by the API. Price and cost retain three-decimal OMR precision. The product-language selector offers Arabic and English; new products default to Arabic. Existing unsupported language labels remain stored until edited, when one of the two choices is selected.
+
+Validation: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.py test_stats.py`. Browser checks cover period selectors and exact totals, both interface languages, mobile layout, whole-number steppers and saved product-language selection.

@@ -20,6 +20,8 @@ class Request(server.Handler):
             if environ.get(key):
                 self.headers[key.replace('_', '-')] = environ[key]
         self.path = environ.get('PATH_INFO', '/')
+        if environ.get('QUERY_STRING'):
+            self.path += '?' + environ['QUERY_STRING']
         self.client_address = (environ.get('REMOTE_ADDR', ''), 0)
         self.rfile = environ['wsgi.input']
         self.wfile = BytesIO()

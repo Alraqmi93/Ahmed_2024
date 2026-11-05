@@ -24,6 +24,7 @@ class ShopTest(unittest.TestCase):
         self.assertEqual(products[0]['ages'],['3–5'])
         with self.assertRaises(urllib.error.HTTPError) as e:self.call('/api/admin')
         self.assertEqual(e.exception.code,401)
+        with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/stats?period=all')
         self.call('/api/login',{'password':self.password})
         self.call('/api/admin/settings',{'transfer_phone':'90000000','bank_name':'TEST ONLY','bank_holder':'TEST ONLY','bank_account':''})
         self.call('/api/admin/settings',{'bank_swift':'TESTSWIFT','bank_iban':'TESTIBAN'})
@@ -54,9 +55,15 @@ class ShopTest(unittest.TestCase):
         self.call('/api/admin/status',{'id':order['id'],'status':'paid'})
         self.call('/api/admin/status',{'id':order['id'],'status':'completed'})
         o=self.call('/api/admin')['orders'][0]; self.assertEqual(o['status'],'completed'); self.assertGreater(o['total']-o['cost'],0)
+        self.assertTrue(o['completed_at'])
+        stats=self.call('/api/admin/stats?period=all')
+        self.assertEqual((stats['sales'],stats['product_cost'],stats['gross_profit']),(o['total'],o['cost'],o['total']-o['cost']))
+        self.assertEqual(self.call('/api/admin/stats?period=day&date=2000-01-01')['sales'],0)
+        with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/stats?period=invalid')
         self.call('/api/admin/status',{'id':order['id'],'status':'cancelled'})
         self.call('/api/admin/status',{'id':order['id'],'status':'cancelled'})
         self.assertEqual(self.call('/api/products')[0]['stock'],p['stock'])
+        self.assertEqual(self.call('/api/admin/stats?period=all')['sales'],0)
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/orders',{'customer':'Test','phone':'90000000','address':'Test','delivery_method':'office','items':[{'id':p['id'],'quantity':100}]})
         self.assertEqual(self.call('/api/products')[0]['stock'],p['stock'])
         self.call('/api/admin/purchase',{'product_id':p['id'],'supplier':'Test supplier','quantity':3,'unit_cost':'2.5'})
@@ -68,8 +75,15 @@ class ShopTest(unittest.TestCase):
         self.assertEqual(self.call('/api/products')[0]['stock'],p['stock']+7)
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/receive',{'id':purchase['id']})
         self.assertEqual(self.call('/api/products')[0]['stock'],p['stock']+7)
-        self.call('/api/admin/product',{'name':'عربي','name_en':'English title','description':'وصف','description_en':'Description','category':'books','age':'3–5','language':'Arabic / English','price':'1.500','cost':'0.500','stock':2,'emoji':'📚'})
+        self.call('/api/admin/product',{'name':'عربي','name_en':'English title','description':'وصف','description_en':'Description','category':'books','age':'3–5','price':'1.500','cost':'0.500','stock':2,'emoji':'📚'})
         self.assertEqual(self.call('/api/admin')['products'][0]['name_en'],'English title')
+        created=self.call('/api/admin')['products'][0]
+        self.assertEqual(created['language'],'العربية')
+        for invalid in ({'stock':2.5},{'language':'unsupported'}):
+            with self.assertRaises(urllib.error.HTTPError):
+                self.call('/api/admin/product',{**created,'price':'1.5','cost':'0.5',**invalid})
+        with self.assertRaises(urllib.error.HTTPError):
+            self.call('/api/admin/purchase',{'product_id':created['id'],'quantity':1.5,'unit_cost':'1','supplier':'Test'})
         new=self.call('/api/admin')['products'][0]
         self.call('/api/admin/product',{**new,'price':'1.5','cost':'0.5','ages':['6–8','0–2','6–8']})
         multi=next(p for p in self.call('/api/products') if p['id']==new['id'])
