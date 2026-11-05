@@ -130,7 +130,7 @@ class Handler(BaseHTTPRequestHandler):
                     o.pop('payment_token',None)
                     o['lines']=[dict(r) for r in c.execute('SELECT * FROM lines WHERE order_id=?',(o['id'],))]
             return self.send(200,data)
-        names = {'/':'index.html','/app.js':'app.js','/style.css':'style.css'}
+        names = {'/':'index.html','/app.js':'app.js','/style.css':'style.css','/brand-logo.png':'brand-logo.png'}
         if re.fullmatch(r'/catalog-images/[a-f0-9]{24}\.webp',path):
             photo=ROOT/path.lstrip('/')
             if not photo.is_file(): return self.send(404,{'error':'Not found'})
@@ -142,7 +142,7 @@ class Handler(BaseHTTPRequestHandler):
         if path not in names: return self.send(404,{'error':'Not found'})
         p = ROOT / names[path]
         self.send_response(200)
-        self.send_header('Content-Type', {'html':'text/html; charset=utf-8','js':'text/javascript; charset=utf-8','css':'text/css; charset=utf-8'}[p.suffix[1:]])
+        self.send_header('Content-Type', {'html':'text/html; charset=utf-8','js':'text/javascript; charset=utf-8','css':'text/css; charset=utf-8','png':'image/png'}[p.suffix[1:]])
         self.send_header('X-Content-Type-Options','nosniff')
         self.end_headers(); self.wfile.write(p.read_bytes())
     def do_POST(self):

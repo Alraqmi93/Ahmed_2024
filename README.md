@@ -64,3 +64,5 @@ Product stock and supplier quantities use integer steps of one; fractional quant
 Validation: `TEST_PRODUCTION=1 python3 -m unittest -v test_shop.py test_catalog.py test_stats.py`. Browser checks cover period selectors and exact totals, both interface languages, mobile layout, whole-number steppers and saved product-language selection.
 
 Inventory rows show the product photo beside its name, or a cover-symbol placeholder if no photo is set. WhatsApp checkout provides a numbered packing list using the saved order snapshot: every product name and ID, quantity, unit price and line total, total units and subtotal, customer name/phone, Geenakum delivery preference/address, and payment details. Customers still tap Send in WhatsApp. A Copy full order message option is available if the prepared message needs to be pasted manually.
+
+The approved koala logo is served locally as brand-logo.png and used in the header, hero, footer and browser icon. The visual theme follows its purple ribbon, lime polka dots, blue and pink accents with dark readable text. Both Arabic/English layouts and mobile sizes were checked; catalog photographs keep their aspect ratio.
