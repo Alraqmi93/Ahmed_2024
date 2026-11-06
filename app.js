@@ -114,8 +114,9 @@ function checkout(){
 
 $('#admin-open').onclick=async()=>{try{await loadAdmin();openAdmin()}catch{login()}};
 function login(){
- modal(`<h2>${t('تسجيل دخول الإدارة','Shop management')}</h2><form id="login-form"><label>${t('كلمة المرور','Password')}<input name="password" type="password" required autocomplete="current-password" aria-describedby="login-error"></label><p id="login-error" class="login-error" role="alert" hidden></p><button type="submit">${t('دخول','Sign in')}</button></form><button type="button" id="forgot-password" class="recovery-link">${t('نسيت كلمة المرور؟','Forgot password?')}</button>`);
+ modal(`<h2>${t('تسجيل دخول الإدارة','Shop management')}</h2><form id="login-form"><label>${t('كلمة المرور','Password')}<input id="admin-password" name="password" type="password" required autocomplete="current-password" aria-describedby="login-error"></label><label class="password-toggle"><input id="show-admin-password" type="checkbox" aria-controls="admin-password"><span>${t('إظهار كلمة المرور','Show password')}</span></label><p id="login-error" class="login-error" role="alert" hidden></p><button type="submit">${t('دخول','Sign in')}</button></form><button type="button" id="forgot-password" class="recovery-link">${t('نسيت كلمة المرور؟','Forgot password?')}</button>`);
  const form=$('#login-form'),password=form.elements.password,errorNote=$('#login-error'),button=form.querySelector('button[type=submit]'),forgot=$('#forgot-password');
+ $('#show-admin-password').onchange=e=>{password.type=e.target.checked?'text':'password'};
  forgot.onclick=passwordRecovery;
  password.oninput=()=>{errorNote.hidden=true;errorNote.textContent='';password.removeAttribute('aria-invalid')};
  form.onsubmit=async e=>{
