@@ -1,0 +1,105 @@
+{
+  "version": "supplier-upload-20261106-v1",
+  "usd_to_omr": "0.3845",
+  "products": [
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A7%D9%86-%D9%8A%D9%82%D9%88%D9%84-%D9%85%D8%B1%D8%AD%D8%A8%D8%A7",
+      "source_sku": "daralmaarefpublisher.com:81338",
+      "name": "كيف تعلم تنينك ان يقول  - مرحبا",
+      "description": "مَرْحَبًا! اسْمِي لَيْلَى، وَهَذا صَدِيقِيَ التَّنِينُ الصَّغِيرُ المُدَلَّلُ. فِي كُلِّ يَوْمٍ أُعَلِّمُهُ كَلِمَةً جَدِيدَةً مُفِيدَةً تَجْعَلُهُ يَبْدُو أَلْطَفَ وَأَكْثَرَ ذَكَاءً مِمَّا هُوَ عَلَيْهِ بِالفِعْلِ!\nاكْتَشِفْ كَيْفَ عَلَّمْتُهُ أَنْ يَقُولَ مَرْحَبًا!\nMeasurements: 16x16cm\nPages: 20\nWeight: 200g",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/4a96920de7b52d1f6d25162d.webp",
+        "/catalog-images/8829dcd554f5c74e4839e9f3.webp"
+      ],
+      "price": 2307,
+      "source_price": "6.0",
+      "source_currency": "USD"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A7%D9%84%D8%A5%D8%B5%D8%BA%D8%A7%D8%A1",
+      "source_sku": "daralmaarefpublisher.com:81336",
+      "name": "كيف تعلم تنينك  - الإصغاء",
+      "description": "مَرْحَبًا! اسمي لَيْلَى، وَهذا صَدِيقِي النِّينُ الصَّغِيرُ المُدَلَّل. فِي كُلِّ يَوْمٍ أُعَلِّمُهُ كِلْمَةً جَدِيدَةً مُفِيدَةً تَجْعَلُهُ يَبْدُو أَلْطَفَ وَأَكْثَرَ ذَكاءً مِمَّا هُوَ عَلَيْهِ بِالفِعْلِ! اكْتَشِفْ كَيْفَ عَلَّمْتُهُ الاعْتِدَارَ!\nMeasurements: 16x16cm\nPages: 20\nWeight: 200g",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/71a1a42797d4bf3e23ea8250.webp",
+        "/catalog-images/1343b9557ab6c0cc3113df5b.webp"
+      ],
+      "price": 2307,
+      "source_price": "6.0",
+      "source_currency": "USD"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D8%AA%D8%A7%D8%A8-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B9%D8%B1-%D9%85%D8%A7-%D9%87%D9%88-%D9%87%D8%B0%D8%A7-%D8%A7%D9%84%D8%B4%D8%B9%D9%88%D8%B1",
+      "source_sku": "",
+      "name": "كتاب المشاعر - ما هو هذا الشعور؟",
+      "description": "انْضَمّ إِلى دُبِّ الأَمَلِ بَيْنَمَا يَأْخُذُكَ في رِخلَةٍ لِتَلْتَقي أَضدِقَاءَكَ الدِّبَبَةَ المِزاجِيَّةَ!\nسَواءَ\nأَكُنتَ\nسَعيدًا،\nأَمْ\nحَزينًا،\nأَمْ\nعَصَبِيًّا\nأَمْ\nسَخيفًا،\nفَهُناكَ\nذُبِّ\nيُناسِبُكَ\nفي\nكِتابِ\nالقِصَصِ\nالزَّائِعِ\nهذا\nالحافِل\nبِالمَشاعِرِ\n.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/70afb8c7cf2701a1cc838238.webp",
+        "/catalog-images/199e2bda054db4ab228d4abb.webp",
+        "/catalog-images/cd9175e78c57617a958d975c.webp"
+      ],
+      "price": 4614,
+      "source_price": "12.0",
+      "source_currency": "USD"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/ar/products/%D8%AD%D9%8A%D9%86-%D9%8A%D8%AE%D8%AC%D9%84-%D8%A7%D9%84%D8%A7%D8%B3%D8%AF-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81237",
+      "name": "حين يخجل الاسد - انا و مشاعري",
+      "description": "يَشْعُرُ الأَسَدُ الصَّغِيرُ بِالخَجَلِ الشَّدِيدِ حِينَ يُطْلَبُ مِنْهُ التَّحَدُّثُ أَمَامَ الآخَرِينَ. يَتَمَنَّى لَوْ يَسْتَطِيعُ الاخْتِبَاءَ، لَكِنَّهُ يَكْتَشِفُ أَنَّ الشَّجَاعَةَ لَيْسَتْ غَيَابَ الخَجَلِ، بَلْ هِيَ المُضِيُّ قُدُمًا رَغْمَهُ.\nتَتَناوَلُ هَذِهِ القِصَّةُ مَشَاعِرَ الخَجَلِ وَتَقْتَرِحُ طُرُقًا يُمْكِنُ مِنْ خِلالِهَا التَّغَلُّبُ عَلَيْهِ وَاكْتِشَافُ الثِّقَةِ بِالنَّفْسِ.\nاكْتَشِفْ عناوينَ أُخْرى في سِلْسِلَةِ «أَنَا وَمَشاعِري».\n❤️\nينمي الذكاء العاطفي\n— يساعد طفلك على تسمية مشاعره وفهمها، وهو مهارة حياتية أساسية تبدأ مبكّرًا.\n💬\nيفتح حوارًا مع طفلك\n— تصميم القصة يدعو الأهل إلى مناقشة مشاعر الخجل بطريقة طبيعية ومريحة.\nMeasurements: 25.5x25.5cm\nPages: 30\nWeight: 405g",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/d4fba9da3376b5b7f13cb2bd.webp",
+        "/catalog-images/4734c6a9c0cfc7094365b2d2.webp"
+      ],
+      "price": 3076,
+      "source_price": "8.0",
+      "source_currency": "USD"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D8%AA%D8%BA%D8%B6%D8%A8-%D8%A7%D9%84%D8%A8%D8%B1%D9%86%D9%8A%D9%82%D8%A9-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81233",
+      "name": "حين تغضب البرنيقة - انا و مشاعري",
+      "description": "تشعرُ البرنيقةُ الصّغيرةُ بغضبٍ شديدٍ حينَ لا تسيرُ الأمورُ كما تريدُ. تريدُ أنْ تصرخَ، أنْ تبكيَ، أنْ تخبرَ الجميعَ بما تشعرُ. لكنَّها تكتشِفُ أنَّ للغضبِ طريقًا أفضلَ للتعبيرِ!\nتتَناوَلُ هذِهِ القِصّةُ مشاعرَ الغضبِ وكيفيةَ التعبيرِ عنهُ بطريقةٍ صحيحةٍ، وتقترحُ طُرُقًا يُمكِنُ مِنْ خِلالِها تحويلُ الغضبِ إلى حوارٍ بنَّاءٍ.\nاكْتَشِفْ عناوينَ أُخْرى في سِلْسِلةِ «أَنَا وَمَشاعِري».\n❤️\nينمي الذكاء العاطفي\n— يساعد طفلك على تسمية مشاعر الغضب وإيجاد طرق صحية للتعبير عنها.\n💬\nيفتح حوارًا مع طفلك\n— تصميم القصّة يدعو الأهل إلى مناقشة مشاعر الغضب بطريقة طبيعية ومريحة.\nMeasurements: 25.5x25.5cm\nPages: 30\nWeight: 405g",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/fb4b03302f49312ea03f37b7.webp",
+        "/catalog-images/3d4596028c8e756a282d5370.webp"
+      ],
+      "price": 3076,
+      "source_price": "8.0",
+      "source_currency": "USD"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/my-big-touch-and-feel-book",
+      "source_sku": "daralmaarefpublisher.com:81365",
+      "name": "My Big Touch And Feel Book",
+      "description": "Spark curiosity from the very first touch.\nMy Big Touch And Feel Book\nis a sensory children's book designed to engage babies and toddlers on both visual and tactile levels — making it one of the best early-learning books for children ages 0–3.\nWith fun textures in different colors on every spread, this padded hardback introduces essential learning concepts while keeping little hands and minds actively exploring.\n✅ Multi-sensory touch-and-feel experience on every page\n✅ Introduces early learning concepts through play\n✅ Durable padded hardback — built for little hands\n✅ Ideal for babies and toddlers ages 0–3\nFormat: 290×220mm | Padded Hardback",
+      "language": "English",
+      "images": [
+        "/catalog-images/dc38b078aac69701dd04f8d4.webp",
+        "/catalog-images/4ddba550cd4d09471a7bb96d.webp"
+      ],
+      "price": 8844,
+      "source_price": "23.0",
+      "source_currency": "USD"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/lets-get-dressed-baby-montessori",
+      "source_sku": "daralmaarefpublisher.com:81166",
+      "name": "Let's Get Dressed - Baby Montessori",
+      "description": "Celebrate the joy of “I did it myself!”\nLet's Get Dressed\nis a Montessori-inspired board book that turns the everyday routine of getting dressed into a confidence-building adventure for babies and toddlers ages 6 months and up.\n✅ Builds fine motor skills and self-confidence from 6 months+\n✅ Montessori-inspired approach to independent learning\n✅ High-contrast visuals ideal for early visual development\n✅ A perfect gift for new parents and baby showers\nPart of the\nBaby Montessori\nseries — beautifully simple books that grow with your child.",
+      "language": "English",
+      "images": [
+        "/catalog-images/e25fc4194cf866ccfb27b55a.webp",
+        "/catalog-images/f00d9233a81a88bd228773d4.webp"
+      ],
+      "price": 2307,
+      "source_price": "6.0",
+      "source_currency": "USD"
+    }
+  ]
+}

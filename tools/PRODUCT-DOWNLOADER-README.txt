@@ -4,6 +4,7 @@ LITTLE MARVELS: DOWNLOAD PRODUCTS FROM A LINKS FILE
    download_products.py
    download-products-requirements.txt
    START-PRODUCT-DOWNLOADER.bat
+   ZIP-EXISTING-DOWNLOADS.bat
 2. Install Python 3.10+ if needed and enable Add Python to PATH.
 3. In Notepad, paste ONE product link per line. Save as links.txt (UTF-8).
 4. Double-click START-PRODUCT-DOWNLOADER.bat.
@@ -18,8 +19,10 @@ LITTLE MARVELS: DOWNLOAD PRODUCTS FROM A LINKS FILE
       description.txt
       photos\...
 8. At the end, upload ALL ZIP files in the newest folder under:
-   littlerMarvels products\upload-zips\DATE-TIME\
-   Each ZIP is independent and approximately 25 MB. Do not upload only the pictures;
+   UPLOAD THESE ZIP FILES\DATE-TIME\
+   This folder opens automatically. Upload EVERY numbered ZIP directly.
+   Do NOT zip this folder again. Each ZIP is independently readable and at most
+   25 MiB (26.3 MB), below the 32 MB transfer limit. Do not upload only the pictures;
    the JSON files are needed to match products, images and original prices.
 
 The program collects ALL exposed primary-product image URLs found in structured
@@ -46,3 +49,8 @@ Manual setup if you prefer Command Prompt:
 
 Optional: py -3 download_products.py --links "C:\path\links.txt"
 Optional: add --show-browser to watch page loading.
+
+ALREADY DOWNLOADED YOUR PRODUCTS?
+Double-click ZIP-EXISTING-DOWNLOADS.bat and select your existing, extracted
+littlerMarvels products folder. It creates upload-ready ZIP parts without
+downloading anything again. Keep product.json files beside their photos.

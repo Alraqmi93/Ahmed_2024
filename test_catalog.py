@@ -24,6 +24,7 @@ class CatalogTest(unittest.TestCase):
     def test_import_prices_assets_and_repeatability(self):
         self.server.init()
         expected=json.loads(Path(__file__).with_name('catalog.json').read_text(encoding='utf-8'))['products']
+        expected+=json.loads(Path(__file__).with_name('supplier-catalog.json').read_text(encoding='utf-8'))['products']
         with self.server.db() as c:
             rows=c.execute("SELECT * FROM products WHERE source_url<>''").fetchall()
             self.assertEqual(len(rows),len(expected))
@@ -31,7 +32,10 @@ class CatalogTest(unittest.TestCase):
             for row in rows:
                 product=next(p for p in expected if p['source_url']==row['source_url'])
                 self.assertEqual(row['price'],product['price'])
-                self.assertEqual(row['source_currency'],'OMR')
+                self.assertEqual(row['source_currency'],product['source_currency'])
+                if 'images' in product:
+                    self.assertEqual(json.loads(row['images']),product['images'])
+                    for image in product['images']:self.assertTrue((Path(__file__).parent/image.lstrip('/')).is_file())
                 self.assertEqual(row['stock'],0)
                 self.assertEqual(row['cost_known'],0)
                 self.assertTrue((Path(__file__).parent/row['image_url'].lstrip('/')).is_file())

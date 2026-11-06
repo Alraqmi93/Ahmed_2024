@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Batch public-product photo/description export for Little Marvels (Windows-friendly)."""
-import argparse, hashlib, json, re, sys, time, unicodedata, zipfile
+import argparse, hashlib, json, os, re, sys, time, unicodedata, zipfile
 from datetime import datetime, timezone
 from pathlib import Path
 from urllib.parse import urlsplit, urlunsplit, urljoin, quote, parse_qsl, urlencode, unquote
@@ -299,24 +299,61 @@ def package(root,report):
             if re.fullmatch(r'photos/[a-f0-9]{24}\.(jpg|png|webp|avif|gif)',path):files.append(folder/path)
     (root/'batch_manifest.json').write_text(json.dumps(records,ensure_ascii=False,indent=2),encoding='utf-8')
     (root/'batch_report.json').write_text(json.dumps(report,ensure_ascii=False,indent=2),encoding='utf-8')
-    out=root/'upload-zips'/datetime.now().strftime('%Y%m%d-%H%M%S');out.mkdir(parents=True,exist_ok=True)
-    part=0;used=0
+    if not records:raise ValueError('No product.json files found. Select the extracted littlerMarvels products folder containing the product subfolders.')
+    out=root.parent/'UPLOAD THESE ZIP FILES'/datetime.now().strftime('%Y%m%d-%H%M%S-%f');out.mkdir(parents=True,exist_ok=True)
+    limit=25*1024*1024
+    def entry_size(path,name):
+        return path.stat().st_size+76+2*len(name.encode('utf-8'))
+    shared=[(root/name,name) for name in ('batch_manifest.json','batch_report.json')]
+    base=22+sum(entry_size(path,name) for path,name in shared)
+    if base>=limit:raise ValueError('Product metadata is too large to package within 25 MB.')
+    part=0;used=base
     def create():
         nonlocal part,used
-        part+=1;archive=zipfile.ZipFile(out/f'littlerMarvels-products-part-{part:03d}.zip','w',zipfile.ZIP_DEFLATED)
-        used=0
-        for name in ('batch_manifest.json','batch_report.json'):
-            archive.write(root/name,name);used+=(root/name).stat().st_size
+        part+=1;used=base
+        archive=zipfile.ZipFile(out/f'littlerMarvels-products-part-{part:03d}.zip','w',zipfile.ZIP_STORED)
+        for path,name in shared:archive.write(path,name)
         return archive
     archive=create()
     try:
         for path in dict.fromkeys(files):
-            if not path.is_file():continue
-            size=path.stat().st_size
-            if used+size>25*1024*1024:archive.close();archive=create()
-            archive.write(path,str(path.relative_to(root)));used+=size
+            if not path.is_file():raise ValueError('Missing saved product file: '+str(path))
+            name=path.relative_to(root).as_posix();size=entry_size(path,name)
+            if base+size>limit:raise ValueError('One saved file exceeds the 25 MB ZIP budget: '+str(path))
+            if used+size>limit:archive.close();archive=create()
+            archive.write(path,name);used+=size
+    except Exception:
+        archive.close()
+        for path in out.glob('*.zip'):path.unlink()
+        raise
     finally:archive.close()
+    archives=list(out.glob('*.zip'))
+    if any(path.stat().st_size>limit for path in archives):
+        for path in archives:path.unlink()
+        raise ValueError('ZIP size verification failed; no oversized ZIPs were kept.')
+    (out/'UPLOAD-INSTRUCTIONS.txt').write_text('Upload EVERY numbered ZIP in this folder to ChatGPT. Each is below 25 MiB (26.3 MB). Do not ZIP this folder again. Keep original product folders.\n',encoding='utf-8')
     return out
+
+
+def finish_package(root,report):
+    out=package(root,report)
+    print('\nREADY TO UPLOAD:')
+    for path in sorted(out.glob('*.zip')):print(' ',path.name,'-',round(path.stat().st_size/1000000,2),'MB')
+    print('UPLOAD ALL numbered ZIPs from:',out)
+    print('Do NOT ZIP the folder again. Keep the original product folders.')
+    if os.name=='nt':
+        try:os.startfile(str(out))
+        except OSError:pass
+    return out
+
+
+def choose_folder():
+    try:
+        import tkinter as tk
+        from tkinter.filedialog import askdirectory
+        window=tk.Tk();window.withdraw();window.attributes('-topmost',True)
+        path=askdirectory(title='Select existing littlerMarvels products folder');window.destroy();return path
+    except Exception:return input('Paste the full path of the existing products folder: ').strip().strip('"')
 
 
 def choose_file():
@@ -330,11 +367,21 @@ def choose_file():
 
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--package-only',action='store_true',help='ZIP existing downloads without visiting any websites')
+    parser.add_argument('--folder',help='Existing products folder for --package-only')
     parser.add_argument('--links',help='Optional path to the links text file; otherwise a file picker opens')
     parser.add_argument('--output',default=str(Path(__file__).resolve().parent/FOLDER_NAME))
     parser.add_argument('--show-browser',action='store_true')
     parser.add_argument('--browser-executable',help='Optional installed Chromium/Chrome executable')
-    args=parser.parse_args();source=args.links or choose_file()
+    args=parser.parse_args()
+    if args.package_only:
+        folder=args.folder or choose_folder()
+        if not folder:print('No folder selected.');return
+        root=Path(folder)
+        try:report=json.loads((root/'batch_report.json').read_text(encoding='utf-8'))
+        except (OSError,ValueError):report={'note':'Repackaged existing product downloads; no pages were downloaded again.'}
+        finish_package(root,report);return
+    source=args.links or choose_file()
     if not source:print('No file selected.');return
     links=read_links(source)
     if not links:raise SystemExit('No valid http/https links found in the text file.')
@@ -355,7 +402,7 @@ def main():
                 except Exception as error:report['failed'].append({'url':url,'error':str(error)});print('   FAILED:',error,flush=True)
                 time.sleep(1)
         finally:context.close();browser.close()
-    out=package(root,report)
+    out=finish_package(root,report)
     print('\nALL LINKS FINISHED. Complete:',report['successful'],'Partial:',report['partial'],'Failed:',len(report['failed']))
     print('Product folders:',root)
     print('UPLOAD every ZIP part from:',out)
