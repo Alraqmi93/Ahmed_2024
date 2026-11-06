@@ -144,6 +144,12 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(200, rows)
         if path.startswith('/api/admin'):
             if not self.admin(): return self.send(401, {'error':'يرجى تسجيل الدخول'})
+            if path == '/api/admin/insights':
+                from sales_insights import insights
+                query=parse_qs(urlsplit(self.path).query)
+                try:
+                    with db() as c:return self.send(200,insights(c,query.get('period',['all'])[0],query.get('date',[None])[0],query.get('year',['all'])[0]))
+                except (ValueError,OverflowError):return self.send(400,{'error':'Choose a valid period/year'})
             if path == '/api/admin/stats':
                 from shop_stats import summary
                 query=parse_qs(urlsplit(self.path).query)
@@ -262,6 +268,12 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send(201,{'id':oid,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':price,'option_id':option['id'] if option else None,'option_label':option['label'] if option else ''} for p,q,option,price in lines]})
                 if path == '/api/admin/archive':
                     c.execute('UPDATE products SET active=? WHERE id=?',(1 if a.get('active') else 0,int(a['id'])))
+                elif path == '/api/admin/archive-bulk':
+                    ids=a.get('ids',[])
+                    if not isinstance(ids,list) or not 1<=len(ids)<=5000:raise ValueError('Select products first / اختر المنتجات أولاً')
+                    ids=sorted(set(int(pid) for pid in ids))
+                    if any(pid<1 for pid in ids):raise ValueError('Invalid product selection')
+                    c.executemany('UPDATE products SET active=? WHERE id=?',[(1 if a.get('active') else 0,pid) for pid in ids])
                 elif path == '/api/admin/adjustment':
                     kind=a.get('kind','expense'); category=a['category']
                     allowed={'expense':('shipping','transfer','packaging','other'),'income':('shipping','other')}

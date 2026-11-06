@@ -27,6 +27,7 @@ class ShopTest(unittest.TestCase):
         with self.assertRaises(urllib.error.HTTPError) as e:self.call('/api/admin')
         self.assertEqual(e.exception.code,401)
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/stats?period=all')
+        with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/insights?period=all')
         self.call('/api/login',{'password':self.password})
         self.call('/api/admin/settings',{'transfer_phone':'90000000','bank_name':'TEST ONLY','bank_holder':'TEST ONLY','bank_account':''})
         self.call('/api/admin/settings',{'bank_swift':'TESTSWIFT','bank_iban':'TESTIBAN'})
@@ -60,6 +61,8 @@ class ShopTest(unittest.TestCase):
         self.call('/api/admin/status',{'id':order['id'],'status':'completed'})
         o=self.call('/api/admin')['orders'][0]; self.assertEqual(o['status'],'completed'); self.assertGreater(o['total']-o['cost'],0)
         self.assertTrue(o['completed_at'])
+        insight=self.call('/api/admin/insights?period=all')
+        self.assertEqual((insight['bestsellers'][0]['product_id'],insight['bestsellers'][0]['units']),(p['id'],2))
         stats=self.call('/api/admin/stats?period=all')
         self.assertEqual((stats['sales'],stats['product_cost'],stats['gross_profit']),(o['total'],o['cost'],o['total']-o['cost']))
         self.call('/api/admin/adjustment',{'kind':'expense','category':'shipping','amount':'1.000','incurred_on':'2026-11-05','order_id':o['id'],'note':'Shipping test'})
@@ -94,6 +97,12 @@ class ShopTest(unittest.TestCase):
         self.assertEqual(self.call('/api/admin')['products'][0]['name_en'],'English title')
         created=self.call('/api/admin')['products'][0]
         self.assertEqual(created['language'],'العربية')
+        hidden_ids=[created['id'],products[1]['id']]
+        self.call('/api/admin/archive-bulk',{'ids':hidden_ids,'active':False})
+        self.assertFalse(set(hidden_ids)&{p['id'] for p in self.call('/api/products')})
+        self.assertTrue(set(hidden_ids)<={p['id'] for p in self.call('/api/admin')['products']})
+        self.call('/api/admin/archive-bulk',{'ids':hidden_ids,'active':True})
+        self.assertTrue(set(hidden_ids)<={p['id'] for p in self.call('/api/products')})
         gallery=['https://example.com/one.png','https://example.com/two.png']
         self.call('/api/admin/product',{**created,'price':'1.5','cost':'0.5','images':gallery})
         self.assertEqual(self.call('/api/admin')['products'][0]['images'],gallery)
