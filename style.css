@@ -27,3 +27,7 @@ body{background:var(--cream);color:var(--ink)}button{border-radius:10px}button:h
 .filters{flex-wrap:wrap}.filters .tabs{flex-wrap:wrap;gap:6px}.filters .tabs button{white-space:nowrap}
 
 .promo-checkout{border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}.promo-checkout input{text-transform:uppercase}.promo-checkout #promo-status{margin-block:10px}.promo-checkout #checkout-total p{margin:8px 0}
+
+.product-sales-panel{border:1px solid var(--line);border-radius:14px;padding:20px;margin:24px 0;background:white}.product-sales-panel .stats-filters{flex-wrap:wrap}.product-sales-panel select{max-width:100%}.product-sales-panel .stats-filters label{min-width:0;max-width:100%}
+.category-filter-help{color:var(--muted);line-height:1.8;margin-bottom:10px}.filters .tabs button{min-height:44px}.filters .tabs button[aria-pressed=true]{border-color:#70428a;background:#70428a;color:white}.filters .tabs button[aria-pressed=true]::before{content:'✓ ';font-weight:bold}.product-sales-panel .stats-filters select{width:100%}
+@media(max-width:600px){input,select,textarea{font-size:16px}.filters .tabs{width:100%}.filters .tabs button{flex:1 1 auto;padding:10px 12px}.product-sales-panel{padding:14px}.product-sales-panel .stats-filters{display:flex;flex-direction:column;align-items:stretch}.product-sales-panel .stats-filters label,.product-sales-panel .stats-filters button{width:100%;box-sizing:border-box}.product-sales-panel .metrics{grid-template-columns:1fr 1fr}.product-sales-panel .metrics div:last-child{grid-column:1/-1}}

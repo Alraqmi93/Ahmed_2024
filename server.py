@@ -160,6 +160,12 @@ class Handler(BaseHTTPRequestHandler):
             return self.send(200, rows)
         if path.startswith('/api/admin'):
             if not self.admin(): return self.send(401, {'error':'يرجى تسجيل الدخول'})
+            if path == '/api/admin/product-sales':
+                from product_sales import product_sales
+                query=parse_qs(urlsplit(self.path).query)
+                try:
+                    with db() as c:return self.send(200,product_sales(c,query.get('product_id',[''])[0],query.get('period',['all'])[0],query.get('date',[None])[0],query.get('start',[None])[0],query.get('end',[None])[0]))
+                except (ValueError,OverflowError):return self.send(400,{'error':'Choose a valid product and date range / اختر منتجاً وفترة زمنية صحيحة'})
             if path == '/api/admin/insights':
                 from sales_insights import insights
                 query=parse_qs(urlsplit(self.path).query)
