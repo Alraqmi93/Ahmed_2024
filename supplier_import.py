@@ -3,11 +3,14 @@ import json
 import re
 from product_identity import existing_product
 from product_categories import stored_categories
+from gallery_import import merge_uploaded_galleries
 
 
 def apply_supplier_catalog(connection,root):
     for filename in ('supplier-catalog.json','asfar-catalog.json','supplier-batch-20261106-02.json','moon-catalog.json'):
         apply_supplier_file(connection,root,filename)
+    gallery=root/'gallery-updates-20261106.json'
+    if gallery.exists():merge_uploaded_galleries(connection,root,json.loads(gallery.read_text(encoding='utf-8')))
 
 
 def apply_supplier_file(connection,root,filename):
@@ -15,6 +18,7 @@ def apply_supplier_file(connection,root,filename):
     if not path.exists():return
     manifest=json.loads(path.read_text(encoding='utf-8'))
     connection.execute('CREATE TABLE IF NOT EXISTS catalog_imports(version TEXT PRIMARY KEY, applied_at TEXT DEFAULT CURRENT_TIMESTAMP)')
+    merge_uploaded_galleries(connection,root,manifest)
     if connection.execute('SELECT 1 FROM catalog_imports WHERE version=?',(manifest['version'],)).fetchone():return
     for product in manifest['products']:
         if not product['source_url'].startswith(('https://daralmaarefpublisher.com/','https://darasfarstore.com/','https://moon-edu.com/')):raise ValueError('Unexpected supplier source')

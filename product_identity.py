@@ -24,9 +24,11 @@ def existing_product(connection,product):
     sku=product.get('source_sku','').strip()
     names={title_identity(product.get(key,'')) for key in ('name','name_en')}-{''}
     # Include hidden and deleted rows so imports never recreate removed products.
-    for row in connection.execute('SELECT id,source_url,source_sku,name,name_en FROM products'):
+    rows=connection.execute('SELECT id,source_url,source_sku,name,name_en FROM products').fetchall()
+    for row in rows:
         if source and source==source_identity(row[1]):return row[0]
         if sku and sku==row[2]:return row[0]
+    for row in rows:
         # A matching title alone must not merge distinct editions with separate
         # links at the same supplier. Compare titles across suppliers and for
         # manually entered records.

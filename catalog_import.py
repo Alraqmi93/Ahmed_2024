@@ -2,6 +2,7 @@
 import json
 import re
 from product_identity import existing_product
+from gallery_import import merge_uploaded_galleries
 
 
 def apply_catalog(connection, root):
@@ -24,6 +25,7 @@ def apply_catalog(connection, root):
         if name not in [r[1] for r in connection.execute('PRAGMA table_info(products)')]:
             connection.execute('ALTER TABLE products ADD COLUMN '+name+" TEXT NOT NULL DEFAULT ''")
     connection.execute("CREATE UNIQUE INDEX IF NOT EXISTS product_source_identity ON products(source_url) WHERE source_url<>''")
+    merge_uploaded_galleries(connection,root,{**manifest,'products':[p for p in products if p.get('images')]})
     if connection.execute('SELECT 1 FROM catalog_imports WHERE version=?', (manifest['version'],)).fetchone():
         return
     first_import = connection.execute('SELECT COUNT(*) FROM catalog_imports').fetchone()[0] == 0

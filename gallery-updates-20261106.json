@@ -1,0 +1,24 @@
+{
+  "version": "gallery-backfill-upload-20261106-v1",
+  "products": [
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D8%AD%D8%A8-%D9%87%D9%88",
+      "source_sku": "darasfarstore.com:U15",
+      "name": "الحب هو",
+      "description": "وصف المنتج\nكتاب دافئ يحتفي بالحب كما يراه الطفل..\nالحب يظهر في المواقف البسيطة والروابط العائلية التي تصنع الأمان، ويظهر في القرب والعطاء والاهتمام.\nهذا الكتاب يوضح مفهوم الحب بمعناه الجميل والنقي.\nنوع الكتاب: كرتوني\nتأليف: السيد نون\nرسوم: منة الله عبدالله - أحمد أسامة\nمقاس الكتاب: 18cm*18cm\nعدد الصفحات: 24\nISBN:9786035068758",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/46fd2634cf46bda5e2dfad3b.webp",
+        "/catalog-images/807f9c800d21b1a97ee13f67.webp",
+        "/catalog-images/5129b635cf866e2c789b48af.webp",
+        "/catalog-images/fcfaecb25b59f08c57d45d78.webp",
+        "/catalog-images/c8b11f8083e6ca0b80752221.webp"
+      ],
+      "price": 3470,
+      "source_price": "3.47",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    }
+  ],
+  "skipped_existing_titles": []
+}

@@ -101,6 +101,24 @@ class CatalogTest(unittest.TestCase):
             self.assertEqual(c.execute('SELECT stock,price,active FROM products WHERE id=?',(pid,)).fetchone()[:],(1,999,0))
             self.assertEqual(c.execute('SELECT count(*) FROM products').fetchone()[0],count)
 
+    def test_photo_backfill_runs_even_when_product_batch_was_imported(self):
+        self.server.init()
+        with self.server.db() as c:
+            row=c.execute("SELECT * FROM products WHERE source_url LIKE 'https://darasfarstore.com/%' LIMIT 1").fetchone()
+            pid=row['id'];expected=json.loads(row['images'])
+            c.execute("UPDATE products SET images='[]',stock=2,price=777,active=0,description='Owner details' WHERE id=?",(pid,))
+            c.execute('DROP TABLE gallery_imports')
+        self.server.init()
+        with self.server.db() as c:
+            row=c.execute('SELECT * FROM products WHERE id=?',(pid,)).fetchone()
+            self.assertEqual(json.loads(row['images']),expected)
+            self.assertEqual((row['stock'],row['price'],row['active'],row['description']),(2,777,0,'Owner details'))
+            c.execute('UPDATE products SET images=? WHERE id=?',(json.dumps([row['image_url']]),pid))
+        self.server.init()
+        with self.server.db() as c:
+            row=c.execute('SELECT * FROM products WHERE id=?',(pid,)).fetchone()
+            self.assertEqual(json.loads(row['images']),[row['image_url']])
+
     def test_modified_demo_is_preserved(self):
         os.environ['LOAD_BUNDLED_CATALOG']='0'
         self.server.init()
