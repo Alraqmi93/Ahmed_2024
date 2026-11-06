@@ -8,14 +8,14 @@ class InsightsTest(unittest.TestCase):
         self.c=sqlite3.connect(':memory:');self.c.row_factory=sqlite3.Row
         self.c.executescript('''CREATE TABLE products(id INTEGER PRIMARY KEY,name TEXT);
             CREATE TABLE orders(id INTEGER PRIMARY KEY,status TEXT,created TEXT,completed_at TEXT);
-            CREATE TABLE lines(order_id INTEGER,product_id INTEGER,name TEXT,quantity INTEGER,price INTEGER);
+            CREATE TABLE lines(order_id INTEGER,product_id INTEGER,name TEXT,quantity INTEGER,price INTEGER,discount INTEGER DEFAULT 0);
             INSERT INTO products VALUES(1,'Renamed product'),(2,'Second product');''')
         for oid,status,stamp in [(1,'completed','2026-05-31 20:00:00'),(2,'completed','2025-06-15 00:00:00'),
                 (3,'completed','2026-07-01 00:00:00'),(4,'completed','2026-05-31 19:59:59'),
                 (5,'cancelled','2026-06-01 00:00:00'),(6,'new','2026-06-01 00:00:00'),
                 (7,'paid','2026-06-01 00:00:00'),(8,'completed','2026-12-01 00:00:00')]:
             self.c.execute('INSERT INTO orders VALUES(?,?,?,?)',(oid,status,stamp,stamp))
-        self.c.executemany('INSERT INTO lines VALUES(?,?,?,?,?)',[
+        self.c.executemany('INSERT INTO lines(order_id,product_id,name,quantity,price) VALUES(?,?,?,?,?)',[
             (1,1,'Old product name',3,1000),(1,1,'Old product name',2,1500),
             (1,2,'Second product',2,2000),(2,1,'Old product name',2,1000),
             (3,1,'Old product name',1,1000),(4,1,'Old product name',1,1000),

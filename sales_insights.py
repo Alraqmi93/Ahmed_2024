@@ -12,7 +12,7 @@ def insights(connection,period='all',anchor=None,history_year='all'):
         window=' AND COALESCE(o.completed_at,o.created)>=? AND COALESCE(o.completed_at,o.created)<?'
         params=(utc(start),utc(end))
     best=connection.execute('''SELECT l.product_id,COALESCE(p.name,MAX(l.name)) AS name,
-        SUM(l.quantity) AS units,SUM(l.quantity*l.price) AS revenue,COUNT(DISTINCT o.id) AS orders
+        SUM(l.quantity) AS units,SUM(l.quantity*l.price-l.discount) AS revenue,COUNT(DISTINCT o.id) AS orders
         FROM lines l JOIN orders o ON o.id=l.order_id LEFT JOIN products p ON p.id=l.product_id
         WHERE o.status='completed' '''+window+''' GROUP BY l.product_id ORDER BY units DESC,revenue DESC,l.product_id LIMIT 10''',params).fetchall()
     # Oman has a UTC+04:00 calendar; SQLite groups each completed sale in that local month.
@@ -27,7 +27,7 @@ def insights(connection,period='all',anchor=None,history_year='all'):
         history_params=(str(year),)
     rows=connection.execute('''SELECT l.product_id,COALESCE(p.name,MAX(l.name)) AS name,
         strftime('%Y-%m','''+stamp+''') AS month_key,SUM(l.quantity) AS units,
-        SUM(l.quantity*l.price) AS revenue,COUNT(DISTINCT o.id) AS orders
+        SUM(l.quantity*l.price-l.discount) AS revenue,COUNT(DISTINCT o.id) AS orders
         FROM lines l JOIN orders o ON o.id=l.order_id LEFT JOIN products p ON p.id=l.product_id
         WHERE o.status='completed' '''+history_window+''' GROUP BY l.product_id,month_key ORDER BY month_key''',history_params).fetchall()
     products={};monthly=[0]*12;observed_months=set()

@@ -25,3 +25,5 @@ body{background:var(--cream);color:var(--ink)}button{border-radius:10px}button:h
 .login-error{margin:0;padding:12px 14px;border:1px solid #e2b3b0;border-radius:8px;background:#fff2f1;color:#a92722;font-size:13px;line-height:1.8}#login-form input[aria-invalid=true]{border-color:#b42318;outline-color:#b42318}#login-form button:disabled{opacity:.65;cursor:wait}
 
 .filters{flex-wrap:wrap}.filters .tabs{flex-wrap:wrap;gap:6px}.filters .tabs button{white-space:nowrap}
+
+.promo-checkout{border:1px solid var(--line);border-radius:10px;padding:16px;margin:12px 0}.promo-checkout input{text-transform:uppercase}.promo-checkout #promo-status{margin-block:10px}.promo-checkout #checkout-total p{margin:8px 0}

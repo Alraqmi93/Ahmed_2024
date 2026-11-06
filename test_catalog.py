@@ -27,6 +27,7 @@ class CatalogTest(unittest.TestCase):
         expected+=json.loads(Path(__file__).with_name('supplier-catalog.json').read_text(encoding='utf-8'))['products']
         expected+=json.loads(Path(__file__).with_name('asfar-catalog.json').read_text(encoding='utf-8'))['products']
         expected+=json.loads(Path(__file__).with_name('supplier-batch-20261106-02.json').read_text(encoding='utf-8'))['products']
+        expected+=json.loads(Path(__file__).with_name('moon-catalog.json').read_text(encoding='utf-8'))['products']
         with self.server.db() as c:
             rows=c.execute("SELECT * FROM products WHERE source_url<>''").fetchall()
             self.assertEqual(len(rows),len(expected))

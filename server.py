@@ -7,6 +7,7 @@ from urllib.parse import parse_qs, urlsplit
 from decimal import Decimal, InvalidOperation
 from datetime import date
 from product_photos import MAX_BODY, UPLOAD_PATTERN, save_uploads, valid_image_url
+from product_categories import normalize_categories,stored_categories
 from product_options import read_options, active_options, selected_option, save_options, adjust_stock
 
 ROOT = Path(__file__).parent
@@ -40,6 +41,8 @@ def normalize_ages(value):
 
 def product_json(row):
     product=dict(row)
+    product['categories']=normalize_categories(product['category'])
+    product['category']=product['categories'][0]
     product['ages']=normalize_ages(product['age'])
     # Keep the original single-age field usable by older clients.
     product['age']=product['ages'][0] if product['ages'] else 'unspecified'
@@ -69,6 +72,8 @@ def init():
         CREATE TABLE IF NOT EXISTS settings(key TEXT PRIMARY KEY, value TEXT NOT NULL);
         CREATE TABLE IF NOT EXISTS adjustments(id INTEGER PRIMARY KEY, kind TEXT NOT NULL, category TEXT NOT NULL, amount INTEGER NOT NULL, incurred_on TEXT NOT NULL, note TEXT NOT NULL DEFAULT '', order_id INTEGER REFERENCES orders(id), voided INTEGER NOT NULL DEFAULT 0, created TEXT DEFAULT CURRENT_TIMESTAMP);
         ''')
+        from promo_codes import init_promos
+        init_promos(c)
         for col in ('name_en', 'description_en'):
             if col not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
                 c.execute('ALTER TABLE products ADD COLUMN '+col+" TEXT NOT NULL DEFAULT ''")
@@ -171,6 +176,7 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send(400,{'error':'Choose a valid period and date / اختر فترة وتاريخاً صحيحين'})
             with db() as c:
                 data = {k:[dict(r) for r in c.execute('SELECT * FROM '+ k + ' ORDER BY id DESC')] for k in ['products','orders','purchases','adjustments']}
+                data['promos']=[dict(r) for r in c.execute('SELECT * FROM promos ORDER BY code')]
                 data['products']=[product_json(p) for p in data['products'] if not p['deleted']]
                 for purchase in data['purchases']:
                     product=c.execute('SELECT * FROM products WHERE id=?',(purchase['product_id'],)).fetchone()
@@ -236,7 +242,7 @@ class Handler(BaseHTTPRequestHandler):
                 cookie=SimpleCookie(self.headers.get('Cookie',''))
                 if 'session' in cookie: SESSIONS.pop(cookie['session'].value,None)
                 return self.send(200,{})
-            if path not in ('/api/orders','/api/orders/whatsapp') and not self.admin(): return self.send(401,{'error':'يرجى تسجيل الدخول'})
+            if path not in ('/api/orders','/api/orders/whatsapp','/api/promos/quote') and not self.admin(): return self.send(401,{'error':'يرجى تسجيل الدخول'})
             with db() as c:
                 if path == '/api/orders/whatsapp':
                     token=str(a.get('token',''))
@@ -246,10 +252,16 @@ class Handler(BaseHTTPRequestHandler):
                     c.execute('UPDATE orders SET whatsapp_opened_at=COALESCE(whatsapp_opened_at,CURRENT_TIMESTAMP) WHERE id=?',(int(a['id']),))
                     c.commit()
                     return self.send(200,{'ok':True})
-                if path == '/api/orders':
+                if path == '/api/admin/promo':
+                    from promo_codes import save_promo
+                    save_promo(c,a)
+                    c.commit()
+                    return self.send(200,{'ok':True})
+                if path in ('/api/orders','/api/promos/quote'):
                     payment = dict(c.execute('SELECT key,value FROM settings').fetchall())
                     if not any(payment.get(k) for k in ('transfer_phone', 'bank_account', 'bank_iban')):
                         raise ValueError('Bank transfer is not configured yet / التحويل البنكي غير مفعّل بعد')
+                    if path=='/api/promos/quote':a={**a,'customer':'quote','phone':'quote','address':'quote','delivery_method':'home'}
                     customer=str(a['customer']).strip(); phone=str(a['phone']).strip(); address=str(a['address']).strip()
                     delivery=str(a.get('delivery_method',''))
                     if delivery not in ('home','office'):
@@ -271,16 +283,22 @@ class Handler(BaseHTTPRequestHandler):
                         unit_price=option['price'] if option and option['price'] is not None else p['price']
                         lines.append((p,qty,option,unit_price))
                     total=sum(price*q for p,q,option,price in lines); cost=sum(p['cost']*q for p,q,option,price in lines)
+                    from promo_codes import discount_for,allocate_discount
+                    subtotal=total
+                    promo_code,discount=discount_for(c,a.get('promo_code',''),subtotal)
+                    total=subtotal-discount
+                    if path=='/api/promos/quote':return self.send(200,{'subtotal':subtotal,'discount':discount,'total':total,'promo_code':promo_code})
+                    allocations=allocate_discount([price*q for p,q,option,price in lines],discount)
                     token=secrets.token_urlsafe(32)
                     oid=c.execute('INSERT INTO orders(customer,phone,address,total,cost,payment_token) VALUES(?,?,?,?,?,?)',(customer,phone,address,total,cost,token)).lastrowid
-                    c.execute('UPDATE orders SET delivery_method=? WHERE id=?',(delivery,oid))
+                    c.execute('UPDATE orders SET delivery_method=?,subtotal=?,discount=?,promo_code=? WHERE id=?',(delivery,subtotal,discount,promo_code,oid))
                     c.execute('UPDATE orders SET cost_known=? WHERE id=?',(int(all(p['cost_known'] for p,q,option,price in lines)),oid))
-                    for p,q,option,unit_price in lines:
+                    for line_index,(p,q,option,unit_price) in enumerate(lines):
                         option_id=option['id'] if option else None
-                        c.execute('INSERT INTO lines(order_id,product_id,name,quantity,price,cost,option_id,option_label) VALUES(?,?,?,?,?,?,?,?)',(oid,p['id'],p['name'],q,unit_price,p['cost'],option_id,option['label'] if option else ''))
+                        c.execute('INSERT INTO lines(order_id,product_id,name,quantity,price,cost,option_id,option_label,discount) VALUES(?,?,?,?,?,?,?,?,?)',(oid,p['id'],p['name'],q,unit_price,p['cost'],option_id,option['label'] if option else '',allocations[line_index]))
                         adjust_stock(c,p['id'],option_id,-q)
                     c.commit()
-                    return self.send(201,{'id':oid,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':price,'option_id':option['id'] if option else None,'option_label':option['label'] if option else ''} for p,q,option,price in lines]})
+                    return self.send(201,{'id':oid,'subtotal':subtotal,'discount':discount,'promo_code':promo_code,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':price,'option_id':option['id'] if option else None,'option_label':option['label'] if option else ''} for p,q,option,price in lines]})
                 if path == '/api/admin/archive':
                     c.execute('UPDATE products SET active=? WHERE id=? AND deleted=0',(1 if a.get('active') else 0,int(a['id'])))
                 elif path == '/api/admin/archive-bulk':
@@ -327,9 +345,8 @@ class Handler(BaseHTTPRequestHandler):
                     language=a.get('language','العربية')
                     if language not in ('العربية','English'):
                         raise ValueError('Choose Arabic or English / اختر العربية أو الإنجليزية')
-                    if a.get('category') not in ('books','toys','fabric-books','board-books','cards','hardcover-books'):
-                        raise ValueError('Choose a valid product category / اختر فئة منتج صالحة')
-                    values=(str(a['name'])[:150],a['category'],stored_age,language,money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:10000])
+                    category=stored_categories(a.get('categories',a.get('category')))
+                    values=(str(a['name'])[:150],category,stored_age,language,money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:10000])
                     if a.get('id'): c.execute('UPDATE products SET name=?,category=?,age=?,language=?,price=?,cost=?,stock=?,emoji=?,description=? WHERE id=?',(*values,int(a['id'])))
                     else: a['id']=c.execute('INSERT INTO products(name,category,age,language,price,cost,stock,emoji,description) VALUES(?,?,?,?,?,?,?,?,?)',values).lastrowid
                     c.execute('UPDATE products SET name_en=?,description_en=? WHERE id=?',(str(a.get('name_en',''))[:150],str(a.get('description_en',''))[:10000],int(a['id'])))

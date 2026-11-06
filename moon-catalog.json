@@ -1,0 +1,885 @@
+{
+  "version": "moon-upload-20261106-nine-parts-v1",
+  "usd_to_omr": "0.3845",
+  "products": [
+    {
+      "source_url": "https://moon-edu.com/product/when-i-feel/",
+      "source_sku": "moon-edu.com:\"000013\"",
+      "name": "حين أشعر - MOON EDU",
+      "description": "نشاط تعليمي يساعد الأطفال على فهم وإدارة مشاعرهم من خلال ١٦ شعورًا مختلفًا، مع تعلّم كيفية التعامل مع كل شعور وفق توجيهات النبي ﷺ بطريقة بسيطة وتفاعلية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/a236f6acee43cb86a7b06c67.webp",
+        "/catalog-images/c15a0721892bdfa4609958c0.webp",
+        "/catalog-images/1ac5d1b865eee11139219c5d.webp"
+      ],
+      "price": 3845,
+      "source_price": "10.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/sorry-is-not-a-solution-story/",
+      "source_sku": "moon-edu.com:\"000136\"",
+      "name": "قصة آسف ليست حلًا - MOON EDU",
+      "description": "قصة هادفة ممتعة تساعد الأطفال على فهم أهمية الاعتراف بالأخطاء والاعتذار عنها، وتطرح سؤالًا مهمًا: هل قول \"آسف\" وحده يكفي لحل المشكلات؟ وذلك من خلال مواقف مشوقة يعيشها مشمش.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/821ada22c67769cbc555d2cf.webp",
+        "/catalog-images/02e8d01043591f9586afa402.webp",
+        "/catalog-images/ef247c0a22a922ceb7de453b.webp"
+      ],
+      "price": 2538,
+      "source_price": "6.60",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/ahmed-ahmed-what-are-you-doing-story/",
+      "source_sku": "moon-edu.com:\"000215\"",
+      "name": "قصة أحمد... أحمد... ماذا تفعل؟ - MOON EDU",
+      "description": "الكتاب يحاكي يوميات الأطفال الصغار، ويدعم مهاراتهم الأولى في الاستقلال، وهم يخطون نحو عالم الاستكشاف.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/45bb385b74b8586535cfe036.webp",
+        "/catalog-images/770a527cc4be2b917d8dfe7b.webp",
+        "/catalog-images/28a30a94ab01245389503473.webp",
+        "/catalog-images/f89b4e2fb752d2676196e920.webp",
+        "/catalog-images/448f4c68d012aa625ecdb716.webp"
+      ],
+      "price": 2692,
+      "source_price": "7.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/mom-where-is-allah-story/",
+      "source_sku": "moon-edu.com:\"000143\"",
+      "name": "قصة أمي، أين الله؟ - MOON EDU",
+      "description": "قصة دافئة تساعد الأطفال على فهم سؤال \"أين الله؟\" والتعرّف على ربهم بطريقة بسيطة ومناسبة لمرحلتهم العمرية، بأسلوب مليء بالدفء والإيمان يعزز معرفتهم بالله وشعورهم بالأمان.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/3a0cf7a6178d3d1d8e83e630.webp",
+        "/catalog-images/8dd4a3c8b57cb6b5cbc7757e.webp",
+        "/catalog-images/3568bea1b8ecc2a3d6f207d9.webp"
+      ],
+      "price": 2307,
+      "source_price": "6.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/lakhbout-the-octopus-story/",
+      "source_sku": "moon-edu.com:\"000245\"",
+      "name": "قصة الأخطبوط لخبوط - MOON EDU",
+      "description": "قصة ممتعة تُعرّف الأطفال بأساليب الدفاع في عالم البحر، وتُنمّي لديهم حبّ الفضول والمغامرة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/10d5bfc8a23ffd062dd54502.webp",
+        "/catalog-images/8f3f8ebf04650856c0283c3d.webp",
+        "/catalog-images/e8bfc44fb3e414a3608dc56b.webp"
+      ],
+      "price": 2692,
+      "source_price": "7.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/ramadan-to-the-fullest-story/",
+      "source_sku": "moon-edu.com:\"000044\"",
+      "name": "قصة رمضان على أكمل وجه - MOON EDU",
+      "description": "قصة رمضانية ممتعة ومليئة بالفكاهة تتناول مع عائلة فركان تنظيم الوقت والاعتدال في الطعام والتوازن بين العبادة والعمل خلال شهر رمضان، مع قصة مسموعة ورسوم جذابة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/fcf5d69828f65501d24790f2.webp",
+        "/catalog-images/5d27274ad1d139c23aefe809.webp",
+        "/catalog-images/a05d0f8df0c8291c1c0073f6.webp"
+      ],
+      "price": 2692,
+      "source_price": "7.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/the-secret-of-haneen-story/",
+      "source_sku": "moon-edu.com:\"000277\"",
+      "name": "قصة سر حنين - MOON EDU",
+      "description": "قصة تعلمنا كيف يمكن لأطفالنا أن يتصرفوا مع الغرباء بطريقة حذرة، وماذا يجب على الأهل أن يفعلوه في حال تعرّض أطفالهم للتحرش أو الاعتداء.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/84a2465e3d518ab26f07047d.webp",
+        "/catalog-images/d19ab7fbcca708710e8b23c5.webp",
+        "/catalog-images/a0d205f9f778e8803e61916e.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/food-and-drink-sunnahs-story/",
+      "source_sku": "moon-edu.com:\"000155\"",
+      "name": "قصة سنن الطعام والشراب - MOON EDU",
+      "description": "قصة تعليمية ممتعة جزء من مجموعة تعرّف الأطفال على ٣٦ سُنّة نبوية مرتبطة بالنوم والطعام والشراب واليوم الدراسي، وتشجّعهم على تطبيقها في حياتهم اليومية اقتداءً برسول الله ﷺ، مع لوحة تعليمية ونصائح تربوية للوالدين، باللغتين العربية والإنجليزية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/ffd89ed3cfa0da29f6ae6e63.webp",
+        "/catalog-images/3d4eca7dda36bfe4441f4f12.webp",
+        "/catalog-images/af9cc39a9a2c28ae794d9dcc.webp",
+        "/catalog-images/2b5f7319d730b72246efd6f7.webp",
+        "/catalog-images/03a0d204d5caf46922f514ba.webp"
+      ],
+      "price": 2538,
+      "source_price": "6.60",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/sleeping-sunnahs-story/",
+      "source_sku": "moon-edu.com:\"000154\"",
+      "name": "قصة سنن النوم - MOON EDU",
+      "description": "قصة تعليمية ممتعة جزء من مجموعة تعرّف الأطفال على ٣٦ سُنّة نبوية مرتبطة بالنوم والطعام والشراب واليوم الدراسي، وتشجّعهم على تطبيقها في حياتهم اليومية اقتداءً برسول الله ﷺ، مع لوحة تعليمية ونصائح تربوية للوالدين، باللغتين العربية والإنجليزية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/2905dea336254c3b66472b22.webp",
+        "/catalog-images/b8e063a8b645f0c2e2009e53.webp",
+        "/catalog-images/9c447c4085e24e58d960418f.webp",
+        "/catalog-images/03a0d204d5caf46922f514ba.webp"
+      ],
+      "price": 2538,
+      "source_price": "6.60",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/safwan-who-changed-his-villages-life-story/",
+      "source_sku": "moon-edu.com:\"000207\"",
+      "name": "قصة صفوان الذي غيّر حياة قريته - MOON EDU",
+      "description": "ليعلم أطفالنا أن الماء الذي يصلنا بفتحة صنبور في وقتنا هذا قد لا يصل لغيرنا إلا بعد قطع مسافة تصل أحيانًا إلى خمسين كيلو متر سيرًا على الأقدام... وأن أشياء بسيطة بالنسبة لنا قد تكون مبهجة لغيرنا...",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/6ce95ae64dbb687a481f1773.webp",
+        "/catalog-images/15318b2c93f596bd62f94755.webp",
+        "/catalog-images/bffc07fc3f8af305339921c5.webp"
+      ],
+      "price": 1923,
+      "source_price": "5.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/arabic-letters-in-the-quran-zigzag-cloth-book/",
+      "source_sku": "moon-edu.com:\"000076\"",
+      "name": "كتاب قماش (زجزاج) الحروف العربية في القرآن الكريم - MOON EDU",
+      "description": "كتاب قماشي زجزاج متين وآمن للأطفال، مبطن بإسفنج فاخر ويحتوي على ١٢ صفحة، بطباعة ثابتة ورائعة، مقاوم للتمزق والتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/194aae45b590a9e9f6fb0f1a.webp",
+        "/catalog-images/6b722df2fbae1670757fa408.webp"
+      ],
+      "price": 1923,
+      "source_price": "5.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/muslim-child-morning-and-bedtime-routine-zigzag-cloth-book/",
+      "source_sku": "moon-edu.com:\"000077\"",
+      "name": "كتاب قماش (زجزاج) روتين الطفل المسلم في الصباح وقبل النوم - MOON EDU",
+      "description": "كتاب قماشي زجزاج متين وآمن للأطفال، مبطن بإسفنج فاخر ويحتوي على ١٢ صفحة، بطباعة ثابتة ورائعة، مقاوم للتمزق والتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/6f3a3555229a690c868c3a2e.webp",
+        "/catalog-images/5ad17f60b29e12bcf79fc994.webp",
+        "/catalog-images/ce9a72c3044679b25a2f3975.webp",
+        "/catalog-images/d9000d7678c94939dd155dbe.webp",
+        "/catalog-images/8e5edd762fd30eef74aa8b88.webp"
+      ],
+      "price": 1923,
+      "source_price": "5.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/black-white-and-red-cloth-book/",
+      "source_sku": "moon-edu.com:\"000047\"",
+      "name": "كتاب قماش (نشء) أبيض وأسود وأحمر - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/24c497d1d183d7527e162e8f.webp",
+        "/catalog-images/1ff0118e91d4dd63d37baa7a.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/numbers-cloth-book/",
+      "source_sku": "moon-edu.com:\"000068\"",
+      "name": "كتاب قماش (نشء) أرقام - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/faa6394c217a10d589ccd067.webp",
+        "/catalog-images/5ad011f23df38a2d2893d410.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/colors-cloth-book/",
+      "source_sku": "moon-edu.com:\"000067\"",
+      "name": "كتاب قماش (نشء) ألوان - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/432002cfdc4cbcd96f52523e.webp",
+        "/catalog-images/f65ea76059fac5d6466322a6.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/family-cloth-book/",
+      "source_sku": "moon-edu.com:\"000074\"",
+      "name": "كتاب قماش (نشء) العائلة - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/0ebce6475f5e83c3a8404424.webp",
+        "/catalog-images/f07a09ab5dc9be695af9df14.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/wild-animals-cloth-book/",
+      "source_sku": "moon-edu.com:\"000072\"",
+      "name": "كتاب قماش (نشء) حيوانات الغابة - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/c2d1e261e02b7c399c9691a2.webp",
+        "/catalog-images/4863efbf98c606e79ac27932.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/farm-animals-cloth-book/",
+      "source_sku": "moon-edu.com:\"000071\"",
+      "name": "كتاب قماش (نشء) حيوانات المزرعة - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/52766528e4242c9333b7c104.webp",
+        "/catalog-images/ddfe0f60b6fccf716aa372b5.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/vegetables-cloth-book/",
+      "source_sku": "moon-edu.com:\"000070\"",
+      "name": "كتاب قماش (نشء) خضروات - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/88011eb930805e268082f078.webp",
+        "/catalog-images/8e4f6d5220e1fa6761e9ee5d.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/fruit-cloth-book/",
+      "source_sku": "moon-edu.com:\"000069\"",
+      "name": "كتاب قماش (نشء) فاكهة - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/75e8552b4e4dae6776e0b3d8.webp",
+        "/catalog-images/1ab1488ef1c1b683aea12449.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/emotions-cloth-book/",
+      "source_sku": "moon-edu.com:\"000073\"",
+      "name": "كتاب قماش (نشء) مشاعر - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/198f175726ba5d77fe215084.webp",
+        "/catalog-images/d33c94ea09998911789acaf8.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/transportation-cloth-book/",
+      "source_sku": "moon-edu.com:\"000075\"",
+      "name": "كتاب قماش (نشء) وسائل النقل - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال يحتوي على ٨ صفحات باللغتين العربية والإنجليزية، بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/4a28c255b83847bcab725028.webp",
+        "/catalog-images/959ad1a7a8863d687928581d.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/black-and-white-cloth-book/",
+      "source_sku": "moon-edu.com:\"000046\"",
+      "name": "كتاب قماش أبيض وأسود - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/54b1855811c20aca15a90760.webp",
+        "/catalog-images/6e82d0d277bc924746f5282a.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/pillars-of-islam-cloth-book/",
+      "source_sku": "moon-edu.com:\"000048\"",
+      "name": "كتاب قماش أركان الإسلام - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/62e937097b6f2f4d605dd40e.webp",
+        "/catalog-images/6dc0cf65739d3a7da42d1e07.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/i-love-cloth-book/",
+      "source_sku": "moon-edu.com:\"000050\"",
+      "name": "كتاب قماش أنا أحب - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/49b5f388cd760841b66e855c.webp",
+        "/catalog-images/63694b308b56891d16a7e3de.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-the-creator-cloth-book/",
+      "source_sku": "moon-edu.com:\"000049\"",
+      "name": "كتاب قماش الله الخالق - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/aa53d18eac50377f2dfb917a.webp",
+        "/catalog-images/182eb5cb8a01168511f4d2ac.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-is-with-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000057\"",
+      "name": "كتاب قماش الله معي - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/c4e33d0a8cb0b5f906623d49.webp",
+        "/catalog-images/9b3208b6cab072327b82848b.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/sea-creatures-cloth-book/",
+      "source_sku": "moon-edu.com:\"000061\"",
+      "name": "كتاب قماش المخلوقات البحرية - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/6498780392402de50118d111.webp",
+        "/catalog-images/fb5f278307c30593889841a4.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/boys-prayer-learning-cloth-book/",
+      "source_sku": "moon-edu.com:\"000060\"",
+      "name": "كتاب قماش تعليم الصلاة (أولاد) - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/c8916347dae888d414c30c59.webp",
+        "/catalog-images/abd348be9b4f41e48f9e865e.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/girls-prayer-learning-cloth-book/",
+      "source_sku": "moon-edu.com:\"000059\"",
+      "name": "كتاب قماش تعليم الصلاة (بنات) - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/31b061c9a60e5194fa82181c.webp",
+        "/catalog-images/0a6e33d76046c57bd1683253.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/my-body-is-created-by-allah-cloth-book/",
+      "source_sku": "moon-edu.com:\"000052\"",
+      "name": "كتاب قماش جسمي خلق ربي - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/e92273edebcb21a6df84dc2c.webp",
+        "/catalog-images/beb55c081c6c83210a1d8526.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-protects-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000065\"",
+      "name": "كتاب قماش حفظني الله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/a50e800c69065dc334fdf2bd.webp",
+        "/catalog-images/a7aa7e8d765ac484d6312592.webp",
+        "/catalog-images/2a880cbc522ebeb99ad455bf.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/my-senses-are-created-by-allah-cloth-book/",
+      "source_sku": "moon-edu.com:\"000051\"",
+      "name": "كتاب قماش حواسي خلق ربي - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/f99b0c6e621292b64c17615b.webp",
+        "/catalog-images/1a4e49d26b13943b58b3892e.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-created-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000063\"",
+      "name": "كتاب قماش خلقني الله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/510b0c6ad92e0c1a7590ba29.webp",
+        "/catalog-images/e9eb4f1a4443b2d7d8154431.webp",
+        "/catalog-images/2a880cbc522ebeb99ad455bf.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-has-provided-for-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000064\"",
+      "name": "كتاب قماش رزقني الله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/3b9615bbac93688f2f7602a9.webp",
+        "/catalog-images/ec8f7d3508415141e3316d1b.webp",
+        "/catalog-images/2a880cbc522ebeb99ad455bf.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/little-one-contemplate-allahs-creation-cloth-book/",
+      "source_sku": "moon-edu.com:\"000062\"",
+      "name": "كتاب قماش صغيري تأمل في خلق الله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/f19495c9250babaac9bd2254.webp",
+        "/catalog-images/19f37c67d0b92d6e8edd2fd2.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/say-alhamdulillah-little-one-cloth-book/",
+      "source_sku": "moon-edu.com:\"000054\"",
+      "name": "كتاب قماش صغيري قل الحمد لله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/73a1cff2119af88d678ecc79.webp",
+        "/catalog-images/408ef8d1648b1a226673c7a6.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/say-bismillah-little-one-cloth-book/",
+      "source_sku": "moon-edu.com:\"000053\"",
+      "name": "كتاب قماش صغيري قل بسم الله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/eb3704a5369da4764607a6e5.webp",
+        "/catalog-images/66262e729549b1c40481852e.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/say-subhanallah-little-one-cloth-book/",
+      "source_sku": "moon-edu.com:\"000055\"",
+      "name": "كتاب قماش صغيري قل سبحان الله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/e27f756c7ba12af2619ee94f.webp",
+        "/catalog-images/e8b1641e7a6433397b58ad99.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-taught-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000066\"",
+      "name": "كتاب قماش علمني الله - MOON EDU",
+      "description": "كتاب قماش صغير وآمن للأطفال، يحتوي على ٨ صفحات بطباعة فاخرة، مقاوم للتلف وقابل للغسل في الغسالة، ومغلف في علبة كرتونية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/e0542fce34d11731e9adee6b.webp",
+        "/catalog-images/25564e7e4061ae70b3d058de.webp",
+        "/catalog-images/2a880cbc522ebeb99ad455bf.webp"
+      ],
+      "price": 1538,
+      "source_price": "4.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books",
+        "fabric-books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/my-first-quran-words-book/",
+      "source_sku": "moon-edu.com:\"000085\"",
+      "name": "كتاب كلماتي الأولى من القرآن الكريم - MOON EDU",
+      "description": "كتاب تعليمي ملون يعرّف الأطفال الصغار ببعض كلمات القرآن الكريم بطريقة بسيطة وممتعة، ويساعد على تنمية المفردات وربط ذكرياتهم الأولى بالقرآن من خلال التعلم البصري والمرآة التفاعلية.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/48485e4ecc814180daf36abe.webp",
+        "/catalog-images/e816f56f91ba144e06fdaae7.webp",
+        "/catalog-images/d557dbf12c3ca975850e8e62.webp",
+        "/catalog-images/58f7dcacc713203632dac85d.webp"
+      ],
+      "price": 6152,
+      "source_price": "16.00",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/what-does-surah-al-ikhlas-teach-us-book/",
+      "source_sku": "moon-edu.com:\"000079\"",
+      "name": "كتاب ماذا تخبرنا سورة الإخلاص؟ - MOON EDU",
+      "description": "كتاب تعليمي مبسط يساعد الأطفال على التعرّف على عظمة الله وتوحيده، والتأمل في نعمه وقدرته من خلال معاني سورة الإخلاص، بأسلوب ممتع يعزز الإيمان واليقين في قلوبهم.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/409b9ef2204fb1401742e4ae.webp",
+        "/catalog-images/1557a8db0c76404fbc241010.webp",
+        "/catalog-images/2c1c38ea1a63e2ae6fcd8bcc.webp"
+      ],
+      "price": 2115,
+      "source_price": "5.50",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    },
+    {
+      "source_url": "https://moon-edu.com/product/what-does-surah-al-sharh-teach-us-book/",
+      "source_sku": "moon-edu.com:\"000081\"",
+      "name": "كتاب ماذا تخبرنا سورة الشرح؟ - MOON EDU",
+      "description": "كتاب دافئ ومطمئن يساعد الأطفال على فهم معنى الأمل والثقة بالله، ويعلّمهم أن مع العسر يسرًا، ليزرع الطمأنينة ويقوّي صلتهم بالله من خلال معاني سورة الشرح.",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/dd96b771f90794de2fe900f0.webp",
+        "/catalog-images/f02ac747863f4c39153dd4ce.webp",
+        "/catalog-images/036f4a6f73288a7f2396c948.webp"
+      ],
+      "price": 2115,
+      "source_price": "5.50",
+      "source_currency": "USD",
+      "initial_stock": 5,
+      "categories": [
+        "books"
+      ]
+    }
+  ],
+  "skipped_existing_titles": [
+    "أتعرف على عالمي",
+    "أصلي مع بابا",
+    "أصلي مع ماما",
+    "أقوى من مخاوفي",
+    "أمي ماذا لو...؟",
+    "البالون",
+    "الحب هو",
+    "النونية الزرقاء",
+    "النونية الوردية",
+    "حضن ماما - الباندا الصغير",
+    "حضن ماما- القطة الصغيرة",
+    "حين تخاف البومة - انا و مشاعري",
+    "حين تصدق النمرة - انا و مشاعري",
+    "حين تغضب البرنيقة - انا و مشاعري",
+    "حين ولدت",
+    "حين يبعد البطريق - انا و مشاعري",
+    "حين يحزن القرد - انا و مشاعري",
+    "حين يحسن النمس التصرف - انا و مشاعري",
+    "حين يخجل الاسد - انا و مشاعري",
+    "حين يشارك القرش - انا و مشاعري",
+    "حين يقلق الديسم - انا و مشاعري",
+    "سلسلة ( أنا )",
+    "سلسلة ( عائلتي )",
+    "سلسلة أكبر وأتعلم (1)",
+    "سلسلة أكبر وأتعلم (2)",
+    "سلسلة الكتب القماشية",
+    "سلسلة روان وريان",
+    "سلسلة قصص الأنبياء",
+    "سلسلة قصص الأنبياء 2",
+    "سلسلة قصص الأنبياء 3",
+    "سلسلة قصص دينو",
+    "سلسلة قصص نبي الرحمة",
+    "سلسلة قصص نبي الرحمة 2",
+    "سيارة ماما - كتاب قماشي",
+    "قلب الأم",
+    "كيف تعلم تنينك  - الإعتذار",
+    "كيف تعلم تنينك  - الإنتظار",
+    "كيف تعلم تنينك  - المساعدة",
+    "كيف تعلم تنينك  - المشاركة",
+    "كيف تعلم تنينك أن يقول - شكرا لك",
+    "كيف تعلم تنينك ان يقول  - لو سمحت",
+    "مكتبتي الصغيرة",
+    "هل انت خجول؟ - تيم 1/4 جديد",
+    "هل تخاف الذهاب الى الطبيب - تيم 1/4 جديد",
+    "هل نتعلم المشاركة - تيم 1/4 جديد",
+    "هل يصعب عليك الانتظار - تيم 1/4 جديد",
+    "وداعاً لهايتي"
+  ]
+}
