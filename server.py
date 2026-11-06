@@ -327,6 +327,8 @@ class Handler(BaseHTTPRequestHandler):
                     language=a.get('language','العربية')
                     if language not in ('العربية','English'):
                         raise ValueError('Choose Arabic or English / اختر العربية أو الإنجليزية')
+                    if a.get('category') not in ('books','toys','fabric-books','board-books','cards','hardcover-books'):
+                        raise ValueError('Choose a valid product category / اختر فئة منتج صالحة')
                     values=(str(a['name'])[:150],a['category'],stored_age,language,money(a['price']),money(a['cost']) if cost_known else 0,stock,str(a['emoji'])[:20],str(a['description'])[:10000])
                     if a.get('id'): c.execute('UPDATE products SET name=?,category=?,age=?,language=?,price=?,cost=?,stock=?,emoji=?,description=? WHERE id=?',(*values,int(a['id'])))
                     else: a['id']=c.execute('INSERT INTO products(name,category,age,language,price,cost,stock,emoji,description) VALUES(?,?,?,?,?,?,?,?,?)',values).lastrowid
