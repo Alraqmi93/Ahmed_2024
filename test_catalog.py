@@ -72,7 +72,7 @@ class CatalogTest(unittest.TestCase):
                 c.execute("UPDATE products SET price=1234,stock=7,active=0,source_url='https://darheba.com/ar-om/products/old-alias' WHERE id=?",(pid,))
                 c.execute('UPDATE products SET active=1 WHERE id=2')
                 oid=c.execute("INSERT INTO orders(customer,phone,address,total,cost) VALUES('Test','90000000','Test',1234,0)").lastrowid
-                c.execute("INSERT INTO lines VALUES(?,?,'Test',1,1234,0)",(oid,pid))
+                c.execute("INSERT INTO lines(order_id,product_id,name,quantity,price,cost) VALUES(?,?,'Test',1,1234,0)",(oid,pid))
             with self.server.db() as c:apply_catalog(c,root)
             with self.server.db() as c:
                 self.assertEqual(c.execute("SELECT count(*) FROM products WHERE source_sku<>''").fetchone()[0],len(manifest['products']))

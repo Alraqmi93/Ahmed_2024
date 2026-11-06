@@ -7,6 +7,7 @@ from urllib.parse import parse_qs, urlsplit
 from decimal import Decimal, InvalidOperation
 from datetime import date
 from product_photos import MAX_BODY, UPLOAD_PATTERN, save_uploads, valid_image_url
+from product_options import read_options, active_options, selected_option, save_options, adjust_stock
 
 ROOT = Path(__file__).parent
 DATA = Path(os.environ.get('DATA_DIR', '/workspace/ahmed-business-data'))
@@ -45,6 +46,9 @@ def product_json(row):
     product['images']=json.loads(product.get('images','[]'))
     if product['image_url'] and product['image_url'] not in product['images']:
         product['images'].insert(0,product['image_url'])
+    options=read_options(product)
+    product['options']=[o for o in options if o.get('active',True)]
+    product['archived_options']=[o for o in options if not o.get('active',True)]
     return product
 
 def db():
@@ -70,6 +74,11 @@ def init():
             c.execute("ALTER TABLE products ADD COLUMN image_url TEXT NOT NULL DEFAULT ''")
         if 'images' not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
             c.execute("ALTER TABLE products ADD COLUMN images TEXT NOT NULL DEFAULT '[]'")
+        if 'options' not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
+            c.execute("ALTER TABLE products ADD COLUMN options TEXT NOT NULL DEFAULT '[]'")
+        for table,name,definition in [('lines','option_id','TEXT'),('lines','option_label',"TEXT NOT NULL DEFAULT ''"),('purchases','option_id','TEXT'),('purchases','option_label',"TEXT NOT NULL DEFAULT ''")]:
+            if name not in [r[1] for r in c.execute('PRAGMA table_info('+table+')')]:
+                c.execute('ALTER TABLE '+table+' ADD COLUMN '+name+' '+definition)
         if 'status' not in [r[1] for r in c.execute('PRAGMA table_info(purchases)')]:
             c.execute("ALTER TABLE purchases ADD COLUMN status TEXT NOT NULL DEFAULT 'received'")
         for name,definition in [('whatsapp_opened_at','TEXT'),('payment_token',"TEXT NOT NULL DEFAULT ''"),('delivery_method',"TEXT NOT NULL DEFAULT ''"),('completed_at','TEXT')]:
@@ -131,6 +140,7 @@ class Handler(BaseHTTPRequestHandler):
             for r in rows:
                 r.pop('cost')
                 r.pop('cost_known',None)
+                r.pop('archived_options',None)
             return self.send(200, rows)
         if path.startswith('/api/admin'):
             if not self.admin(): return self.send(401, {'error':'يرجى تسجيل الدخول'})
@@ -230,21 +240,26 @@ class Handler(BaseHTTPRequestHandler):
                     lines=[]; seen=set()
                     for item in items:
                         pid=int(item['id']); qty=whole_quantity(item['quantity'],1,100)
-                        if pid in seen or qty<1 or qty>100: raise ValueError('كمية غير صالحة')
-                        seen.add(pid)
+                        option_id=str(item.get('option_id') or '')
+                        if (pid,option_id) in seen: raise ValueError('كمية غير صالحة')
+                        seen.add((pid,option_id))
                         p=c.execute('SELECT * FROM products WHERE id=? AND active=1',(pid,)).fetchone()
-                        if not p or p['stock']<qty: raise ValueError('الكمية المطلوبة غير متوفرة، حدّث السلة')
-                        lines.append((p,qty))
-                    total=sum(p['price']*q for p,q in lines); cost=sum(p['cost']*q for p,q in lines)
+                        if not p:raise ValueError('Product is unavailable')
+                        option=selected_option(p,option_id)
+                        if (option['stock'] if option else p['stock'])<qty: raise ValueError('الكمية المطلوبة غير متوفرة، حدّث السلة')
+                        unit_price=option['price'] if option and option['price'] is not None else p['price']
+                        lines.append((p,qty,option,unit_price))
+                    total=sum(price*q for p,q,option,price in lines); cost=sum(p['cost']*q for p,q,option,price in lines)
                     token=secrets.token_urlsafe(32)
                     oid=c.execute('INSERT INTO orders(customer,phone,address,total,cost,payment_token) VALUES(?,?,?,?,?,?)',(customer,phone,address,total,cost,token)).lastrowid
                     c.execute('UPDATE orders SET delivery_method=? WHERE id=?',(delivery,oid))
-                    c.execute('UPDATE orders SET cost_known=? WHERE id=?',(int(all(p['cost_known'] for p,q in lines)),oid))
-                    for p,q in lines:
-                        c.execute('INSERT INTO lines VALUES(?,?,?,?,?,?)',(oid,p['id'],p['name'],q,p['price'],p['cost']))
-                        c.execute('UPDATE products SET stock=stock-? WHERE id=?',(q,p['id']))
+                    c.execute('UPDATE orders SET cost_known=? WHERE id=?',(int(all(p['cost_known'] for p,q,option,price in lines)),oid))
+                    for p,q,option,unit_price in lines:
+                        option_id=option['id'] if option else None
+                        c.execute('INSERT INTO lines(order_id,product_id,name,quantity,price,cost,option_id,option_label) VALUES(?,?,?,?,?,?,?,?)',(oid,p['id'],p['name'],q,unit_price,p['cost'],option_id,option['label'] if option else ''))
+                        adjust_stock(c,p['id'],option_id,-q)
                     c.commit()
-                    return self.send(201,{'id':oid,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':p['price']} for p,q in lines]})
+                    return self.send(201,{'id':oid,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':price,'option_id':option['id'] if option else None,'option_label':option['label'] if option else ''} for p,q,option,price in lines]})
                 if path == '/api/admin/archive':
                     c.execute('UPDATE products SET active=? WHERE id=?',(1 if a.get('active') else 0,int(a['id'])))
                 elif path == '/api/admin/adjustment':
@@ -295,6 +310,11 @@ class Handler(BaseHTTPRequestHandler):
                     c.execute('UPDATE products SET image_url=? WHERE id=?',(image[:2000],int(a['id'])))
                     c.execute('UPDATE products SET images=? WHERE id=?',(json.dumps(images),int(a['id'])))
                     c.execute('UPDATE products SET cost_known=? WHERE id=?',(int(cost_known),int(a['id'])))
+                    if 'options' in a:
+                        save_options(c,int(a['id']),a['options'],whole_quantity,money)
+                    else:
+                        current=c.execute('SELECT * FROM products WHERE id=?',(int(a['id']),)).fetchone()
+                        if active_options(current):c.execute('UPDATE products SET stock=? WHERE id=?',(sum(o['stock'] for o in active_options(current)),int(a['id'])))
                 elif path == '/api/admin/settings':
                     if 'whatsapp_number' in a:
                         number=str(a['whatsapp_number']).strip().replace(' ','').lstrip('+')
@@ -310,22 +330,26 @@ class Handler(BaseHTTPRequestHandler):
                     c.execute('BEGIN IMMEDIATE')
                     p=c.execute('SELECT * FROM products WHERE id=?',(pid,)).fetchone()
                     if not p: raise ValueError('المنتج غير موجود')
+                    option=selected_option(p,str(a.get('option_id') or ''))
                     status=a.get('status','received')
                     if status not in ['ordered','received']: raise ValueError('Invalid purchase status')
-                    purchase_id=c.execute('INSERT INTO purchases(product_id,supplier,quantity,unit_cost,status) VALUES(?,?,?,?,?)',(pid,supplier,q,cost,status)).lastrowid
+                    purchase_id=c.execute('INSERT INTO purchases(product_id,supplier,quantity,unit_cost,status,option_id,option_label) VALUES(?,?,?,?,?,?,?)',(pid,supplier,q,cost,status,option['id'] if option else None,option['label'] if option else '')).lastrowid
                     if status=='received':
                         c.execute('UPDATE purchases SET received_at=CURRENT_TIMESTAMP WHERE id=?',(purchase_id,))
                         avg=round((p['stock']*p['cost']+q*cost)/(p['stock']+q))
-                        c.execute('UPDATE products SET stock=stock+?,cost=?,cost_known=? WHERE id=?',(q,avg,int(p['cost_known'] or p['stock']==0),pid))
+                        adjust_stock(c,pid,option['id'] if option else None,q)
+                        c.execute('UPDATE products SET cost=?,cost_known=? WHERE id=?',(avg,int(p['cost_known'] or p['stock']==0),pid))
                 elif path == '/api/admin/receive':
                     c.execute('BEGIN IMMEDIATE')
                     purchase=c.execute("SELECT * FROM purchases WHERE id=? AND status='ordered'",(int(a['id']),)).fetchone()
                     if not purchase: raise ValueError('Purchase already received or missing')
                     p=c.execute('SELECT * FROM products WHERE id=?',(purchase['product_id'],)).fetchone()
+                    option=selected_option(p,str(a.get('option_id') or purchase['option_id'] or ''))
                     q=purchase['quantity']; cost=purchase['unit_cost']
                     avg=round((p['stock']*p['cost']+q*cost)/(p['stock']+q))
-                    c.execute('UPDATE products SET stock=stock+?,cost=?,cost_known=? WHERE id=?',(q,avg,int(p['cost_known'] or p['stock']==0),p['id']))
-                    c.execute("UPDATE purchases SET status='received',received_at=CURRENT_TIMESTAMP WHERE id=?",(purchase['id'],))
+                    adjust_stock(c,p['id'],option['id'] if option else None,q)
+                    c.execute('UPDATE products SET cost=?,cost_known=? WHERE id=?',(avg,int(p['cost_known'] or p['stock']==0),p['id']))
+                    c.execute("UPDATE purchases SET status='received',received_at=CURRENT_TIMESTAMP,option_id=?,option_label=? WHERE id=?",(option['id'] if option else None,option['label'] if option else '',purchase['id']))
                 elif path == '/api/admin/status':
                     status=a['status']; oid=int(a['id'])
                     if status not in ['new','confirmed','paid','completed','cancelled']: raise ValueError('حالة غير صالحة')
@@ -336,7 +360,7 @@ class Handler(BaseHTTPRequestHandler):
                         raise ValueError('Verify the bank transfer before completing the order / تحقّق من التحويل أولاً')
                     if old['status']=='cancelled' and status!='cancelled': raise ValueError('أنشئ طلباً جديداً بعد الإلغاء')
                     if status=='cancelled' and old['status']!='cancelled':
-                        for line in c.execute('SELECT * FROM lines WHERE order_id=?',(oid,)).fetchall(): c.execute('UPDATE products SET stock=stock+? WHERE id=?',(line['quantity'],line['product_id']))
+                        for line in c.execute('SELECT * FROM lines WHERE order_id=?',(oid,)).fetchall():adjust_stock(c,line['product_id'],line['option_id'],line['quantity'],restock=True)
                     c.execute('UPDATE orders SET status=? WHERE id=?',(status,oid))
                     if status=='completed' and old['status']!='completed':
                         c.execute('UPDATE orders SET completed_at=COALESCE(completed_at,CURRENT_TIMESTAMP) WHERE id=?',(oid,))
