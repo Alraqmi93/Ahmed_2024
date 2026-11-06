@@ -59,6 +59,8 @@ def db():
 
 def init():
     with db() as c:
+        existing_store=bool(c.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='products'").fetchone())
+        if existing_store:existing_store=c.execute('SELECT count(*) FROM products').fetchone()[0]>0
         c.executescript('''
         CREATE TABLE IF NOT EXISTS products(id INTEGER PRIMARY KEY, name TEXT NOT NULL, category TEXT NOT NULL, age TEXT NOT NULL, language TEXT NOT NULL, price INTEGER NOT NULL, cost INTEGER NOT NULL, stock INTEGER NOT NULL, emoji TEXT NOT NULL, description TEXT NOT NULL, active INTEGER DEFAULT 1);
         CREATE TABLE IF NOT EXISTS orders(id INTEGER PRIMARY KEY, customer TEXT NOT NULL, phone TEXT NOT NULL, address TEXT NOT NULL, status TEXT NOT NULL DEFAULT 'new', total INTEGER NOT NULL, cost INTEGER NOT NULL, created TEXT DEFAULT CURRENT_TIMESTAMP);
@@ -102,6 +104,8 @@ def init():
         if os.environ.get('LOAD_BUNDLED_CATALOG','1') != '0':
             from catalog_import import apply_catalog
             apply_catalog(c, ROOT)
+        from maintenance import apply_requested_stock_reset
+        apply_requested_stock_reset(c,existing_store)
 
 def money(value):
     n = round(float(value)*1000)

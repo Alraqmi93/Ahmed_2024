@@ -12,7 +12,7 @@ const ageLabel=p=>productAges(p).length?productAges(p).join(' / ')+' '+t('سنو
 const desc=p=>lang==='en'?(p.description_en||p.description||'Description coming soon.'):p.description;
 function freeDeliveryNote(total=null){return total!==null&&total>50000?t('طلبك مؤهل للتوصيل المجاني داخل سلطنة عُمان (أكثر من ٥٠ ر.ع.).','Your order qualifies for free delivery within Oman (over OMR 50).'):t('توصيل مجاني داخل سلطنة عُمان للطلبات التي تزيد عن ٥٠ ر.ع. تُؤكد رسوم التوصيل للطلبات الأخرى قبل الدفع.','Free delivery within Oman on orders over OMR 50. Delivery charges for other orders are confirmed before payment.')}
 function toast(s){$('#toast').textContent=s;$('#toast').style.display='block';setTimeout(()=>$('#toast').style.display='none',4000)}
-async function api(path,data){const r=await fetch(path,{method:data?'POST':'GET',headers:data?{'Content-Type':'application/json'}:{},body:data?JSON.stringify(data):undefined});const a=await r.json();if(!r.ok)throw Error(a.error||'Request failed');return a}
+async function api(path,data){const r=await fetch(path,{method:data?'POST':'GET',headers:data?{'Content-Type':'application/json'}:{},body:data?JSON.stringify(data):undefined});const a=await r.json();if(!r.ok){const error=Error(a.error||'Request failed');error.status=r.status;throw error}return a}
 function modal(html){$('#modal-content').innerHTML=html;if(!$('#modal').open)$('#modal').showModal()}
 $('.close').onclick=()=>{if(!activePhotoUpload)$('#modal').close()};$('#modal').onclick=e=>{if(e.target===$('#modal')&&!activePhotoUpload)$('#modal').close()};
 $('#modal').addEventListener('cancel',e=>{if(activePhotoUpload)e.preventDefault()});
@@ -106,7 +106,22 @@ function checkout(){
 }
 
 $('#admin-open').onclick=async()=>{try{await loadAdmin();openAdmin()}catch{login()}};
-function login(){modal(`<h2>${t('تسجيل دخول الإدارة','Shop management')}</h2><form id="login-form"><label>${t('كلمة المرور','Password')}<input name="password" type="password" required autocomplete="current-password"></label><button type="submit">${t('دخول','Sign in')}</button></form><button type="button" id="forgot-password" class="recovery-link">${t('نسيت كلمة المرور؟','Forgot password?')}</button>`);$('#forgot-password').onclick=passwordRecovery;$('#login-form').onsubmit=async e=>{e.preventDefault();try{await api('/api/login',Object.fromEntries(new FormData(e.target)));await loadAdmin();$('#modal').close();openAdmin()}catch(err){toast(err.message)}}}
+function login(){
+ modal(`<h2>${t('تسجيل دخول الإدارة','Shop management')}</h2><form id="login-form"><label>${t('كلمة المرور','Password')}<input name="password" type="password" required autocomplete="current-password" aria-describedby="login-error"></label><p id="login-error" class="login-error" role="alert" hidden></p><button type="submit">${t('دخول','Sign in')}</button></form><button type="button" id="forgot-password" class="recovery-link">${t('نسيت كلمة المرور؟','Forgot password?')}</button>`);
+ const form=$('#login-form'),password=form.elements.password,errorNote=$('#login-error'),button=form.querySelector('button[type=submit]'),forgot=$('#forgot-password');
+ forgot.onclick=passwordRecovery;
+ password.oninput=()=>{errorNote.hidden=true;errorNote.textContent='';password.removeAttribute('aria-invalid')};
+ form.onsubmit=async e=>{
+  e.preventDefault();button.disabled=true;forgot.disabled=true;errorNote.hidden=true;password.removeAttribute('aria-invalid');let authenticated=false;
+  try{await api('/api/login',Object.fromEntries(new FormData(form)));authenticated=true;await loadAdmin();$('#modal').close();openAdmin()}
+  catch(error){
+   const wrongPassword=!authenticated&&error.status===401;
+   errorNote.textContent=wrongPassword?t('كلمة المرور غير صحيحة. حاول مرة أخرى.','Password is incorrect. Please try again.'):error.status===429?t('محاولات كثيرة. انتظر خمس دقائق ثم حاول مجدداً.','Too many attempts. Please wait five minutes and try again.'):authenticated?t('تم تسجيل الدخول، لكن تعذّر تحميل الإدارة. حاول مجدداً.','Signed in, but management could not load. Please try again.'):t('تعذّر تسجيل الدخول. تحقق من الاتصال وحاول مجدداً.','Unable to sign in. Check your connection and try again.');
+   errorNote.hidden=false;if(wrongPassword){password.setAttribute('aria-invalid','true');password.focus();password.select()}
+  }finally{button.disabled=false;forgot.disabled=false}
+ };
+}
+
 function passwordRecovery(){
  modal(`<h2>${t('استعادة دخول الإدارة','Recover admin access')}</h2><p>${t('لمالك المتجر: يمكنك تعيين كلمة مرور جديدة من حساب الاستضافة الخاص بك. لم تُفعّل خدمة إرسال روابط الاستعادة بالبريد الإلكتروني بعد.','For the store owner: set a new password through your hosting account. Email reset links have not been configured yet.')}</p><div class="recovery-contacts"><strong>${t('بريد التواصل لاستعادة الدخول','Recovery contact emails')}</strong><a href="mailto:ahmedalraqmi1993@gmail.com" dir="ltr">ahmedalraqmi1993@gmail.com</a><a href="mailto:ahmedalraqmi93@gmail.com" dir="ltr">ahmedalraqmi93@gmail.com</a><small>${t('هذه روابط للتواصل، ولا ترسل رسائل استعادة تلقائية.','These are contact links; they do not send automated password-reset emails.')}</small></div><ol class="recovery-steps"><li>${t('افتح لوحة Render وسجّل الدخول بحسابك.','Open the Render dashboard and sign in to your account.')}</li><li>${t('اختر خدمة lil-marvels ثم Environment.','Select the lil-marvels service, then Environment.')}</li><li>${t('عدّل ADMIN_PASSWORD وأدخل كلمة مرور جديدة قوية.','Edit ADMIN_PASSWORD and enter a strong new password.')}</li><li>${t('احفظ التغييرات وانتظر إعادة تشغيل الخدمة وظهور الحالة Live.','Save your changes and wait for the service to restart and show Live.')}</li><li>${t('ارجع إلى المتجر وسجّل الدخول بكلمة المرور الجديدة.','Return to the shop and sign in with your new password.')}</li></ol><p class="notice">${t('لا تشارك كلمة المرور في واتساب أو في المحادثات. تغييرها لا يحذف المنتجات أو الطلبات.','Keep your password private. Changing it does not delete products or orders.')}</p><a class="button" href="https://dashboard.render.com/" target="_blank" rel="noopener noreferrer">${t('فتح لوحة Render','Open Render dashboard')} ↗</a><button type="button" id="back-to-login" class="recovery-link">${t('العودة لتسجيل الدخول','Back to sign in')}</button>`);
  $('#back-to-login').onclick=login;
