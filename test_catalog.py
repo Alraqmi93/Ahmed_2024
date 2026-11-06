@@ -25,6 +25,7 @@ class CatalogTest(unittest.TestCase):
         self.server.init()
         expected=json.loads(Path(__file__).with_name('catalog.json').read_text(encoding='utf-8'))['products']
         expected+=json.loads(Path(__file__).with_name('supplier-catalog.json').read_text(encoding='utf-8'))['products']
+        expected+=json.loads(Path(__file__).with_name('asfar-catalog.json').read_text(encoding='utf-8'))['products']
         with self.server.db() as c:
             rows=c.execute("SELECT * FROM products WHERE source_url<>''").fetchall()
             self.assertEqual(len(rows),len(expected))
@@ -36,7 +37,7 @@ class CatalogTest(unittest.TestCase):
                 if 'images' in product:
                     self.assertEqual(json.loads(row['images']),product['images'])
                     for image in product['images']:self.assertTrue((Path(__file__).parent/image.lstrip('/')).is_file())
-                self.assertEqual(row['stock'],0)
+                self.assertEqual(row['stock'],product.get('initial_stock',0))
                 self.assertEqual(row['cost_known'],0)
                 self.assertTrue((Path(__file__).parent/row['image_url'].lstrip('/')).is_file())
             first=rows[0]['id']
@@ -48,6 +49,32 @@ class CatalogTest(unittest.TestCase):
             self.assertEqual((row['price'],row['stock'],row['active']),(1234,9,0))
             self.assertEqual(c.execute("SELECT count(*) FROM products WHERE source_url<>''").fetchone()[0],len(expected))
             self.assertEqual(c.execute("SELECT value FROM settings WHERE key='whatsapp_number'").fetchone()[0],'96890000000')
+
+    def test_asfar_batch_stock_galleries_and_repeat_upload(self):
+        from supplier_import import apply_supplier_file
+        self.server.init()
+        root=Path(__file__).parent
+        with self.server.db() as c:
+            rows=c.execute("SELECT * FROM products WHERE source_url LIKE 'https://darasfarstore.com/%'").fetchall()
+            self.assertEqual(len(rows),27)
+            self.assertEqual(sum(len(json.loads(r['images'])) for r in rows),177)
+            self.assertEqual(max(len(json.loads(r['images'])) for r in rows),15)
+            self.assertTrue(all(r['stock']==5 for r in rows))
+            first,second=rows[0]['id'],rows[1]['id']
+            c.execute('UPDATE products SET stock=2,price=1111,active=0 WHERE id=?',(first,))
+            c.execute('UPDATE products SET deleted=1,active=0 WHERE id=?',(second,))
+        with tempfile.TemporaryDirectory() as directory:
+            temp=Path(directory)
+            (temp/'catalog-images').symlink_to(root/'catalog-images',target_is_directory=True)
+            manifest=json.loads((root/'asfar-catalog.json').read_text(encoding='utf-8'))
+            manifest['version']='repeat-asfar-upload-test'
+            (temp/'asfar-catalog.json').write_text(json.dumps(manifest),encoding='utf-8')
+            with self.server.db() as c:apply_supplier_file(c,temp,'asfar-catalog.json')
+        self.server.init()
+        with self.server.db() as c:
+            self.assertEqual(c.execute('SELECT stock,price,active FROM products WHERE id=?',(first,)).fetchone()[:],(2,1111,0))
+            self.assertEqual(c.execute('SELECT deleted FROM products WHERE id=?',(second,)).fetchone()[0],1)
+            self.assertEqual(c.execute("SELECT count(*) FROM products WHERE source_url LIKE 'https://darasfarstore.com/%'").fetchone()[0],27)
 
     def test_modified_demo_is_preserved(self):
         os.environ['LOAD_BUNDLED_CATALOG']='0'

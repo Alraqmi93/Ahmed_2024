@@ -28,7 +28,10 @@ def existing_product(connection,product):
         if source and source==source_identity(row[1]):return row[0]
         if sku and sku==row[2]:return row[0]
         # A matching title alone must not merge distinct editions with separate
-        # source links or supplier SKUs. Use titles for manually entered records.
-        if (source and row[1]) or (sku and row[2]):continue
+        # links at the same supplier. Compare titles across suppliers and for
+        # manually entered records.
+        if source and row[1]:
+            if source.split('/')[0]==source_identity(row[1]).split('/')[0]:continue
+        elif sku and row[2]:continue
         if names & ({title_identity(row[3]),title_identity(row[4])}-{''}):return row[0]
     return None

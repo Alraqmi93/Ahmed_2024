@@ -334,15 +334,15 @@ class Handler(BaseHTTPRequestHandler):
                     image=str(a.get('image_url','')).strip()
                     if 'images' in a:
                         images=a['images']
-                        if not isinstance(images,list) or len(images)>10 or any(not valid_image_url(url) for url in images):
-                            raise ValueError('Use up to 10 valid product photos / اختر حتى ١٠ صور صالحة')
+                        if not isinstance(images,list) or len(images)>30 or any(not valid_image_url(url) for url in images):
+                            raise ValueError('Use up to 30 valid product photos / اختر حتى ٣٠ صورة صالحة')
                         images=list(dict.fromkeys(images))
                         image=images[0] if images else ''
                     else:
                         previous=c.execute('SELECT images FROM products WHERE id=?',(int(a['id']),)).fetchone()
                         images=json.loads(previous['images']) if previous else []
                         images=([image] if image else [])+[url for url in images if url!=image]
-                    if len(images)>10 or any(not valid_image_url(url) for url in images):raise ValueError('Use up to 10 valid HTTPS image links or uploaded photos')
+                    if len(images)>30 or any(not valid_image_url(url) for url in images):raise ValueError('Use up to 30 valid HTTPS image links or uploaded photos')
                     c.execute('UPDATE products SET image_url=? WHERE id=?',(image[:2000],int(a['id'])))
                     c.execute('UPDATE products SET images=? WHERE id=?',(json.dumps(images),int(a['id'])))
                     c.execute('UPDATE products SET cost_known=? WHERE id=?',(int(cost_known),int(a['id'])))

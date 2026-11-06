@@ -1,0 +1,536 @@
+{
+  "version": "asfar-upload-20261106-part001-v1",
+  "products": [
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D8%AA%D8%B9%D8%B1%D9%81-%D8%B9%D9%84%D9%89-%D8%B9%D8%A7%D9%84%D9%85%D9%8A",
+      "source_sku": "darasfarstore.com:R3",
+      "name": "أتعرف على عالمي",
+      "description": "وصف المنتج\n6 كتب كرتونية صغيرة الحجم لتناسب أيدي أحبائنا الصغار،\nتتنوع مواضيعها لتثري وتنمي مهارات الطفل اللغوية والمعرفية، من خلال تعليمه ما يراه في السماء والشارع والمزرعة والبحر والبيت وحديقة الحيوانات.\nتعكس السلسلة للطفل بيذته من خلال رسوم تمثلها.\nتتكون المجموعة من ستة كتب:\n- في السماء\n- في المزرعة\n- في البحر\n- في البيت\n- في الشارع\n- في حديقة الحيوان\nإعداد: فيء موسى\nرسوم: رفاه تباب\nمقاس العلبة: 18cm*23cm\nمقاس الكتاب: 7cm*7cm\nعدد الصفحات: 10 صفحات لكل كتاب\nISBN:9786039208983",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/0904d95d904cc47ae69ea907.webp",
+        "/catalog-images/beb55603a797795b8b6b96fd.webp",
+        "/catalog-images/15f76e35338b4b75e62c223e.webp"
+      ],
+      "price": 5790,
+      "source_price": "5.79",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D8%B5%D9%84%D9%8A-%D9%85%D8%B9-%D8%A8%D8%A7%D8%A8%D8%A7",
+      "source_sku": "darasfarstore.com:A53",
+      "name": "أصلي مع بابا",
+      "description": "وصف المنتج\nلِيَعش أطفالنا روحانية الصلاة وسكينتها، ولتكن الصلاة ملاذًا لهم منذُ صغرهم.\nالكتاب يمهد للأطفال حب الصلاة و يؤكد على دور الأب كقدوة حسنة لأطفاله.\nيكتسب الطفل من الكتاب المفردات اللغوية المرتبطة بأركان الصلاة مثل الركوع والسجود.\nنوع الكتاب: كرتوني\nتأليف: فيء موسى\nرسوم: ياسر الجزار\nمقاس الكتاب: 15cm*15cm\nعدد الصفحات: 18\nISBN: 9786039161929",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/ab336ca5b939923f5045e5fd.webp",
+        "/catalog-images/83dad4d98f13415999015c08.webp",
+        "/catalog-images/9e2df67516d5f8141f38689e.webp"
+      ],
+      "price": 4000,
+      "source_price": "4.00",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D8%B5%D9%84%D9%8A-%D9%85%D8%B9-%D9%85%D8%A7%D9%85%D8%A7",
+      "source_sku": "darasfarstore.com:A52",
+      "name": "أصلي مع ماما",
+      "description": "وصف المنتج\nلِيعش أطفالنا روحانية الصلاة وسكينتها، ولتكن الصلاة ملاذاً لهم منذ صغرهم.\nالكتاب يمهد للأطفال حب الصلاة ويؤكد على دور الأم كقدوة حسنة لأطفالها.\nيكتسب الطفل من الكتاب المفردات اللغوية المرتبطة بأركان الصلاة مثل الركوع والسجود.\nنوع الكتاب: كرتوني\nتأليف: فيء موسى\nرسوم: ياسر الجزار\nمقاس الكتاب: 15cm*15cm\nعدد الصفحات: 18\nISBN: 9786039161912",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/6f3810fc0eec01fa4a93e48d.webp",
+        "/catalog-images/ca0669a610e31bf15f22f6da.webp",
+        "/catalog-images/c961abde4617895449ebed78.webp"
+      ],
+      "price": 4000,
+      "source_price": "4.00",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D9%82%D9%88%D9%89-%D9%85%D9%86-%D9%85%D8%AE%D8%A7%D9%88%D9%81%D9%8A",
+      "source_sku": "darasfarstore.com:p4",
+      "name": "أقوى من مخاوفي",
+      "description": "وصف المنتج\nبعد أن تغلبت \"وردة\" على خوفها من طبيب الأسنان تعود سعيدة بشجاعتها إلى المنزل، فتكتشف خوف جدتها من البالون!\nكيف استطاعت \"وردة\" مساعدة جدتها في التغلب على خوفها؟\nتظهر القصة أن المخاوف لا تقتصر على الصغار، فتشجعهم على التعبير عن خوفهم وعدم الخجل منه.\nنوع الكتاب: ورقي\nتأليف: دانا فلاته\nرسوم: إسراء مجدي\nمقاس الكتاب: 22cm*22cm\nعدد الصفحات: 34\nISBN:9786039211679",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/64fa01f67fa55e95a08a2bf6.webp",
+        "/catalog-images/865eeb6c17c855314420cbc7.webp",
+        "/catalog-images/b1e77b5d88ab283efe5ee9f8.webp",
+        "/catalog-images/8487542a7a29907c54993524.webp",
+        "/catalog-images/dda350188c0273f6193ab927.webp",
+        "/catalog-images/17521ded7de071e36a9d3503.webp",
+        "/catalog-images/020b21eb353f974198ff9cd6.webp",
+        "/catalog-images/052d725536f7d72d23baa209.webp",
+        "/catalog-images/e08dbd7bebeea6885da251ff.webp",
+        "/catalog-images/0cccc4f088f41fa4a19a82d3.webp"
+      ],
+      "price": 3610,
+      "source_price": "3.61",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D9%85%D9%8A-%D9%85%D8%A7%D8%B0%D8%A7-%D9%84%D9%88",
+      "source_sku": "darasfarstore.com:A75",
+      "name": "أمي ماذا لو...؟",
+      "description": "وصف المنتج\nيلعب أمين مع والدته لعبتهما المعتادة، حيث يطرح عليها أسئلة عن المواقف التي قد تزعجها، متسائلًا عن بقاء حبها له دون قيد أو شرط، وفي جميع المواقف يبقى حب الأم حبًا غير مشروط، حبًا دائمًا وباقيًا مهما حدث.\nنوع الكتاب: ورقي ، غلاف كرتوني\nتأليف: وفاء السبيل\nرسوم: سارة مرعي\nمقاس الكتاب: 22.5cm*22.5cm\nعدد الصفحات: 28\nISBN:\n9786039179061",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/99bc00cecc28aa7dd4ae433b.webp",
+        "/catalog-images/44d4e063fabed1e802df6b17.webp",
+        "/catalog-images/4d0c704aa57c799f2786fd79.webp",
+        "/catalog-images/64146c2753e488c0bed5c25d.webp",
+        "/catalog-images/e1e42831eff83427487a8e18.webp"
+      ],
+      "price": 3470,
+      "source_price": "3.47",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D8%A8%D8%A7%D9%84%D9%88%D9%86",
+      "source_sku": "darasfarstore.com:R11",
+      "name": "البالون",
+      "description": "وصف المنتج\nيظهر بالون فجأة، فيجتمع حوله الناس..ماهذا البالون؟\nقصة صامتة تطرح عدة أسئلة، منها:\nهل سبق أن قابلت بالونًا؟\nيحتوي الكتاب على شرح للكتب الصامتة وكيف يمكن قراءتها مع الأطفال.\nنوع الكتاب: ورقي، غلاف كرتوني\nتأليف: فيء موسى\nرسوم: ميس الدويري\nمقاس الكتاب: 22cm*22cm\nعدد الصفحات: 42\nISBN: 9786039208969",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/8f2092aa1a84f29e0e8d1347.webp",
+        "/catalog-images/a73efc69965c9e5134631ca9.webp",
+        "/catalog-images/8a6d26528bb35158cf92bf84.webp",
+        "/catalog-images/c3810ed9e720f7766c63c063.webp",
+        "/catalog-images/d84e1ff500b1615c5dac43fd.webp",
+        "/catalog-images/fb5208cbece52280616a4bd5.webp",
+        "/catalog-images/95c77f1498d51d6c05f80296.webp",
+        "/catalog-images/5b7ac911f2b0a20e9c2b6cda.webp",
+        "/catalog-images/138bdbeb68f5f1c2bb023af8.webp",
+        "/catalog-images/3a7b8bb104118c37b8a3e065.webp"
+      ],
+      "price": 4810,
+      "source_price": "4.81",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D9%86%D9%88%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%B2%D8%B1%D9%82%D8%A7%D8%A1",
+      "source_sku": "darasfarstore.com:R5",
+      "name": "النونية الزرقاء",
+      "description": "وصف المنتج\nقصة مصورة عن طفل اسمه \"عمّار\" أثناء تدريبه على ترك الحفاظ،\nتتميز بمناسبتها لثقافتنا وقواعد النظافة لدينا وتعززها لدى الصغير، مثل استخدام الماء للتنظف بعد الانتهاء من استخدام النونية.\nتحتوي على إرشادات لمساعدة الأم وملصقات لتحفيز الطفل الصغير.\nنوع الكتاب: كرتوني\nتأليف: ألفت الزهر\nرسوم: رفاه تباب\nمقاس الكتاب: 20cm*20cm\nعدد الصفحات: 24\nISBN:9786039211693",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/b826f4ab3c274286d29dc78f.webp",
+        "/catalog-images/34d991828e0831d250d561c7.webp",
+        "/catalog-images/10cf162b2f8d8d9576cab264.webp",
+        "/catalog-images/21b40a22a6eb9028031efa60.webp",
+        "/catalog-images/00480fc166492453f7df5057.webp",
+        "/catalog-images/0e27aed39b0da5726c08f6d7.webp",
+        "/catalog-images/07b9765ff1bf1886bc41485d.webp"
+      ],
+      "price": 4990,
+      "source_price": "4.99",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D9%86%D9%88%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A%D8%A9",
+      "source_sku": "darasfarstore.com:R4",
+      "name": "النونية الوردية",
+      "description": "وصف المنتج\nقصة مصورة عن طفلة اسمها \"لين\" أثناء تدريبها على ترك الحفاظ،\nتتميز بمناسبتها لثقافتنا وفواعد النظافة لدينا وتعززها لدى الصغير، مثل استخدام الماء للتنظف بعد الانتهاء من استخدام النونية.\nتحتوي على إرشادات لمساعدة الأم وملصقات لتحفيز الطفلة الصغيرة.\nنوع الكتاب: كرتوني\nتأليف: ألفت الزهر\nرسوم: رفاه تباب\nمقاس الكتاب: 20cm*20cm\nعدد الصفحات: 24\nISBN:9786039211686",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/6d230ca2f2db22f316adbc01.webp",
+        "/catalog-images/1886f1aa2308fe9bf77b2c76.webp",
+        "/catalog-images/a7c23cbd73a6719f205770bb.webp",
+        "/catalog-images/4b67b0f421640327aa086ad4.webp",
+        "/catalog-images/4cd261dfc3c3a247d88cfa60.webp",
+        "/catalog-images/23a8ebc24f7f40a5c1be1cb1.webp",
+        "/catalog-images/0469a2950c12cd79ffb70def.webp",
+        "/catalog-images/6a69cc697b2350ed327e0c19.webp",
+        "/catalog-images/bc9559123f5a141a5eefb378.webp"
+      ],
+      "price": 4990,
+      "source_price": "4.99",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%AD%D8%B6%D9%86-%D9%85%D8%A7%D9%85%D8%A7-%D8%A7%D9%84%D8%A8%D8%A7%D9%86%D8%AF%D8%A7-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1",
+      "source_sku": "darasfarstore.com:A1",
+      "name": "حضن ماما - الباندا الصغير",
+      "description": "وصف المنتج\nكتاب ولعبة معًا!\nوفرصة لقضاء أوقات سعيدة مع صغاركم،\nففي حضن ماما يجد الصغير الحب والمرح..\nنوع الكتاب: كرتوني\nنص: فيء موسى\nرسوم: رفاه تباب\nمقاس الكتاب: 15cm*22cm\nعدد الصفحات: 10\nISBN: 9786039208990",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/ca7bf8ce6b7d5ab045be5f3c.webp",
+        "/catalog-images/eef63d16823572fa17d63416.webp"
+      ],
+      "price": 3580,
+      "source_price": "3.58",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%AD%D8%B6%D9%86-%D9%85%D8%A7%D9%85%D8%A7-%D8%A7%D9%84%D9%82%D8%B7%D8%A9-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A9",
+      "source_sku": "darasfarstore.com:A3",
+      "name": "حضن ماما- القطة الصغيرة",
+      "description": "وصف المنتج\nكتاب ولعبة معاً!\nما ألطف القطط! يمكنك القراءة واللعب مع صغيرك في الوقت نفسه.\nعن طريق اللعب يسهل تكوين علاقة صداقة مع الكتاب منذ الصغر.\nنوع الكتاب: كرتوني\nنص: فيء موسى\nرسوم: رفاه تباب\nمقاس الكتاب: 15cm*22cm\nعدد الصفحات: 10\nISBN: 9786039208990",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/15864e561f3b0f9e0ca27857.webp",
+        "/catalog-images/ae5e93fc4545c0a9624a4589.webp"
+      ],
+      "price": 3580,
+      "source_price": "3.58",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%AD%D9%8A%D9%86-%D9%88%D9%84%D8%AF%D8%AA",
+      "source_sku": "darasfarstore.com:A22",
+      "name": "حين ولدت",
+      "description": "وصف المنتج\nقبل أن أولد لم أتذوق ولم أشم ولم ألمس ولم أبصر ولم أسمع!\nيفتح هذا الكتاب أبواب الامتنان ويجعل الطفل يتساءل عن قيمة حواسه الخمس ويقدم مفهوم الحواس بطريقة غير معتادة.\n* كتاب من قائمة أميز 100 كتاب مصور في معرض بولونيا لكتب الأطفال لعام 2019.\nنوع الكتاب: ورقي، غلاف كرتوني\nتأليف: إيزابيل مينيوس مارتنز\nرسوم: مادلينا ماتوسو\nمقاس الكتاب: 20cm*22.5cm\nعدد الصفحات: 24\nISBN:\n9786039159070",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/5fa06d0a4200def91d864c98.webp",
+        "/catalog-images/88c5ccf48d0fbcc60b08e9be.webp",
+        "/catalog-images/2c11146f04ba34c45b6bec20.webp",
+        "/catalog-images/f1ec50081b06f49b14527a8e.webp",
+        "/catalog-images/77ceda4203f3fe589610aeb9.webp"
+      ],
+      "price": 2330,
+      "source_price": "2.33",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A3%D9%86%D8%A7",
+      "source_sku": "darasfarstore.com:E2",
+      "name": "سلسلة ( أنا )",
+      "description": "وصف المنتج\nسلسلة تشجع الطفل على الاعتماد على النفس؛ ليلبس ملابسه بنفسه وينام في غرفته ويختار البديل الصحي للطعام\nويدرك أن جسمه خاص به فلا يسمح لأحد بلمسه.\nتتكون السلسلة من 4 كتب:\n- جسمي لي\n- طعامي الصحي\n- ألبس ملابسي بنفسي\n- أنام في غرفتي\nنوع الكتاب: كرتوني\nتأليف: فيء موسى\nرسوم: رفاه تباب\nمقاس الكتاب: 15cm*15cm\nISBN:\n9786039181552\n*  تحصل على رابط كتيب أنشطة مجاني الكتروني PDF عند شراء السلسلة",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/c85385be9ea975d4f33335c5.webp",
+        "/catalog-images/bad0a8915b96eb039daf1f14.webp",
+        "/catalog-images/c406f349d37681ca3d9603de.webp",
+        "/catalog-images/e9fbd78fd1fc9892faf6c22f.webp",
+        "/catalog-images/f962806a6a6cdcb71c97f24a.webp",
+        "/catalog-images/e057655dad2425ff7fd8a89f.webp",
+        "/catalog-images/f19a220e08e1b81ee2fb2431.webp",
+        "/catalog-images/77f2f7e9cd75148e0fe7c1a9.webp",
+        "/catalog-images/8d1a281d8122dc2448788431.webp"
+      ],
+      "price": 7750,
+      "source_price": "7.75",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%B9%D8%A7%D8%A6%D9%84%D8%AA%D9%8A",
+      "source_sku": "darasfarstore.com:E1",
+      "name": "سلسلة ( عائلتي )",
+      "description": "وصف المنتج\nسلسلة تتناول علاقة الطفل مع عائلته الصغيرة وعائلته الممتدة.\nيتعلم منها آداب وقيم، وتهيئة لاستقبال المولود الجديد، كما تؤكد حب والدته الدائم وغير المشروط.\nتتكون السلسلة من أربعة كتب:\n- مفاجأة ماما\n- أحبك كثيرًا\n- في بيت جدي\n- متعة المشاركة\nنوع الكتاب: كرتوني\nتأليف: فيء موسى\nرسوم: رفاه تباب\nمقاس الكتاب: 15cm*15cm\nISBN:\n9786039181590",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/58866e7d3e9c8a5d8a3aa222.webp",
+        "/catalog-images/d363788f12d23cb9edf69916.webp",
+        "/catalog-images/36ce2ae4094b96bca6e0807d.webp",
+        "/catalog-images/9442c4bc9683c021e0273e0e.webp",
+        "/catalog-images/c4110be203cc225c58e86bbb.webp",
+        "/catalog-images/d06bea6bd54bd041eda99090.webp",
+        "/catalog-images/339e906e458a20f1165cd10b.webp",
+        "/catalog-images/4f09f1c62b34437188d15d01.webp"
+      ],
+      "price": 7750,
+      "source_price": "7.75",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A3%D9%83%D8%A8%D8%B1-%D9%88%D8%A3%D8%AA%D8%B9%D9%84%D9%85-1",
+      "source_sku": "darasfarstore.com:A48",
+      "name": "سلسلة أكبر وأتعلم (1)",
+      "description": "وصف المنتج\nتقدم هذه السلسلة المفاهيم الرياضية (العد التصاعدي)، المفردات اللغوية لأصوات الحيوانات، والمفاهيم المكانية من خلال ثلاثة كتب:\n- كم عصفوراً على الشجرة؟\n- صوت من؟\n- أين بسبس؟\nتساعد هذه السلسلة في تنمية الحصيلة اللغوية للطفل.\nنوع الكتاب: كرتوني\nتأليف: فاطمة الحسين\nرسوم: رشا المالكي\nمقاس الكتاب: 15cm*15cm\nISBN: 9786039152057",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/07f2a55c17de4b758afc17d7.webp",
+        "/catalog-images/813fe95100a7df71a45045f1.webp",
+        "/catalog-images/ba63e9b687952ab54e18dab3.webp",
+        "/catalog-images/c4a0265d857b6af7e378c784.webp"
+      ],
+      "price": 7070,
+      "source_price": "7.07",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A3%D9%83%D8%A8%D8%B1-%D9%88%D8%A3%D8%AA%D8%B9%D9%84%D9%85-2",
+      "source_sku": "darasfarstore.com:A49",
+      "name": "سلسلة أكبر وأتعلم (2)",
+      "description": "وصف المنتج\nتقدم هذه السلسلة المفاهيم الرياضية، آداب الحديث والتعامل، أنواع المشاعر التي يشعر بها الطفل من خلال ثلاثة كتب:\n- خمس قطط صغيرة\n- أنا أقول\n- مشاعري\nتساعد هذه السلسلة في تنمية الحصيلة اللغوية للطفل.\nنوع الكتاب: كرتوني\nتأليف: فيء موسى - منى محمد كمال هاشم\nرسوم: رشا المالكي\nمقاس الكتاب: 15cm*15cm\nISBN:\n9786039161998",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/583d29b45aab3c0244254e67.webp",
+        "/catalog-images/5191eabc26e58da44a9887c7.webp",
+        "/catalog-images/38ba5f71277cfaf0475d3c3b.webp",
+        "/catalog-images/c3d3db700a7f2c3a4257d345.webp"
+      ],
+      "price": 7070,
+      "source_price": "7.07",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A7%D9%84%D9%83%D8%AA%D8%A8-%D8%A7%D9%84%D9%82%D9%85%D8%A7%D8%B4%D9%8A%D8%A9",
+      "source_sku": "darasfarstore.com:D8",
+      "name": "سلسلة الكتب القماشية",
+      "description": "وصف المنتج\nتحتوي المجموعة أربع موضوعات (الألوان - جسمي - الحيوانات - الأرقام)\nتمتاز برسومها الرائعة المستمدة من بيئتنا, تربط الرضيع من صغره بلغته وثقافته.\nكل الصفحات تصدر خشخشة عند تحريكها؛ ساعات من المتعة في انتظار صغيرك.\n*قابل للغسل\nنوع الكتاب: قماشي\nإعداد: نورة الخليفة\nرسوم: نورة الخليفة\nمقاس الكتاب: 15cm*15cm\nISBN: 9786039126973",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/c92a531546578e9b6b0087b0.webp",
+        "/catalog-images/5ac4bba96a60175d51dba3e9.webp",
+        "/catalog-images/ba5be70a1a8154f428c701eb.webp",
+        "/catalog-images/8baa4c1ad7d3b13f626b70b6.webp",
+        "/catalog-images/87ff3d8d793d929ce67ad903.webp",
+        "/catalog-images/396e8e283edf42ccd15d5612.webp",
+        "/catalog-images/64638e7bafcba1e312aa1bf4.webp",
+        "/catalog-images/ded53d78d5e3cbf681ad58ba.webp"
+      ],
+      "price": 7070,
+      "source_price": "7.07",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%B1%D9%88%D8%A7%D9%86-%D9%88%D8%B1%D9%8A%D8%A7%D9%86",
+      "source_sku": "darasfarstore.com:P5",
+      "name": "سلسلة روان وريان",
+      "description": "وصف المنتج\nسلسلة من عمق ثقافتنا تتكون من  ٦ كتب:\n- من لعب بألعابي؟ (معالجة مشكلة الغضب)\n- بدري بدري (حل مشكلة حب السهر)\n- صديق جديد لريان (كسر حاجز الخجل)\n- شروق وغروب (الاتصال مع الطبيعة)\n- جرب يا ريان ( التشجيع على تجربة الأطعمة الجديدة)\n- ريان يحب الاستحمام (التشجيع على الاستحمام يومياً)\nفي هذه السلسلة تتعلم روان وأخوها ريان الكثير من المهارات الحياتية التي يحتاجها الأطفال.\nنوع الكتاب: ورقي\nتأليف: فيء موسى - ميادة الفريح\nرسوم: حنيفي عبدالقادر\nمقاس الكتاب: 20cm*20cm\nعدد الصفحات: 26 صفحة لكل كتاب\nISBN:9786039216933",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/175a00f449794000b4a15919.webp",
+        "/catalog-images/4e34783bb25c9ee88477b4b6.webp",
+        "/catalog-images/571a5d78ee97c5165d4a1c27.webp",
+        "/catalog-images/3685bc421d4c8093d6a7304c.webp",
+        "/catalog-images/ca88118b567d8c712bf28936.webp",
+        "/catalog-images/a5b30fd6140e811b3eef175f.webp",
+        "/catalog-images/0f3d2cd6e896e904f23b4860.webp",
+        "/catalog-images/f0914249fe9253d72625668d.webp"
+      ],
+      "price": 6150,
+      "source_price": "6.15",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1",
+      "source_sku": "darasfarstore.com:A36",
+      "name": "سلسلة قصص الأنبياء",
+      "description": "وصف المنتج\nمجموعة قصصية جملها قصيرة وكلماتها بسيطة سهلة الفهم, تتكون من أربعة كتب لأربعة أنبياء.\n- آدم عليه السلام\n- إبراهيم عليه السلام\n- نوح عليه السلام\n- محمد صلى الله عليه وسلم\nتقدم السلسلة قصص الأنبياء بطريقة محببة ليكونوا قدوة لأطفالنا منذ نعومة أظفارهم.\nنوع الكتاب: كرتوني\nإعداد: وفاء السبيل - فاطمة الحسين\nرسوم: نورة الخليفة\nمقاس الكتاب: 12cm*15cm\nISBN: 9786039147923",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/2132c6ef0a7cd2281f3449cc.webp",
+        "/catalog-images/b0387d5a9a949c3401b26e6b.webp",
+        "/catalog-images/3504cada0691449119155670.webp",
+        "/catalog-images/5470a540b6505d7e0ddc9e1c.webp",
+        "/catalog-images/c7d5ea5c7bdc07027af26f9a.webp",
+        "/catalog-images/1c5a01839af00a69f8f2f578.webp",
+        "/catalog-images/8b17313b58b50dd128d4014f.webp",
+        "/catalog-images/de170f0e4da1c5d85888df10.webp",
+        "/catalog-images/800cb9888e9f3922551b666d.webp"
+      ],
+      "price": 9220,
+      "source_price": "9.22",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1-2",
+      "source_sku": "darasfarstore.com:D6",
+      "name": "سلسلة قصص الأنبياء 2",
+      "description": "وصف المنتج\nالسلسلة الثانية من قصص الأنبياء.\nمجموعة من أربعة كتب لأربعة أنبياء:\n- موسى عليه السلام\n-عيسى عليه السلام\n- يوسف عليه السلام\n- يونس عليه السلام\nتمتاز المجموعة بجملها ومفرداتها البسيطة ليسهل فهم القصص للأطفال.\nنوع الكتاب: كرتوني\nإعداد: وفاء السبيل - فاطمة الحسين\nمراجعة: أ.د.يوسف العليوي\nرسوم: نورة الخليفة\nمقاس الكتاب: 12cm*15cm\nISBN: 9786039126997",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/54e1cc4ed6dee5d2d823d8e7.webp",
+        "/catalog-images/a90e8257fbb00325d20c2b0f.webp",
+        "/catalog-images/aabf15da2d5e9e4ea9fdabd2.webp",
+        "/catalog-images/32d7bf495c71d6b2857c2446.webp",
+        "/catalog-images/b077871988f3cc28176da3e3.webp",
+        "/catalog-images/e81339eec9bd4d69e848aac6.webp",
+        "/catalog-images/ad9898373b25de754858c468.webp"
+      ],
+      "price": 9120,
+      "source_price": "9.12",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1-3",
+      "source_sku": "darasfarstore.com:E8",
+      "name": "سلسلة قصص الأنبياء 3",
+      "description": "وصف المنتج\nمجموعة قصصية جملها قصيرة سهلة الفهم، تتكون من أربعة كتب لأربعة أنبياء.\n- صالح عليه السلام\n- شعيب عليه السلام\n- داوود عليه السلام\n- سليمان عليه السلام\nتقدم السلسلة قصص الأنبياء بطريقة محببة ليكونوا قدوة لأطفالنا منذ نعومة أظفارهم.\nنوع الكتاب: كرتوني\nإعداد: د. وفاء السبيل - فاطمة الحسين\nرسوم: نورة الخليفة\nمقاس الكتاب: 12cm*15cm\nISBN: 9786039201557",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/8c4924e81f5e8f01d6b537a0.webp",
+        "/catalog-images/f70b3075173600c309ae7ec3.webp",
+        "/catalog-images/37fe6913896838c1a6805dde.webp",
+        "/catalog-images/b132dfafe3cf497a5316f2e5.webp",
+        "/catalog-images/a2b6a38112d64c8abae1d795.webp",
+        "/catalog-images/bb6474fbbfd3769e51111c8c.webp",
+        "/catalog-images/19e6bcc9bb002a7b45b3f174.webp",
+        "/catalog-images/6aabdb640fa3cec97a7d9409.webp",
+        "/catalog-images/4a5f3fe079a068b0fef148c4.webp"
+      ],
+      "price": 8640,
+      "source_price": "8.64",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%AF%D9%8A%D9%86%D9%88",
+      "source_sku": "darasfarstore.com:A47",
+      "name": "سلسلة قصص دينو",
+      "description": "وصف المنتج\nسلسلة مرحة حول عائلة من الديناصورات السعيدة تناقش موضوعات الحياة اليومية لأطفالنا بأسلوب سلس ومحبب.\nتشمل أربعة كتب:\n- وداعًا للحفاظ\n- دينو يُفرش أسنانه\n- في السوبرماركت\n- أول يوم في المدرسة\nنوع الكتاب: كرتوني\nتأليف: فاطمة الحسين\nرسوم: رضوى عسكر\nمقاس الكتاب: 15cm*15cm\nISBN: 978603161974",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/4524ba8802a326ce283ec413.webp",
+        "/catalog-images/34bf2e985961da7f325c3fb8.webp",
+        "/catalog-images/5de036868e858fe950fabe76.webp",
+        "/catalog-images/b6cd956dbd1204ec6f9de56b.webp",
+        "/catalog-images/1c8ebb370864bd18dcdc76b6.webp",
+        "/catalog-images/3ee822e41b6ca016413bb49a.webp"
+      ],
+      "price": 8090,
+      "source_price": "8.09",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D9%86%D8%A8%D9%8A-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D8%A9",
+      "source_sku": "darasfarstore.com:D9",
+      "name": "سلسلة قصص نبي الرحمة",
+      "description": "وصف المنتج\nقصص من السيرة النبوية تدور حول رحمة سيدنا محمد -صلى الله عليه وسلم- ليكون المصطفى قدوة للصغار .\nأربعة كتب حقيبة واحدة:\n- ثلاث تمرات\n- الجمل الحزين\n- الحمرة الخائفة\n- الجمل وغصن الشوك\nتم مراجعتها من قِبل د.نورة الحساوي ( أستاذ علم الحديث)\nنوع الكتاب: كرتوني\nإعداد: فاطمة الكثيري\nمراجعة: د.نورة الحساوي (أستاذ علم الحديث في جامعة الأميرة نورة)\nرسوم: رزان عسيري\nمقاس الحقيبة: 24.5cm*16cm\nمقاس الكتاب: 12cm*15cm\nISBN: 9786030348060",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/710a9f28e6ed62e84d887bd0.webp",
+        "/catalog-images/33fe830f024f686fa794644b.webp",
+        "/catalog-images/731e9040b96ab74321d5df11.webp",
+        "/catalog-images/6d36d6eb691822678842f37e.webp",
+        "/catalog-images/23330d68b1b2f80e21654584.webp",
+        "/catalog-images/35f3322394b1d94b30ff5ff8.webp",
+        "/catalog-images/8444770212bca7e99cbf4446.webp",
+        "/catalog-images/ba8081d76ed843113ba57371.webp",
+        "/catalog-images/9786d221514d1168ad6d84ce.webp",
+        "/catalog-images/acf2d9db56192dbc8b3979d6.webp"
+      ],
+      "price": 8090,
+      "source_price": "8.09",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D9%86%D8%A8%D9%8A-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D8%A9-2",
+      "source_sku": "darasfarstore.com:R1",
+      "name": "سلسلة قصص نبي الرحمة 2",
+      "description": "وصف المنتج\nسلسلة من خمسة كتب تتحدث عن رحمة نبينا - محمد صلى الله عليه وسلم - لينشأ أطفالنا على حب النبي الكريم وليكون قدوة لهم منذ نعومة أظفارهم.\nهذه السلسلة هي الأساس لبداية تعلم طفلك عن السيرة النبوية، لتربية دينية تبدأ منذ الصغر.\nتتكون السلسلة من خمسة كتب:\n- الفتى الجائع وصاحب البستان\n- الرسول الرحيم مع أنس الصغير\n- الرسول الحليم والرجل الغاضب\n- الحسن والحسين\n- الرجل والكلب العطشان\nنوع الكتاب: كرتوني\nإعداد: فاطمة الكثيري\nمراجعة: د.نورة الحساوي (أستاذ مشارك تخصص الحديث وعلومه)\nرسوم: فاطمة كاعين\nمقاس الكتاب: 15cm*12cm\nعدد الصفحات: 14 صفحة لكل كتاب\nISBN:9786039201571",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/e86d5d7fe29060dae52e4f13.webp",
+        "/catalog-images/a978df19d81c882f1a1cd17c.webp",
+        "/catalog-images/0f00b837a8c938bdd7b6ddf0.webp",
+        "/catalog-images/91ad69ae6161320f63156abf.webp",
+        "/catalog-images/701c0d916d25ed6ef1862981.webp",
+        "/catalog-images/7056d48ebd760e916bcd04ff.webp",
+        "/catalog-images/083cceb3d18e24296ee9dd69.webp",
+        "/catalog-images/b42b14e441bcce85b8aa389d.webp",
+        "/catalog-images/87f232cfa51d843bca2d4dd0.webp"
+      ],
+      "price": 7390,
+      "source_price": "7.39",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9-%D9%85%D8%A7%D9%85%D8%A7-%D9%83%D8%AA%D8%A7%D8%A8-%D9%82%D9%85%D8%A7%D8%B4%D9%8A",
+      "source_sku": "darasfarstore.com:A76",
+      "name": "سيارة ماما - كتاب قماشي",
+      "description": "وصف المنتج\nكل مشوار جديد تجربة ثرية للصغير الذي يحب ماما\nويحب سيارتها.\nيتعرف الطفل في هذا الكتاب على أنواع مختلفة من السيارات،\nقوانين السلامة وبعض الإشارات المرورية.\nيُكسب الطفل مفردات لغوية ويزيد تركيزه على ما يمر حوله أثناء الطريق.\n* قابل للغسل\nنوع الكتاب: قماشي\nتأليف: فاطمة الحسين\nرسوم: نورة الخليفة\nمقاس الكتاب: 13.5cm*13.5cm\nISBN:\n9786039103585",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/375c07f2b1be97b7326fcff9.webp",
+        "/catalog-images/39112faca681fd8ef7cf469d.webp",
+        "/catalog-images/08cab220d19df9eda887acc8.webp",
+        "/catalog-images/bcded3c99eece163e1b69fbe.webp"
+      ],
+      "price": 3470,
+      "source_price": "3.47",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D9%82%D9%84%D8%A8-%D8%A7%D9%84%D8%A3%D9%85",
+      "source_sku": "darasfarstore.com:A21",
+      "name": "قلب الأم",
+      "description": "وصف المنتج\n\"قلب الأم\" مكان ساحر تحدث فيه أجمل الأشياء!\nكتاب يتغنى بحب الأم وتقلباته حسب حالات طفلها..ماذا يحدث لقلبها إذا غاب طفلها؟ وماذا يحدث له إذا مرض؟ وكيف يتغير إذا تحسنت صحته؟\nيوضح الكتاب مشاعر الأم المختلفة، كما يمهد للطفل قدوم مولود جديد في العائلة.\nنوع الكتاب: ورقي، غلاف كرتوني\nتأليف: إيزابيل مينيوس مارتنز\nرسوم: برناردو كارفاليو\nمقاس الكتاب: 20cm*22.5cm\nعدد الصفحات: 24\nISBN:\n978603915908",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/c1c04d9baf66e6900e776b26.webp",
+        "/catalog-images/62bd0f0ebf84e2b4aeaa3097.webp",
+        "/catalog-images/f0c400d1beee748c08dc0976.webp",
+        "/catalog-images/32821aea811fbb645559e469.webp",
+        "/catalog-images/1b54dc4ec64ce32718ea9515.webp"
+      ],
+      "price": 2330,
+      "source_price": "2.33",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D9%85%D9%83%D8%AA%D8%A8%D8%AA%D9%8A-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A9",
+      "source_sku": "darasfarstore.com:R2",
+      "name": "مكتبتي الصغيرة",
+      "description": "وصف المنتج\n6 كتب كرتونية صغيرة الحجم لتناسب أيدي أحبائنا الصغار،\nتتنوع مواضيعها لتثري وتنمي مهارات الطفل اللغوية والمعرفية، من خلال تعليمه الألوان، وسائل المواصلات، الأرقام، الحيوانات الأليفه، جسمه، الطعام.\nتعكس السلسلة للطفل بيئته من خلال رسوم تمثلها.\nتتكون المجموعة من ستة كتب:\n- الألوان\n- وسائل المواصلات\n- الأرقام\n- حيواناتي الأليفة\n- جسمي\nطعامي\nإعداد: فيء موسى\nرسوم: رفاه تباب\nمقاس العلبة: 18cm*23cm\nمقاس الكتاب: 7cm*7cm\nعدد الصفحات: 10 صفحات لكل كتاب\nISBN:9786039208976",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/033319d227d5137cc693ab09.webp",
+        "/catalog-images/68bd9dbca164fabea5a89100.webp",
+        "/catalog-images/df5fe303f4b3425446640900.webp"
+      ],
+      "price": 5790,
+      "source_price": "5.79",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D9%88%D8%AF%D8%A7%D8%B9%D8%A7-%D9%84%D9%87%D8%A7%D9%8A%D8%AA%D9%8A",
+      "source_sku": "darasfarstore.com:P3",
+      "name": "وداعاً لهايتي",
+      "description": "وصف المنتج\nيأتي ذلك الوقت في حياة كل طفل اعتاد على اللهاية لتركها، وهو وقت عسير لهم..\nكيف يمكن للأهالي تسهيل هذا الفراق؟\nهذه قصة مصورة عن طفل أثناء تدريبه على ترك اللهاية،مع إرشادات لمساعدة الأم والأب على تجاوز هذا الوقت الصعب وملصقات لتحفيز الطفل الصغير.\nنوع الكتاب: كرتوني\nتأليف: ألفت الزهر\nرسوم: رفاه تباب\nمقاس الكتاب: 20cm*20cm\nعدد الصفحات: 34\nISBN:9786039216957",
+      "language": "العربية",
+      "images": [
+        "/catalog-images/c3e17c93c18711f10b267a3e.webp",
+        "/catalog-images/c09119979c29e7b4cbaa406c.webp",
+        "/catalog-images/5c2d1e20ddfe3dc191b65ef2.webp",
+        "/catalog-images/2e4ba58c34d073026a46f096.webp",
+        "/catalog-images/25145e736a8eb397d56a4eab.webp",
+        "/catalog-images/e5b20d9c71392beacc6d6eec.webp",
+        "/catalog-images/4a3f4d3318303c4a4c4a6167.webp",
+        "/catalog-images/cb0aa8d6f1568d7a32756310.webp",
+        "/catalog-images/2cd444429035198d5aca1863.webp",
+        "/catalog-images/8a408b7ed44a64b25945106c.webp",
+        "/catalog-images/9a0765dfbdce9edb96068248.webp",
+        "/catalog-images/fa5a4b7a8eeae212c71951c1.webp",
+        "/catalog-images/e0d1667baae919f4ce1c42cb.webp",
+        "/catalog-images/0c2d7eb8925da5a3df197486.webp",
+        "/catalog-images/dc76ecd06b0b00fe2696c684.webp"
+      ],
+      "price": 4990,
+      "source_price": "4.99",
+      "source_currency": "OMR",
+      "initial_stock": 5
+    }
+  ],
+  "skipped_existing_titles": [
+    "الحب هو"
+  ]
+}
