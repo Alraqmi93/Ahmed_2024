@@ -109,6 +109,8 @@ def init():
         if os.environ.get('LOAD_BUNDLED_CATALOG','1') != '0':
             from supplier_import import apply_supplier_catalog
             apply_supplier_catalog(c,ROOT)
+            from maintenance import apply_seven_books_stock_reset
+            apply_seven_books_stock_reset(c,existing_store)
 
 def money(value):
     n = round(float(value)*1000)
