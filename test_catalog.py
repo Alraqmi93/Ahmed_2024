@@ -26,6 +26,7 @@ class CatalogTest(unittest.TestCase):
         expected=json.loads(Path(__file__).with_name('catalog.json').read_text(encoding='utf-8'))['products']
         expected+=json.loads(Path(__file__).with_name('supplier-catalog.json').read_text(encoding='utf-8'))['products']
         expected+=json.loads(Path(__file__).with_name('asfar-catalog.json').read_text(encoding='utf-8'))['products']
+        expected+=json.loads(Path(__file__).with_name('supplier-batch-20261106-02.json').read_text(encoding='utf-8'))['products']
         with self.server.db() as c:
             rows=c.execute("SELECT * FROM products WHERE source_url<>''").fetchall()
             self.assertEqual(len(rows),len(expected))
@@ -75,6 +76,29 @@ class CatalogTest(unittest.TestCase):
             self.assertEqual(c.execute('SELECT stock,price,active FROM products WHERE id=?',(first,)).fetchone()[:],(2,1111,0))
             self.assertEqual(c.execute('SELECT deleted FROM products WHERE id=?',(second,)).fetchone()[0],1)
             self.assertEqual(c.execute("SELECT count(*) FROM products WHERE source_url LIKE 'https://darasfarstore.com/%'").fetchone()[0],27)
+
+    def test_second_supplier_batch_quantities_conversion_and_restart(self):
+        from decimal import Decimal,ROUND_HALF_UP
+        manifest=json.loads(Path(__file__).with_name('supplier-batch-20261106-02.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(manifest['products']),17)
+        self.assertEqual(len(manifest['skipped_existing_titles']),30)
+        self.server.init()
+        total_photos=0
+        with self.server.db() as c:
+            for product in manifest['products']:
+                row=c.execute('SELECT * FROM products WHERE source_url=?',(product['source_url'],)).fetchone()
+                self.assertIsNotNone(row)
+                self.assertEqual(row['stock'],5)
+                expected=int((Decimal(product['source_price'])*Decimal('0.3845')*1000).quantize(Decimal('1'),rounding=ROUND_HALF_UP))
+                self.assertEqual(row['price'],expected)
+                total_photos+=len(json.loads(row['images']))
+            self.assertEqual(total_photos,31)
+            pid=row['id'];c.execute('UPDATE products SET stock=1,price=999,active=0 WHERE id=?',(pid,))
+            count=c.execute('SELECT count(*) FROM products').fetchone()[0]
+        self.server.init()
+        with self.server.db() as c:
+            self.assertEqual(c.execute('SELECT stock,price,active FROM products WHERE id=?',(pid,)).fetchone()[:],(1,999,0))
+            self.assertEqual(c.execute('SELECT count(*) FROM products').fetchone()[0],count)
 
     def test_modified_demo_is_preserved(self):
         os.environ['LOAD_BUNDLED_CATALOG']='0'

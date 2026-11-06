@@ -5,7 +5,7 @@ from product_identity import existing_product
 
 
 def apply_supplier_catalog(connection,root):
-    for filename in ('supplier-catalog.json','asfar-catalog.json'):
+    for filename in ('supplier-catalog.json','asfar-catalog.json','supplier-batch-20261106-02.json'):
         apply_supplier_file(connection,root,filename)
 
 
