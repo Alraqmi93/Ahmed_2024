@@ -55,6 +55,25 @@ class CatalogTest(unittest.TestCase):
             self.assertEqual(c.execute('SELECT active,price FROM products WHERE id=1').fetchone()[:],(1,9999))
             self.assertEqual(c.execute('SELECT active FROM products WHERE id=2').fetchone()[0],0)
 
+    def test_deleted_catalog_products_stay_deleted_after_imports(self):
+        self.server.init()
+        root=Path(__file__).parent
+        with self.server.db() as c:
+            pid=c.execute("SELECT id FROM products WHERE source_sku<>'' LIMIT 1").fetchone()[0]
+            c.execute('UPDATE products SET deleted=1,active=0 WHERE id=?',(pid,))
+            count=c.execute('SELECT count(*) FROM products').fetchone()[0]
+        with tempfile.TemporaryDirectory() as directory:
+            temporary=Path(directory)
+            (temporary/'catalog-images').symlink_to(root/'catalog-images',target_is_directory=True)
+            manifest=json.loads((root/'catalog.json').read_text(encoding='utf-8'))
+            manifest['version']='future-import-test'
+            (temporary/'catalog.json').write_text(json.dumps(manifest,ensure_ascii=False),encoding='utf-8')
+            with self.server.db() as c:apply_catalog(c,temporary)
+        self.server.init()
+        with self.server.db() as c:
+            self.assertEqual(c.execute('SELECT count(*) FROM products').fetchone()[0],count)
+            self.assertEqual(c.execute('SELECT deleted,active FROM products WHERE id=?',(pid,)).fetchone()[:],(1,0))
+
     def test_incremental_upgrade_preserves_edits_visibility_and_orders(self):
         os.environ['LOAD_BUNDLED_CATALOG']='0'
         self.server.init()

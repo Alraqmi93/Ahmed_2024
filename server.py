@@ -76,6 +76,8 @@ def init():
             c.execute("ALTER TABLE products ADD COLUMN images TEXT NOT NULL DEFAULT '[]'")
         if 'options' not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
             c.execute("ALTER TABLE products ADD COLUMN options TEXT NOT NULL DEFAULT '[]'")
+        if 'deleted' not in [r[1] for r in c.execute('PRAGMA table_info(products)')]:
+            c.execute('ALTER TABLE products ADD COLUMN deleted INTEGER NOT NULL DEFAULT 0')
         for table,name,definition in [('lines','option_id','TEXT'),('lines','option_label',"TEXT NOT NULL DEFAULT ''"),('purchases','option_id','TEXT'),('purchases','option_label',"TEXT NOT NULL DEFAULT ''")]:
             if name not in [r[1] for r in c.execute('PRAGMA table_info('+table+')')]:
                 c.execute('ALTER TABLE '+table+' ADD COLUMN '+name+' '+definition)
@@ -136,7 +138,7 @@ class Handler(BaseHTTPRequestHandler):
             with db() as c: return self.send(200,dict(c.execute('SELECT key,value FROM settings').fetchall()))
         if path == '/api/products':
             with db() as c:
-                rows = [product_json(r) for r in c.execute('SELECT * FROM products WHERE active=1')]
+                rows = [product_json(r) for r in c.execute('SELECT * FROM products WHERE active=1 AND deleted=0')]
             for r in rows:
                 r.pop('cost')
                 r.pop('cost_known',None)
@@ -160,7 +162,11 @@ class Handler(BaseHTTPRequestHandler):
                     return self.send(400,{'error':'Choose a valid period and date / اختر فترة وتاريخاً صحيحين'})
             with db() as c:
                 data = {k:[dict(r) for r in c.execute('SELECT * FROM '+ k + ' ORDER BY id DESC')] for k in ['products','orders','purchases','adjustments']}
-                data['products']=[product_json(p) for p in data['products']]
+                data['products']=[product_json(p) for p in data['products'] if not p['deleted']]
+                for purchase in data['purchases']:
+                    product=c.execute('SELECT * FROM products WHERE id=?',(purchase['product_id'],)).fetchone()
+                    purchase['product_name']=product['name'] if product else '#'+str(purchase['product_id'])
+                    purchase['product_options']=active_options(product) if product else []
                 for o in data['orders']:
                     o.pop('payment_token',None)
                     o['lines']=[dict(r) for r in c.execute('SELECT * FROM lines WHERE order_id=?',(o['id'],))]
@@ -249,7 +255,7 @@ class Handler(BaseHTTPRequestHandler):
                         option_id=str(item.get('option_id') or '')
                         if (pid,option_id) in seen: raise ValueError('كمية غير صالحة')
                         seen.add((pid,option_id))
-                        p=c.execute('SELECT * FROM products WHERE id=? AND active=1',(pid,)).fetchone()
+                        p=c.execute('SELECT * FROM products WHERE id=? AND active=1 AND deleted=0',(pid,)).fetchone()
                         if not p:raise ValueError('Product is unavailable')
                         option=selected_option(p,option_id)
                         if (option['stock'] if option else p['stock'])<qty: raise ValueError('الكمية المطلوبة غير متوفرة، حدّث السلة')
@@ -267,13 +273,20 @@ class Handler(BaseHTTPRequestHandler):
                     c.commit()
                     return self.send(201,{'id':oid,'total':total,'customer':customer,'phone':phone,'delivery_method':delivery,'address':address,'payment_token':token,'lines':[{'product_id':p['id'],'name':p['name'],'name_en':p['name_en'],'quantity':q,'price':price,'option_id':option['id'] if option else None,'option_label':option['label'] if option else ''} for p,q,option,price in lines]})
                 if path == '/api/admin/archive':
-                    c.execute('UPDATE products SET active=? WHERE id=?',(1 if a.get('active') else 0,int(a['id'])))
+                    c.execute('UPDATE products SET active=? WHERE id=? AND deleted=0',(1 if a.get('active') else 0,int(a['id'])))
                 elif path == '/api/admin/archive-bulk':
                     ids=a.get('ids',[])
                     if not isinstance(ids,list) or not 1<=len(ids)<=5000:raise ValueError('Select products first / اختر المنتجات أولاً')
                     ids=sorted(set(int(pid) for pid in ids))
                     if any(pid<1 for pid in ids):raise ValueError('Invalid product selection')
-                    c.executemany('UPDATE products SET active=? WHERE id=?',[(1 if a.get('active') else 0,pid) for pid in ids])
+                    c.executemany('UPDATE products SET active=? WHERE id=? AND deleted=0',[(1 if a.get('active') else 0,pid) for pid in ids])
+                elif path == '/api/admin/delete-bulk':
+                    ids=a.get('ids',[])
+                    if not isinstance(ids,list) or not 1<=len(ids)<=5000:raise ValueError('Select products first / اختر المنتجات أولاً')
+                    ids=sorted(set(int(pid) for pid in ids))
+                    if any(pid<1 for pid in ids):raise ValueError('Invalid product selection')
+                    # Preserve references and snapshots needed by old orders, purchases and analytics.
+                    c.executemany('UPDATE products SET deleted=1,active=0 WHERE id=?',[(pid,) for pid in ids])
                 elif path == '/api/admin/adjustment':
                     kind=a.get('kind','expense'); category=a['category']
                     allowed={'expense':('shipping','transfer','packaging','other'),'income':('shipping','other')}
@@ -294,6 +307,8 @@ class Handler(BaseHTTPRequestHandler):
                 elif path == '/api/admin/void-adjustment':
                     c.execute('UPDATE adjustments SET voided=1 WHERE id=?',(int(a['id']),))
                 elif path == '/api/admin/product':
+                    if a.get('id') and not c.execute('SELECT 1 FROM products WHERE id=? AND deleted=0',(int(a['id']),)).fetchone():
+                        raise ValueError('Product was deleted / تم حذف المنتج')
                     stock=whole_quantity(a['stock'])
                     if stock<0 or stock>100000: raise ValueError('مخزون غير صالح')
                     if not str(a['name']).strip(): raise ValueError('أدخل اسم المنتج')

@@ -26,6 +26,7 @@ class ShopTest(unittest.TestCase):
         self.assertEqual(products[4]['ages'],['5–8'])
         with self.assertRaises(urllib.error.HTTPError) as e:self.call('/api/admin')
         self.assertEqual(e.exception.code,401)
+        with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/delete-bulk',{'ids':[products[0]['id']]})
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/stats?period=all')
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin/insights?period=all')
         self.call('/api/login',{'password':self.password})
@@ -137,6 +138,19 @@ class ShopTest(unittest.TestCase):
         self.assertEqual(self.call('/api/admin')['products'][0]['ages'],[])
         with self.assertRaises(urllib.error.HTTPError):
             self.call('/api/orders',{'customer':'Missing preference','phone':'90000000','address':'Test','items':[{'id':p['id'],'quantity':1}]})
+        before=self.call('/api/admin/stats?period=all')
+        history=self.call('/api/admin')
+        deleted_ids=[new['id'],products[0]['id']]
+        self.call('/api/admin/delete-bulk',{'ids':deleted_ids})
+        self.assertFalse(set(deleted_ids)&{p['id'] for p in self.call('/api/products')})
+        after=self.call('/api/admin')
+        self.assertFalse(set(deleted_ids)&{p['id'] for p in after['products']})
+        self.assertEqual(len(after['orders']),len(history['orders']))
+        self.assertEqual(len(after['purchases']),len(history['purchases']))
+        self.assertTrue(after['purchases'][0]['product_name'])
+        self.assertEqual(self.call('/api/admin/stats?period=all'),before)
+        self.call('/api/admin/archive-bulk',{'ids':deleted_ids,'active':True})
+        self.assertFalse(set(deleted_ids)&{p['id'] for p in self.call('/api/products')})
         self.call('/api/logout',{})
         with self.assertRaises(urllib.error.HTTPError):self.call('/api/admin')
 
