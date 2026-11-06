@@ -28,6 +28,8 @@ class CatalogTest(unittest.TestCase):
         expected+=json.loads(Path(__file__).with_name('asfar-catalog.json').read_text(encoding='utf-8'))['products']
         expected+=json.loads(Path(__file__).with_name('supplier-batch-20261106-02.json').read_text(encoding='utf-8'))['products']
         expected+=json.loads(Path(__file__).with_name('moon-catalog.json').read_text(encoding='utf-8'))['products']
+        latest=json.loads(Path(__file__).with_name('supplier-batch-20261106-03.json').read_text(encoding='utf-8'))
+        expected += [p for p in latest['products'] if p['name'] in latest['new_product_titles']]
         with self.server.db() as c:
             rows=c.execute("SELECT * FROM products WHERE source_url<>''").fetchall()
             self.assertEqual(len(rows),len(expected))
@@ -118,6 +120,36 @@ class CatalogTest(unittest.TestCase):
         with self.server.db() as c:
             row=c.execute('SELECT * FROM products WHERE id=?',(pid,)).fetchone()
             self.assertEqual(json.loads(row['images']),[row['image_url']])
+
+    def test_ten_part_upload_adds_three_and_preserves_existing_stock(self):
+        from supplier_import import apply_supplier_file
+        root=Path(__file__).parent
+        latest=json.loads((root/'supplier-batch-20261106-03.json').read_text(encoding='utf-8'))
+        self.assertEqual(len(latest['products']),93)
+        self.assertEqual(len(latest['new_product_titles']),3)
+        self.assertEqual(len(latest['existing_product_titles']),90)
+        # Simulate the live store before this batch was deployed.
+        os.environ['LOAD_BUNDLED_CATALOG']='0'
+        self.server.init()
+        from catalog_import import apply_catalog
+        with self.server.db() as c:
+            apply_catalog(c,root)
+            for file in ('supplier-catalog.json','asfar-catalog.json','supplier-batch-20261106-02.json','moon-catalog.json'):
+                apply_supplier_file(c,root,file)
+            pid=c.execute("SELECT id FROM products WHERE source_url LIKE 'https://moon-edu.com/%' LIMIT 1").fetchone()[0]
+            c.execute("UPDATE products SET stock=2,price=777,description='Owner details',active=0 WHERE id=?",(pid,))
+            before=c.execute('SELECT count(*) FROM products').fetchone()[0]
+            apply_supplier_file(c,root,'supplier-batch-20261106-03.json')
+            self.assertEqual(c.execute('SELECT count(*) FROM products').fetchone()[0],before+3)
+            self.assertEqual(c.execute('SELECT stock,price,description,active FROM products WHERE id=?',(pid,)).fetchone()[:],(2,777,'Owner details',0))
+            photos=0
+            for product in latest['products']:
+                if product['name'] not in latest['new_product_titles']:continue
+                row=c.execute('SELECT * FROM products WHERE source_url=?',(product['source_url'],)).fetchone()
+                self.assertEqual((row['stock'],row['price']),(5,7690));photos+=len(json.loads(row['images']))
+            self.assertEqual(photos,6)
+            apply_supplier_file(c,root,'supplier-batch-20261106-03.json')
+            self.assertEqual(c.execute('SELECT count(*) FROM products').fetchone()[0],before+3)
 
     def test_modified_demo_is_preserved(self):
         os.environ['LOAD_BUNDLED_CATALOG']='0'

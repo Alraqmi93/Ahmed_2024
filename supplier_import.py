@@ -7,7 +7,7 @@ from gallery_import import merge_uploaded_galleries
 
 
 def apply_supplier_catalog(connection,root):
-    for filename in ('supplier-catalog.json','asfar-catalog.json','supplier-batch-20261106-02.json','moon-catalog.json'):
+    for filename in ('supplier-catalog.json','asfar-catalog.json','supplier-batch-20261106-02.json','moon-catalog.json','supplier-batch-20261106-03.json'):
         apply_supplier_file(connection,root,filename)
     gallery=root/'gallery-updates-20261106.json'
     if gallery.exists():merge_uploaded_galleries(connection,root,json.loads(gallery.read_text(encoding='utf-8')))
