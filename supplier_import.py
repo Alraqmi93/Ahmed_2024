@@ -1,6 +1,7 @@
 """Idempotent additions from owner-supplied product exports."""
 import json
 import re
+from product_identity import existing_product
 
 
 def apply_supplier_catalog(connection,root):
@@ -15,7 +16,7 @@ def apply_supplier_catalog(connection,root):
         if not 1<=len(product['images'])<=10:raise ValueError('Invalid gallery size')
         for image in product['images']:
             if not re.fullmatch(r'/catalog-images/[a-f0-9]{24}\.webp',image) or not (root/image.lstrip('/')).is_file():raise ValueError('Invalid or missing supplier image')
-        if connection.execute('SELECT 1 FROM products WHERE source_url=?',(product['source_url'],)).fetchone():continue
+        if existing_product(connection,product) is not None:continue
         connection.execute('''INSERT INTO products
             (name,category,age,language,price,cost,stock,emoji,description,active,
              name_en,description_en,image_url,images,cost_known,source_url,source_price,source_currency,source_sku)

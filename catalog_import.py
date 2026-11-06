@@ -1,6 +1,7 @@
 """Apply bundled product additions once without overwriting owner edits."""
 import json
 import re
+from product_identity import existing_product
 
 
 def apply_catalog(connection, root):
@@ -27,7 +28,7 @@ def apply_catalog(connection, root):
         return
     first_import = connection.execute('SELECT COUNT(*) FROM catalog_imports').fetchone()[0] == 0
     for p in products:
-        if connection.execute("SELECT 1 FROM products WHERE source_url=? OR (source_sku<>'' AND source_sku=?)", (p['source_url'],p['source_sku'])).fetchone():
+        if existing_product(connection,p) is not None:
             continue
         connection.execute('''INSERT INTO products
             (name,category,age,language,price,cost,stock,emoji,description,active,
