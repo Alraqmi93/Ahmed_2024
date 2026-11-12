@@ -1,0 +1,470 @@
+{
+  "action_id": "owner-unhide-uploaded-93-products-2026-11-12",
+  "products": [
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D8%AA%D8%B9%D8%B1%D9%81-%D8%B9%D9%84%D9%89-%D8%B9%D8%A7%D9%84%D9%85%D9%8A",
+      "source_sku": "darasfarstore.com:R3",
+      "name": "أتعرف على عالمي"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D8%B5%D9%84%D9%8A-%D9%85%D8%B9-%D8%A8%D8%A7%D8%A8%D8%A7",
+      "source_sku": "darasfarstore.com:A53",
+      "name": "أصلي مع بابا"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D8%B5%D9%84%D9%8A-%D9%85%D8%B9-%D9%85%D8%A7%D9%85%D8%A7",
+      "source_sku": "darasfarstore.com:A52",
+      "name": "أصلي مع ماما"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D9%82%D9%88%D9%89-%D9%85%D9%86-%D9%85%D8%AE%D8%A7%D9%88%D9%81%D9%8A",
+      "source_sku": "darasfarstore.com:p4",
+      "name": "أقوى من مخاوفي"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A3%D9%85%D9%8A-%D9%85%D8%A7%D8%B0%D8%A7-%D9%84%D9%88",
+      "source_sku": "darasfarstore.com:A75",
+      "name": "أمي ماذا لو...؟"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D8%A8%D8%A7%D9%84%D9%88%D9%86",
+      "source_sku": "darasfarstore.com:R11",
+      "name": "البالون"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D8%AD%D8%A8-%D9%87%D9%88",
+      "source_sku": "darasfarstore.com:U15",
+      "name": "الحب هو"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D9%86%D9%88%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D8%B2%D8%B1%D9%82%D8%A7%D8%A1",
+      "source_sku": "darasfarstore.com:R5",
+      "name": "النونية الزرقاء"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%A7%D9%84%D9%86%D9%88%D9%86%D9%8A%D8%A9-%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A%D8%A9",
+      "source_sku": "darasfarstore.com:R4",
+      "name": "النونية الوردية"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%AD%D8%B6%D9%86-%D9%85%D8%A7%D9%85%D8%A7-%D8%A7%D9%84%D8%A8%D8%A7%D9%86%D8%AF%D8%A7-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1",
+      "source_sku": "darasfarstore.com:A1",
+      "name": "حضن ماما - الباندا الصغير"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%AD%D8%B6%D9%86-%D9%85%D8%A7%D9%85%D8%A7-%D8%A7%D9%84%D9%82%D8%B7%D8%A9-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A9",
+      "source_sku": "darasfarstore.com:A3",
+      "name": "حضن ماما- القطة الصغيرة"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/when-i-feel/",
+      "source_sku": "moon-edu.com:\"000013\"",
+      "name": "حين أشعر - MOON EDU"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D8%AA%D8%AE%D8%A7%D9%81-%D8%A7%D9%84%D8%A8%D9%88%D9%85%D8%A9-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81231",
+      "name": "حين تخاف البومة - انا و مشاعري"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/ar/products/%D8%AD%D9%8A%D9%86-%D8%AA%D8%B5%D8%AF%D9%82-%D8%A7%D9%84%D9%86%D9%85%D8%B1%D8%A9-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81230",
+      "name": "حين تصدق النمرة - انا و مشاعري"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D8%AA%D8%BA%D8%B6%D8%A8-%D8%A7%D9%84%D8%A8%D8%B1%D9%86%D9%8A%D9%82%D8%A9-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81233",
+      "name": "حين تغضب البرنيقة - انا و مشاعري"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%AD%D9%8A%D9%86-%D9%88%D9%84%D8%AF%D8%AA",
+      "source_sku": "darasfarstore.com:A22",
+      "name": "حين ولدت"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D9%8A%D8%A8%D8%B9%D8%AF-%D8%A7%D9%84%D8%A8%D8%B7%D8%B1%D9%8A%D9%82-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81239",
+      "name": "حين يبعد البطريق - انا و مشاعري"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D9%8A%D8%AD%D8%B2%D9%86-%D8%A7%D9%84%D9%82%D8%B1%D8%AF-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81235",
+      "name": "حين يحزن القرد - انا و مشاعري"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D9%8A%D8%AD%D8%B3%D9%86-%D8%A7%D9%84%D9%86%D9%85%D8%B3-%D8%A7%D9%84%D8%AA%D8%B5%D8%B1%D9%81-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81234",
+      "name": "حين يحسن النمس التصرف - انا و مشاعري"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D9%8A%D8%AE%D8%AC%D9%84-%D8%A7%D9%84%D8%A7%D8%B3%D8%AF-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81237",
+      "name": "حين يخجل الاسد - انا و مشاعري"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D9%8A%D8%B4%D8%A7%D8%B1%D9%83-%D8%A7%D9%84%D9%82%D8%B1%D8%B4-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81238",
+      "name": "حين يشارك القرش - انا و مشاعري"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D8%AD%D9%8A%D9%86-%D9%8A%D9%82%D9%84%D9%82-%D8%A7%D9%84%D8%AF%D9%8A%D8%B3%D9%85-%D8%A7%D9%86%D8%A7-%D9%88-%D9%85%D8%B4%D8%A7%D8%B9%D8%B1%D9%8A",
+      "source_sku": "daralmaarefpublisher.com:81236",
+      "name": "حين يقلق الديسم - انا و مشاعري"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A3%D9%86%D8%A7",
+      "source_sku": "darasfarstore.com:E2",
+      "name": "سلسلة ( أنا )"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%B9%D8%A7%D8%A6%D9%84%D8%AA%D9%8A",
+      "source_sku": "darasfarstore.com:E1",
+      "name": "سلسلة ( عائلتي )"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A3%D9%83%D8%A8%D8%B1-%D9%88%D8%A3%D8%AA%D8%B9%D9%84%D9%85-1",
+      "source_sku": "darasfarstore.com:A48",
+      "name": "سلسلة أكبر وأتعلم (1)"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A3%D9%83%D8%A8%D8%B1-%D9%88%D8%A3%D8%AA%D8%B9%D9%84%D9%85-2",
+      "source_sku": "darasfarstore.com:A49",
+      "name": "سلسلة أكبر وأتعلم (2)"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%A7%D9%84%D9%83%D8%AA%D8%A8-%D8%A7%D9%84%D9%82%D9%85%D8%A7%D8%B4%D9%8A%D8%A9",
+      "source_sku": "darasfarstore.com:D8",
+      "name": "سلسلة الكتب القماشية"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D8%B1%D9%88%D8%A7%D9%86-%D9%88%D8%B1%D9%8A%D8%A7%D9%86",
+      "source_sku": "darasfarstore.com:P5",
+      "name": "سلسلة روان وريان"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1",
+      "source_sku": "darasfarstore.com:A36",
+      "name": "سلسلة قصص الأنبياء"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1-2",
+      "source_sku": "darasfarstore.com:D6",
+      "name": "سلسلة قصص الأنبياء 2"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%A7%D9%84%D8%A3%D9%86%D8%A8%D9%8A%D8%A7%D8%A1-3",
+      "source_sku": "darasfarstore.com:E8",
+      "name": "سلسلة قصص الأنبياء 3"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D8%AF%D9%8A%D9%86%D9%88",
+      "source_sku": "darasfarstore.com:A47",
+      "name": "سلسلة قصص دينو"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D9%86%D8%A8%D9%8A-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D8%A9",
+      "source_sku": "darasfarstore.com:D9",
+      "name": "سلسلة قصص نبي الرحمة"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%84%D8%B3%D9%84%D8%A9-%D9%82%D8%B5%D8%B5-%D9%86%D8%A8%D9%8A-%D8%A7%D9%84%D8%B1%D8%AD%D9%85%D8%A9-2",
+      "source_sku": "darasfarstore.com:R1",
+      "name": "سلسلة قصص نبي الرحمة 2"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D8%B3%D9%8A%D8%A7%D8%B1%D8%A9-%D9%85%D8%A7%D9%85%D8%A7-%D9%83%D8%AA%D8%A7%D8%A8-%D9%82%D9%85%D8%A7%D8%B4%D9%8A",
+      "source_sku": "darasfarstore.com:A76",
+      "name": "سيارة ماما - كتاب قماشي"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/sorry-is-not-a-solution-story/",
+      "source_sku": "moon-edu.com:\"000136\"",
+      "name": "قصة آسف ليست حلًا - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/ahmed-ahmed-what-are-you-doing-story/",
+      "source_sku": "moon-edu.com:\"000215\"",
+      "name": "قصة أحمد... أحمد... ماذا تفعل؟ - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/mom-where-is-allah-story/",
+      "source_sku": "moon-edu.com:\"000143\"",
+      "name": "قصة أمي، أين الله؟ - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/lakhbout-the-octopus-story/",
+      "source_sku": "moon-edu.com:\"000245\"",
+      "name": "قصة الأخطبوط لخبوط - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/ramadan-to-the-fullest-story/",
+      "source_sku": "moon-edu.com:\"000044\"",
+      "name": "قصة رمضان على أكمل وجه - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/the-secret-of-haneen-story/",
+      "source_sku": "moon-edu.com:\"000277\"",
+      "name": "قصة سر حنين - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/food-and-drink-sunnahs-story/",
+      "source_sku": "moon-edu.com:\"000155\"",
+      "name": "قصة سنن الطعام والشراب - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/sleeping-sunnahs-story/",
+      "source_sku": "moon-edu.com:\"000154\"",
+      "name": "قصة سنن النوم - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/safwan-who-changed-his-villages-life-story/",
+      "source_sku": "moon-edu.com:\"000207\"",
+      "name": "قصة صفوان الذي غيّر حياة قريته - MOON EDU"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D9%82%D9%84%D8%A8-%D8%A7%D9%84%D8%A3%D9%85",
+      "source_sku": "darasfarstore.com:A21",
+      "name": "قلب الأم"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/arabic-letters-in-the-quran-zigzag-cloth-book/",
+      "source_sku": "moon-edu.com:\"000076\"",
+      "name": "كتاب قماش (زجزاج) الحروف العربية في القرآن الكريم - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/muslim-child-morning-and-bedtime-routine-zigzag-cloth-book/",
+      "source_sku": "moon-edu.com:\"000077\"",
+      "name": "كتاب قماش (زجزاج) روتين الطفل المسلم في الصباح وقبل النوم - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/black-white-and-red-cloth-book/",
+      "source_sku": "moon-edu.com:\"000047\"",
+      "name": "كتاب قماش (نشء) أبيض وأسود وأحمر - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/numbers-cloth-book/",
+      "source_sku": "moon-edu.com:\"000068\"",
+      "name": "كتاب قماش (نشء) أرقام - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/colors-cloth-book/",
+      "source_sku": "moon-edu.com:\"000067\"",
+      "name": "كتاب قماش (نشء) ألوان - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/family-cloth-book/",
+      "source_sku": "moon-edu.com:\"000074\"",
+      "name": "كتاب قماش (نشء) العائلة - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/wild-animals-cloth-book/",
+      "source_sku": "moon-edu.com:\"000072\"",
+      "name": "كتاب قماش (نشء) حيوانات الغابة - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/farm-animals-cloth-book/",
+      "source_sku": "moon-edu.com:\"000071\"",
+      "name": "كتاب قماش (نشء) حيوانات المزرعة - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/vegetables-cloth-book/",
+      "source_sku": "moon-edu.com:\"000070\"",
+      "name": "كتاب قماش (نشء) خضروات - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/fruit-cloth-book/",
+      "source_sku": "moon-edu.com:\"000069\"",
+      "name": "كتاب قماش (نشء) فاكهة - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/emotions-cloth-book/",
+      "source_sku": "moon-edu.com:\"000073\"",
+      "name": "كتاب قماش (نشء) مشاعر - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/transportation-cloth-book/",
+      "source_sku": "moon-edu.com:\"000075\"",
+      "name": "كتاب قماش (نشء) وسائل النقل - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/black-and-white-cloth-book/",
+      "source_sku": "moon-edu.com:\"000046\"",
+      "name": "كتاب قماش أبيض وأسود - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/pillars-of-islam-cloth-book/",
+      "source_sku": "moon-edu.com:\"000048\"",
+      "name": "كتاب قماش أركان الإسلام - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/i-love-cloth-book/",
+      "source_sku": "moon-edu.com:\"000050\"",
+      "name": "كتاب قماش أنا أحب - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-the-creator-cloth-book/",
+      "source_sku": "moon-edu.com:\"000049\"",
+      "name": "كتاب قماش الله الخالق - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-is-with-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000057\"",
+      "name": "كتاب قماش الله معي - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/sea-creatures-cloth-book/",
+      "source_sku": "moon-edu.com:\"000061\"",
+      "name": "كتاب قماش المخلوقات البحرية - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/boys-prayer-learning-cloth-book/",
+      "source_sku": "moon-edu.com:\"000060\"",
+      "name": "كتاب قماش تعليم الصلاة (أولاد) - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/girls-prayer-learning-cloth-book/",
+      "source_sku": "moon-edu.com:\"000059\"",
+      "name": "كتاب قماش تعليم الصلاة (بنات) - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/my-body-is-created-by-allah-cloth-book/",
+      "source_sku": "moon-edu.com:\"000052\"",
+      "name": "كتاب قماش جسمي خلق ربي - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-protects-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000065\"",
+      "name": "كتاب قماش حفظني الله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/my-senses-are-created-by-allah-cloth-book/",
+      "source_sku": "moon-edu.com:\"000051\"",
+      "name": "كتاب قماش حواسي خلق ربي - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-created-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000063\"",
+      "name": "كتاب قماش خلقني الله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-has-provided-for-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000064\"",
+      "name": "كتاب قماش رزقني الله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/little-one-contemplate-allahs-creation-cloth-book/",
+      "source_sku": "moon-edu.com:\"000062\"",
+      "name": "كتاب قماش صغيري تأمل في خلق الله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/say-alhamdulillah-little-one-cloth-book/",
+      "source_sku": "moon-edu.com:\"000054\"",
+      "name": "كتاب قماش صغيري قل الحمد لله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/say-bismillah-little-one-cloth-book/",
+      "source_sku": "moon-edu.com:\"000053\"",
+      "name": "كتاب قماش صغيري قل بسم الله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/say-subhanallah-little-one-cloth-book/",
+      "source_sku": "moon-edu.com:\"000055\"",
+      "name": "كتاب قماش صغيري قل سبحان الله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/allah-taught-me-cloth-book/",
+      "source_sku": "moon-edu.com:\"000066\"",
+      "name": "كتاب قماش علمني الله - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/my-first-quran-words-book/",
+      "source_sku": "moon-edu.com:\"000085\"",
+      "name": "كتاب كلماتي الأولى من القرآن الكريم - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/what-does-surah-al-ikhlas-teach-us-book/",
+      "source_sku": "moon-edu.com:\"000079\"",
+      "name": "كتاب ماذا تخبرنا سورة الإخلاص؟ - MOON EDU"
+    },
+    {
+      "source_url": "https://moon-edu.com/product/what-does-surah-al-sharh-teach-us-book/",
+      "source_sku": "moon-edu.com:\"000081\"",
+      "name": "كتاب ماذا تخبرنا سورة الشرح؟ - MOON EDU"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A7%D9%84%D8%A5%D8%B9%D8%AA%D8%B0%D8%A7%D8%B1",
+      "source_sku": "daralmaarefpublisher.com:81337",
+      "name": "كيف تعلم تنينك  - الإعتذار"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A7%D9%84%D8%A5%D9%86%D8%AA%D8%B8%D8%A7%D8%B1",
+      "source_sku": "daralmaarefpublisher.com:81334",
+      "name": "كيف تعلم تنينك  - الإنتظار"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A7%D9%84%D9%85%D8%B3%D8%A7%D8%B9%D8%AF%D8%A9",
+      "source_sku": "daralmaarefpublisher.com:81333",
+      "name": "كيف تعلم تنينك  - المساعدة"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D8%A9",
+      "source_sku": "daralmaarefpublisher.com:81335",
+      "name": "كيف تعلم تنينك  - المشاركة"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A3%D9%86-%D9%8A%D9%82%D9%88%D9%84-%D8%B4%D9%83%D8%B1%D8%A7-%D9%84%D9%83",
+      "source_sku": "daralmaarefpublisher.com:81332",
+      "name": "كيف تعلم تنينك أن يقول - شكرا لك"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%83%D9%8A%D9%81-%D8%AA%D8%B9%D9%84%D9%85-%D8%AA%D9%86%D9%8A%D9%86%D9%83-%D8%A7%D9%86-%D9%8A%D9%82%D9%88%D9%84-%D9%84%D9%88-%D8%B3%D9%85%D8%AD%D8%AA",
+      "source_sku": "daralmaarefpublisher.com:81339",
+      "name": "كيف تعلم تنينك ان يقول  - لو سمحت"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/ar/products/%D9%84%D9%85%D8%B3%D8%AA%D9%8A-%D9%88%D8%B4%D8%B9%D9%88%D8%B1%D9%8A-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A7%D9%86-%D8%A7%D9%84%D8%A3%D8%B1%D9%82%D8%A7%D9%85",
+      "source_sku": "",
+      "name": "لمستي وشعوري الصغيران - الأرقام"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%84%D9%85%D8%B3%D8%A9-%D9%88%D8%B4%D8%B9%D9%88%D8%B1%D9%8A-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A7%D9%86-%D8%A7%D9%84%D8%A3%D9%84%D9%88%D8%A7%D9%86",
+      "source_sku": "",
+      "name": "لمستي وشعوري الصغيران - الألوان"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%84%D9%85%D8%B3%D8%AA%D9%8A-%D9%88%D8%B4%D8%B9%D9%88%D8%B1%D9%8A-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A7%D9%86-%D8%A7%D9%84%D8%AD%D8%B1%D9%88%D9%81-%D8%A7%D9%84%D8%A3%D8%A8%D8%AC%D8%AF%D9%8A%D8%A9",
+      "source_sku": "",
+      "name": "لمستي وشعوري الصغيران - الحروف الأبجدية"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D9%85%D9%83%D8%AA%D8%A8%D8%AA%D9%8A-%D8%A7%D9%84%D8%B5%D8%BA%D9%8A%D8%B1%D8%A9",
+      "source_sku": "darasfarstore.com:R2",
+      "name": "مكتبتي الصغيرة"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%87%D9%84-%D8%A7%D9%86%D8%AA-%D8%AE%D8%AC%D9%88%D9%84-%D8%AA%D9%8A%D9%85-1-4-%D8%AC%D8%AF%D9%8A%D8%AF",
+      "source_sku": "daralmaarefpublisher.com:81243",
+      "name": "هل انت خجول؟ - تيم 1/4 جديد"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%87%D9%84-%D8%AA%D8%AE%D8%A7%D9%81-%D8%A7%D9%84%D8%B0%D9%87%D8%A7%D8%A8-%D8%A7%D9%84%D9%89-%D8%A7%D9%84%D8%B7%D8%A8%D9%8A%D8%A8-%D8%AA%D9%8A%D9%85-1-4-%D8%AC%D8%AF%D9%8A%D8%AF",
+      "source_sku": "daralmaarefpublisher.com:81242",
+      "name": "هل تخاف الذهاب الى الطبيب - تيم 1/4 جديد"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%87%D9%84-%D9%86%D8%AA%D8%B9%D9%84%D9%85-%D8%A7%D9%84%D9%85%D8%B4%D8%A7%D8%B1%D9%83%D8%A9-%D8%AA%D9%8A%D9%85-1-4-%D8%AC%D8%AF%D9%8A%D8%AF",
+      "source_sku": "daralmaarefpublisher.com:81240",
+      "name": "هل نتعلم المشاركة - تيم 1/4 جديد"
+    },
+    {
+      "source_url": "https://daralmaarefpublisher.com/products/%D9%87%D9%84-%D9%8A%D8%B5%D8%B9%D8%A8-%D8%B9%D9%84%D9%8A%D9%83-%D8%A7%D9%84%D8%A7%D9%86%D8%AA%D8%B8%D8%A7%D8%B1-%D8%AA%D9%8A%D9%85-1-4-%D8%AC%D8%AF%D9%8A%D8%AF",
+      "source_sku": "daralmaarefpublisher.com:81241",
+      "name": "هل يصعب عليك الانتظار - تيم 1/4 جديد"
+    },
+    {
+      "source_url": "https://darasfarstore.com/ar-om/products/%D9%88%D8%AF%D8%A7%D8%B9%D8%A7-%D9%84%D9%87%D8%A7%D9%8A%D8%AA%D9%8A",
+      "source_sku": "darasfarstore.com:P3",
+      "name": "وداعاً لهايتي"
+    }
+  ]
+}

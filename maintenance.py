@@ -60,3 +60,21 @@ def apply_seven_books_stock_reset(connection,existing_store,now=None):
             products_updated+=1
     connection.execute('INSERT INTO maintenance_runs(action_id,status,products_updated,options_updated) VALUES(?,?,?,?)',
         (SUPPLIER_STOCK_ACTION,status,products_updated,options_updated))
+
+
+def unhide_uploaded_batch_once(connection,root,existing_store):
+    """One owner-authorized visibility update; later hides remain untouched."""
+    from product_identity import existing_product
+    path=root/'unhide-batch-20261112.json'
+    if not path.exists():return
+    manifest=json.loads(path.read_text(encoding='utf-8'));action=manifest['action_id']
+    connection.execute("""CREATE TABLE IF NOT EXISTS maintenance_runs(
+        action_id TEXT PRIMARY KEY,status TEXT NOT NULL,products_updated INTEGER NOT NULL,
+        options_updated INTEGER NOT NULL,applied_at TEXT DEFAULT CURRENT_TIMESTAMP)""")
+    if connection.execute('SELECT 1 FROM maintenance_runs WHERE action_id=?',(action,)).fetchone():return
+    updated=0;status='applied' if existing_store else 'skipped_new_store'
+    if existing_store:
+        ids={existing_product(connection,p) for p in manifest['products']}-{None}
+        for pid in ids:
+            updated+=connection.execute('UPDATE products SET active=1 WHERE id=? AND active=0 AND deleted=0',(pid,)).rowcount
+    connection.execute('INSERT INTO maintenance_runs(action_id,status,products_updated,options_updated) VALUES(?,?,?,0)',(action,status,updated))

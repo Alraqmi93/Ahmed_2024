@@ -116,6 +116,8 @@ def init():
             apply_supplier_catalog(c,ROOT)
             from maintenance import apply_seven_books_stock_reset
             apply_seven_books_stock_reset(c,existing_store)
+            from maintenance import unhide_uploaded_batch_once
+            unhide_uploaded_batch_once(c,ROOT,existing_store)
 
 def money(value):
     n = round(float(value)*1000)
