@@ -33,7 +33,7 @@ def apply_supplier_file(connection,root,filename):
             (name,category,age,language,price,cost,stock,emoji,description,active,
              name_en,description_en,image_url,images,cost_known,source_url,source_price,source_currency,source_sku)
             VALUES(?,?,'unspecified',?,?,0,?,'📚',?,1,?,?,?,?,0,?,?,?,?)''',
-            (product['name'],stored_categories(product.get('categories',['books'])),product['language'],product['price'],initial_stock,product['description'],
+            (product['name'],stored_categories(product.get('categories',['books']),product['language']),product['language'],product['price'],initial_stock,product['description'],
              product['name'] if product['language']=='English' else '',
              product['description'] if product['language']=='English' else '',
              product['images'][0],json.dumps(product['images']),product['source_url'],
