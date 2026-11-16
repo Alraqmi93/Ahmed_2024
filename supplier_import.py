@@ -9,14 +9,17 @@ from gallery_import import merge_uploaded_galleries
 def apply_supplier_catalog(connection,root):
     for filename in ('supplier-catalog.json','asfar-catalog.json','supplier-batch-20261106-02.json','moon-catalog.json','supplier-batch-20261106-03.json'):
         apply_supplier_file(connection,root,filename)
+    # Explicit owner request to reload the latest ZIP batch once.
+    apply_supplier_file(connection,root,'supplier-batch-20261106-03.json',import_version='owner-refresh-latest-uploads-20261116-v1')
     gallery=root/'gallery-updates-20261106.json'
     if gallery.exists():merge_uploaded_galleries(connection,root,json.loads(gallery.read_text(encoding='utf-8')))
 
 
-def apply_supplier_file(connection,root,filename):
+def apply_supplier_file(connection,root,filename,import_version=None):
     path=root/filename
     if not path.exists():return
     manifest=json.loads(path.read_text(encoding='utf-8'))
+    if import_version:manifest={**manifest,'version':import_version}
     connection.execute('CREATE TABLE IF NOT EXISTS catalog_imports(version TEXT PRIMARY KEY, applied_at TEXT DEFAULT CURRENT_TIMESTAMP)')
     merge_uploaded_galleries(connection,root,manifest)
     if connection.execute('SELECT 1 FROM catalog_imports WHERE version=?',(manifest['version'],)).fetchone():return

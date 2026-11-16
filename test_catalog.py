@@ -151,6 +151,28 @@ class CatalogTest(unittest.TestCase):
             apply_supplier_file(c,root,'supplier-batch-20261106-03.json')
             self.assertEqual(c.execute('SELECT count(*) FROM products').fetchone()[0],before+3)
 
+    def test_explicit_latest_upload_refresh_merges_photos_once(self):
+        from supplier_import import apply_supplier_file
+        self.server.init()
+        root=Path(__file__).parent
+        manifest=json.loads((root/'supplier-batch-20261106-03.json').read_text(encoding='utf-8'))
+        with self.server.db() as c:
+            version=c.execute("SELECT 1 FROM catalog_imports WHERE version='owner-refresh-latest-uploads-20261116-v1'").fetchone()
+            self.assertIsNotNone(version)
+            product=next(p for p in manifest['products'] if p['source_url'].startswith('https://moon-edu.com/'))
+            row=c.execute('SELECT * FROM products WHERE source_url=?',(product['source_url'],)).fetchone()
+            pid=row['id'];count=c.execute('SELECT count(*) FROM products').fetchone()[0]
+            c.execute("UPDATE products SET images='[]',stock=2,price=777,active=0,description='Owner details' WHERE id=?",(pid,))
+            apply_supplier_file(c,root,'supplier-batch-20261106-03.json',import_version='another-explicit-owner-refresh-test')
+            row=c.execute('SELECT * FROM products WHERE id=?',(pid,)).fetchone()
+            self.assertEqual(json.loads(row['images']),product['images'])
+            self.assertEqual((row['stock'],row['price'],row['active'],row['description']),(2,777,0,'Owner details'))
+            c.execute('UPDATE products SET images=? WHERE id=?',(json.dumps([row['image_url']]),pid))
+            apply_supplier_file(c,root,'supplier-batch-20261106-03.json',import_version='another-explicit-owner-refresh-test')
+            row=c.execute('SELECT * FROM products WHERE id=?',(pid,)).fetchone()
+            self.assertEqual(json.loads(row['images']),[row['image_url']])
+            self.assertEqual(c.execute('SELECT count(*) FROM products').fetchone()[0],count)
+
     def test_modified_demo_is_preserved(self):
         os.environ['LOAD_BUNDLED_CATALOG']='0'
         self.server.init()
